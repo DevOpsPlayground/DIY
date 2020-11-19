@@ -1,0 +1,77 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "Stmt1605790582711",
+        "Action": [
+          "autoscaling:AttachInstances",
+          "autoscaling:AttachLoadBalancerTargetGroups",
+          "autoscaling:AttachLoadBalancers",
+          "autoscaling:CreateAutoScalingGroup",
+          "autoscaling:CreateLaunchConfiguration",
+          "autoscaling:DeleteAutoScalingGroup",
+          "autoscaling:PutScalingPolicy",
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:UpdateAutoScalingGroup"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Sid": "Stmt1605798796392",
+        "Action": "s3:*",
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Sid": "Stmt1605794179270",
+        "Action": "ec2:*",
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Sid": "Stmt1605795133281",
+        "Action": [
+          "elasticloadbalancing:CreateLoadBalancer",
+          "elasticloadbalancing:CreateLoadBalancerListeners",
+          "elasticloadbalancing:DeleteLoadBalancer",
+          "elasticloadbalancing:DescribeLoadBalancerAttributes",
+          "elasticloadbalancing:DescribeLoadBalancers",
+          "elasticloadbalancing:DescribeTags",
+          "elasticloadbalancing:ModifyLoadBalancerAttributes",
+          "elasticloadbalancing:ConfigureHealthCheck",
+          "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+          "elasticloadbalancing:AttachLoadBalancerToSubnets",
+          "elasticloadbalancing:AddTags",
+          "elasticloadbalancing:DescribeInstanceHealth"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      },
+      {
+        "Sid": "Stmt1605795539010",
+        "Action": [
+          "iam:CreateInstanceProfile",
+          "iam:CreatePolicy",
+          "iam:CreateRole",
+          "iam:DeletePolicy",
+          "iam:DeleteRole",
+          "iam:GetPolicy",
+          "iam:GetPolicyVersion",
+          "iam:GetRole",
+          "iam:ListPolicyVersions",
+          "iam:GetInstanceProfile",
+          "iam:CreatePolicyVersion",
+          "iam:AddRoleToInstanceProfile",
+          "iam:AttachRolePolicy",
+          "iam:ListAttachedRolePolicies",
+          "iam:PassRole"
+        ],
+        "Effect": "Allow",
+        "Resource": "*"
+      }
+    ]
+  }

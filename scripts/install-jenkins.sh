@@ -25,6 +25,8 @@ USER root
 RUN apt-get update
 RUN apt install python3-pip -y
 RUN pip3 install awscli --upgrade
+RUN apt-get install zip -y
+RUN apt-get install unzip -y
 USER jenkins
 EOF
 cat <<EOF > /home/ec2-user/plugins.txt

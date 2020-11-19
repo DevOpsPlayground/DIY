@@ -6,8 +6,8 @@ provider "aws" {
 terraform {
   backend "s3" {
     encrypt = true
-    bucket  = "dpg-november-state-bucket"
-    region  = "eu-west-1"
+    bucket  = "dpg-november-tfstate-bucket"
+    region  = "eu-west-2"
     key     = "jenkins.tfstate"
   }
 }
