@@ -1,3 +1,6 @@
 variables.tf
 
 plugins/
+
+.terraform.lock.hcl
+.terraform/

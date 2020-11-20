@@ -44,13 +44,13 @@ docker build -t jenkins:dpg .
 docker run -d --name jenkins --rm -p 8080:8080 jenkins:dpg
 
 # send email of public IP address AND the startup jenkins password
-aws configure set default.region eu-west-1
+aws configure set default.region eu-west-2
 PUBLIC_IP_ADDRESS=$(dig +short myip.opendns.com @resolver1.opendns.com)
 MESSAGE="Jenkins URL: http://${PUBLIC_IP_ADDRESS}:8080"
 TOPIC_ARN=$(aws sns create-topic --name jenkins-november | jq -r '.TopicArn')
 EMAIL="richie.ganney@ecs-digital.co.uk"
 aws sns subscribe --topic-arn $TOPIC_ARN --protocol email --notification-endpoint $EMAIL
-aws sns publish --topic-arn "${TOPIC_ARN}" --message "${MESSAGE}" --region eu-west-1
+aws sns publish --topic-arn "${TOPIC_ARN}" --message "${MESSAGE}" --region eu-west-2
 echo $MESSAGE
 
 
