@@ -25,7 +25,7 @@
                   "autoscaling:AttachLoadBalancerTargetGroups",
                   "autoscaling:SetDesiredCapacity"
               ],
-              "Resource": "arn:aws:autoscaling:eu-west21:630895193694:autoScalingGroup:*:autoScalingGroupName/playground*"
+              "Resource": "arn:aws:autoscaling:eu-west-2:630895193694:autoScalingGroup:*:autoScalingGroupName/playground*"
           },
           {
               "Sid": "VisualEditor2",
@@ -48,10 +48,10 @@
       "Sid": "VisualEditor3",
       "Effect": "Allow",
       "Action": "ec2:RunInstances",
-      "Resource": "arn:aws:ec2:eu-west21:630895193694:instance/playground*",
+      "Resource": "arn:aws:ec2:eu-west-2:630895193694:instance/playground*",
       "Condition": {
           "ArnEquals": {
-              "ec2:Vpc": "arn:aws:ec2:eu-west21:630895193694:vpc/vpc-04560c31facf5a925"
+              "ec2:Vpc": "arn:aws:ec2:eu-west-2:630895193694:vpc/vpc-04560c31facf5a925"
           }
       }
   },
@@ -63,7 +63,7 @@
           "ec2:StartInstances",
           "ec2:StopInstances"
       ],
-      "Resource": "arn:aws:ec2:eu-west21:630895193694:instance/playground*"
+      "Resource": "arn:aws:ec2:eu-west-2:630895193694:instance/playground*"
   },
   {
       "Sid": "VisualEditor5",
@@ -104,7 +104,7 @@
         "elasticloadbalancing:ModifyLoadBalancerAttributes",
         "elasticloadbalancing:CreateLoadBalancerListeners"
     ],
-    "Resource": "arn:aws:elasticloadbalancing:eu-west21:630895193694:loadbalancer/playground*"
+    "Resource": "arn:aws:elasticloadbalancing:eu-west-2:630895193694:loadbalancer/playground*"
 },
 {
     "Sid": "VisualEditor7",
