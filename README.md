@@ -7,6 +7,6 @@
     a. Create key only on AWS - you can ssh using AWS console
     b. Create the key locally and pass it to AWS )
 6. Write the documentation (Generate TFdoc, Assumptions, Security conerncs, maybe cost)
-
+7. State backend
 ## Nice to have:
 Tagging module.
