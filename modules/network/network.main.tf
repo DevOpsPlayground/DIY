@@ -2,7 +2,7 @@ resource "aws_vpc" "vpc" {
   cidr_block           = var.cidr_block
   enable_dns_hostnames = true
 
-  tags {
+  tags = {
     Name   = var.PlaygroundName
     Reason = "Playground"
   }
@@ -11,7 +11,7 @@ resource "aws_vpc" "vpc" {
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
-  tags {
+  tags = {
     Name   = var.PlaygroundName
     Reason = "Playground"
   }
@@ -24,7 +24,7 @@ resource "aws_nat_gateway" "ngw" {
   allocation_id = aws_eip.ngw_ip.id
   subnet_id     = aws_subnet.public_subnets.0.id
 
-  tags {
+  tags = {
     Name   = var.PlaygroundName
     Reason = "Playground"
   }
@@ -37,7 +37,7 @@ resource "aws_subnet" "public_subnets" {
   availability_zone       = element(data.aws_availability_zones.zones.names, count.index)
   map_public_ip_on_launch = true
 
-  tags {
+  tags = {
     Name   = "${var.PlaygroundName}-${count.index}"
     Reason = "Playground"
   }
@@ -49,7 +49,7 @@ resource "aws_subnet" "private_subnets" {
   cidr_block        = cidrsubnet(var.cidr_block, 8, 100 + count.index)
   availability_zone = element(data.aws_availability_zones.zones.names, count.index)
 
-  tags {
+  tags = {
     Name   = "${var.PlaygroundName}-${count.index}"
     Reason = "Playground"
   }

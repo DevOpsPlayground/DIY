@@ -14,6 +14,5 @@ variable "private_subnets" {
 }
 
 variable "PlaygroundName" {
-  default     = "playground"
   description = "The name of the playground for tagging"
 }

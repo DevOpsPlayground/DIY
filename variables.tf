@@ -23,3 +23,6 @@ variable "instance_count" {
 variable "instance_type" {
   default = "t2_micro"
 }
+variable "PlaygroundName"{
+  default = "nov"
+}
