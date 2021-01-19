@@ -14,15 +14,12 @@ variable "region" {
 variable "UNIQUE_ANIMAL_IDENTIFIER" {
   default = "changeme"
 }
-variable "key_name" {
-  default = "test"
-}
 variable "instance_count" {
   default = 1
 }
 variable "instance_type" {
   default = "t2_micro"
 }
-variable "PlaygroundName"{
+variable "PlaygroundName" {
   default = "nov"
 }
