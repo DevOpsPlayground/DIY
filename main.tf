@@ -27,6 +27,7 @@ resource "aws_instance" "jenkins" {
   count                       = var.instance_count
   ami                         = data.aws_ami.amazon-linux-2.id
   associate_public_ip_address = true
+  # Does it also works for instance without the profile??? - Yes - the module you are creating!
   iam_instance_profile        = aws_iam_instance_profile.jenkins_profile.name
   instance_type               = var.instance_type
   key_name                    = var.key_name
@@ -36,6 +37,6 @@ resource "aws_instance" "jenkins" {
 
   tags = {
     Name  = "dpg-jenkins-${count.index + 1}"
-    Owner = "Richie Ganney"
+    Owner = "Playground"
   }
 }

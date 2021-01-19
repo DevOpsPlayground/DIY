@@ -1,6 +1,7 @@
-variables.tf
-
-plugins/
-
-.terraform.lock.hcl
-.terraform/
+.terraform
+terraform.tfstate*
+*.tfvars
+*.tfstate.lock.info
+*.pem
+*.pub
+*.DS_Store
