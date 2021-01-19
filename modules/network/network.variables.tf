@@ -1,13 +1,3 @@
-variable "name" {
-  default     = "my-vpc"
-  description = "Name of the VPC"
-}
-
-# variable "region" {
-#   default = "eu-west-1"
-#   description = "AWS Region where TF should build up the vpc"
-# }
-
 variable "cidr_block" {
   default     = "10.0.0.0/16"
   description = "Internal CIDR Block for the VPC"
@@ -21,4 +11,9 @@ variable "public_subnets" {
 variable "private_subnets" {
   default     = 0
   description = "Number of Private subnets in the VPC. By default this number is 0. If you create private subnets, you perhaps want to put autoscaling groups and/or loadbalancers into it, so mind that you'll probably need more than 1."
+}
+
+variable "PlaygroundName" {
+  default     = "playground"
+  description = "The name of the playground for tagging"
 }
