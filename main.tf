@@ -30,11 +30,11 @@ module "workstation" {
   user_data = templatefile(
     "scripts/workstation.sh",
     {
-      hostname = "playgroundhn"
+      hostname = "playground"
       username = "playground"
-      ssh_pass = "playground"
+      ssh_pass = var.WorkstationPassword
       wetty_pw = "apsiohfophfipoefhepohf"
-      gitrepo = "https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS.git"
+      gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS.git"
     }
   )
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"

@@ -4,3 +4,7 @@ output "jenkins_ips" {
 output "workstation_ips" {
   value = module.workstation.*.public_ips
 }
+output "WorkstationPassword" {
+  value     = var.WorkstationPassword
+  sensitive = true
+}
