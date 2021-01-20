@@ -19,6 +19,7 @@ resource "aws_security_group" "allow_all" {
   }
 
   tags = {
-    Name = "allow_tls"
+    Name    = "${var.PlaygroundName}-allow_all"
+    Purpose = "Playground"
   }
 }

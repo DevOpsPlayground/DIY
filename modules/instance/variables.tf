@@ -19,3 +19,7 @@ variable "ami" {
   default     = "false"
   description = "The ami to run on the instance"
 }
+
+variable "PlaygroundName" {
+  description = "The name of the playground for tagging"
+}

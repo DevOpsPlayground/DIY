@@ -3,8 +3,8 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name   = var.PlaygroundName
-    Reason = "Playground"
+    Name    = var.PlaygroundName
+    Purpose = "Playground"
   }
 }
 
@@ -12,8 +12,8 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name   = var.PlaygroundName
-    Reason = "Playground"
+    Name    = var.PlaygroundName
+    Purpose = "Playground"
   }
 }
 
@@ -25,8 +25,8 @@ resource "aws_nat_gateway" "ngw" {
   subnet_id     = aws_subnet.public_subnets.0.id
 
   tags = {
-    Name   = var.PlaygroundName
-    Reason = "Playground"
+    Name    = var.PlaygroundName
+    Purpose = "Playground"
   }
 }
 
@@ -38,8 +38,8 @@ resource "aws_subnet" "public_subnets" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name   = "${var.PlaygroundName}-${count.index}"
-    Reason = "Playground"
+    Name    = "${var.PlaygroundName}-${count.index}"
+    Purpose = "Playground"
   }
 }
 
@@ -50,7 +50,7 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = element(data.aws_availability_zones.zones.names, count.index)
 
   tags = {
-    Name   = "${var.PlaygroundName}-${count.index}"
-    Reason = "Playground"
+    Name    = "${var.PlaygroundName}-${count.index}"
+    Purpose = "Playground"
   }
 }

@@ -11,7 +11,7 @@ resource "aws_instance" "jenkins" {
   user_data              = var.user_data #file("scripts/install-jenkins.sh")
 
   tags = {
-    Name  = "dpg-jenkins-${count.index + 1}"
-    Owner = "Playground"
+    Name  = "${var.PlaygroundName}-${count.index + 1}"
+    Purpose = "Playground"
   }
 }

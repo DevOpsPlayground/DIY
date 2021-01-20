@@ -2,8 +2,8 @@ resource "aws_route_table" "public_route_table" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name   = var.PlaygroundName
-    Reason = "Playground"
+    Name    = var.PlaygroundName
+    Purpose = "Playground"
   }
 }
 resource "aws_route" "public_route_to_igw" {
@@ -17,8 +17,8 @@ resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name   = var.PlaygroundName
-    Reason = "Playground"
+    Name    = var.PlaygroundName
+    Purpose = "Playground"
   }
 }
 
