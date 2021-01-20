@@ -13,6 +13,7 @@ variable "instance_count" {
   description = "The amount of instances to create"
 }
 variable "user_data" {
+  default = ""
   description = "Custom user data to run on first start"
 }
 variable "ami" {
@@ -22,4 +23,8 @@ variable "ami" {
 
 variable "PlaygroundName" {
   description = "The name of the playground for tagging"
+}
+variable "InstanceRole" {
+  default = ""
+  description = "The Role of the instance to take"
 }

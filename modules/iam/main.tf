@@ -1,24 +1,18 @@
-resource "aws_iam_role" "jenkins_role" {
-  name               = "jenkins_role"
-  assume_role_policy = file("policies/assume_role.json")
+resource "aws_iam_role" "role" {
+  name               = var.PlaygroundName
+  assume_role_policy = var.assume_role_policy //file("policies/assume_role.json")
   tags = {
-    Owner   = "Richie Ganney"
-    Purpose = "dpg november"
+    Purpose = "Playground"
   }
 }
 
-resource "aws_iam_policy" "jenkins_deploy_policy" {
+resource "aws_iam_policy" "policy" {
   name        = "dpg-jenkins-deploy-policy"
   description = "Permissions for Jenkins to deploy application"
-  policy      = file("policies/jenkins_permissions.json")
+  policy      = var.aws_iam_policy //file("policies/jenkins_permissions.json")
 }
 
 resource "aws_iam_role_policy_attachment" "deploy_attachment" {
-  role       = aws_iam_role.jenkins_role.name
-  policy_arn = aws_iam_policy.jenkins_deploy_policy.arn
-}
-
-resource "aws_iam_instance_profile" "jenkins_profile" {
-  name = "jenkins_profile"
-  role = aws_iam_role.jenkins_role.name
+  role       = aws_iam_role.role.name
+  policy_arn = aws_iam_policy.policy.arn
 }
