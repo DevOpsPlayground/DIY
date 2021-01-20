@@ -1,7 +1,7 @@
 variable "PlaygroundName" {
   description = "The name of the playground for tagging"
 }
-variable "assume_role_policy" {
+variable "role_policy" {
   description = "The role policy file"
 }
 variable "aws_iam_policy" {
