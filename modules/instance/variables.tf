@@ -13,18 +13,23 @@ variable "instance_count" {
   description = "The amount of instances to create"
 }
 variable "user_data" {
-  default = ""
+  default     = ""
   description = "Custom user data to run on first start"
 }
 variable "ami" {
   default     = "false"
   description = "The ami to run on the instance"
 }
-
+variable "amiName" {
+  default = "amzn2-ami-hvm*"
+}
+variable "amiOwner" {
+  default = "amazon"
+}
 variable "PlaygroundName" {
   description = "The name of the playground for tagging"
 }
 variable "InstanceRole" {
-  default = ""
+  default     = ""
   description = "The Role of the instance to take"
 }

@@ -7,14 +7,14 @@ resource "aws_iam_role" "role" {
 }
 
 resource "aws_iam_policy" "policy" {
-  for_each = toset(var.aws_iam_policy)
+  for_each    = toset(var.aws_iam_policy)
   name        = var.PlaygroundName
   description = "Permissions for Jenkins to deploy application"
   policy      = each.key
 }
 
 resource "aws_iam_role_policy_attachment" "deploy_attachment" {
-  for_each = aws_iam_policy.policy
+  for_each   = aws_iam_policy.policy
   role       = aws_iam_role.role.name
   policy_arn = each.value.arn
 }
