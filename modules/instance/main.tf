@@ -1,6 +1,6 @@
 resource "aws_instance" "jenkins" {
   count                       = var.instance_count
-  ami                         = data.aws_ami.amazon-linux-2.id
+  ami                         = var.ami == "false" ? data.aws_ami.amazon-linux-2.id : var.ami
   associate_public_ip_address = true
   # Does it also works for instance without the profile??? - Yes - the module you are creating!
   #iam_instance_profile   = aws_iam_instance_profile.jenkins_profile.name

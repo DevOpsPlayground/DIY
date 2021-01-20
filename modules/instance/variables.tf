@@ -15,3 +15,7 @@ variable "instance_count" {
 variable "user_data" {
   description = "Custom user data to run on first start"
 }
+variable "ami" {
+  default     = "false"
+  description = "The ami to run on the instance"
+}
