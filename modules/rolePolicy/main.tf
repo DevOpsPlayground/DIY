@@ -1,6 +1,6 @@
 resource "aws_iam_role" "role" {
   name               = var.PlaygroundName
-  assume_role_policy = var.role_policy //file("policies/assume_role.json")
+  assume_role_policy = var.role_policy
   tags = {
     Purpose = "Playground"
   }
@@ -10,7 +10,7 @@ resource "aws_iam_policy" "policy" {
   for_each = toset(var.aws_iam_policy)
   name        = var.PlaygroundName
   description = "Permissions for Jenkins to deploy application"
-  policy      = each.key //file("policies/jenkins_permissions.json")
+  policy      = each.key
 }
 
 resource "aws_iam_role_policy_attachment" "deploy_attachment" {
