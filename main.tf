@@ -27,7 +27,16 @@ module "workstation" {
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
   instance_type      = "t2.medium"
-  user_data          = file("scripts/workstation.sh")
-  amiName = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
+  user_data = templatefile(
+    "scripts/workstation.sh",
+    {
+      hostname = "playgroundhn"
+      username = "playground"
+      ssh_pass = "playground"
+      wetty_pw = "apsiohfophfipoefhepohf"
+      gitrepo = "https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS.git"
+    }
+  )
+  amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }

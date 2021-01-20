@@ -1,6 +1,5 @@
 resource "aws_instance" "main" {
-  count = var.instance_count
-  //ami                         = var.ami == "false" ? data.aws_ami.amazon-linux-2.id : var.ami
+  count                       = var.instance_count
   ami                         = data.aws_ami.amazon-linux-2.id
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.main_profile.name
