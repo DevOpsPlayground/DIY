@@ -1,0 +1,7 @@
+repos: 
+- https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS-DIY
+hooks: 
+  - id: terraform fmt 
+  - id: terraform lint 
+  - id: terraform validate 
+  - id: terraform docs 
