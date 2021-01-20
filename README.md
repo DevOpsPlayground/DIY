@@ -1,12 +1,24 @@
-## To do:
-1. Write modules
-2. Add variables (with meaningful descriptions)
-3. Add Networking layer (VPC, subnet, SG)
-4. Add outputs
-5. Add the key (decide the approach
-    a. Create key only on AWS - you can ssh using AWS console
-    b. Create the key locally and pass it to AWS )
-6. Write the documentation (Generate TFdoc, Assumptions, Security conerncs, maybe cost)
-7. State backend / TF cloud
-## Nice to have:
-Tagging module.
+## Requirements
+
+No requirements.
+
+## Providers
+
+No provider.
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| PlaygroundName | n/a | `string` | `"nov"` | no |
+| instance\_count | n/a | `number` | `1` | no |
+| instance\_type | n/a | `string` | `"t2_micro"` | no |
+| region | n/a | `string` | `"eu-west-2"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| jenkins\_ips | n/a |
+| workstation\_ips | n/a |
+
