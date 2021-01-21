@@ -8,6 +8,3 @@ output "WorkstationPassword" {
   value     = var.WorkstationPassword
   sensitive = true
 }
-output  "zone_id" {
-  value = module.dns.zone_id
-}
