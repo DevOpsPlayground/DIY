@@ -1,5 +1,5 @@
 provider "aws" {
-  region = var.region
+  region  = var.region
 }
 # depends if we can use tf cloud - if not - set up the state bucket?
 /*terraform {

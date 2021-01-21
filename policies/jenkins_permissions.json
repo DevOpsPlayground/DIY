@@ -84,10 +84,14 @@
           "ec2:ModifyImageAttribute",
           "ec2:DescribeSecurityGroups",
           "ec2:AllocateAddress",
+          "ec2:DescribeSecurityGroups",
           "ec2:DescribeImages",
           "ec2:DescribeExportTasks",
           "ec2:ModifyInstanceAttribute",
-          "ec2:ImportImage"
+          "ec2:ImportImage",
+          "ec2:DescribeVpcs",
+          "ec2:DescribeSubnets",
+          "ec2:DescribeVpcAttribute"
       ],
       "Resource": "*"
   },

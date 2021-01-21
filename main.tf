@@ -40,3 +40,5 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
+
+#TODO an s3 module - for artifact and state saving in the nov playground
