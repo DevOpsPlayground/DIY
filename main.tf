@@ -43,10 +43,10 @@ module "workstation" {
 
 module "dns" {
   count = 1
-  depends_on     = [module.workstation, module.jenkins]
+  depends_on     = [module.workstation,module.jenkins]
   source         = "./modules/dns"
   instance_count = 1
-  instance_ips   = flatten([module.workstation.*.public_ips])
-  record_name    = "www.devopsplayground.org-${var.PlaygroundName}-${count.index + 1}"
+  instance_ips   = flatten(module.jenkins.*.public_ips)
+  record_name    = "${var.PlaygroundName}-${var.use}-${count.index + 1}"
 
 }
