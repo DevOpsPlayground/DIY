@@ -15,7 +15,6 @@ variable "WorkstationPassword" {
   default     = "playground"
   description = "The password of the workstation ssh"
 }
-
 variable "use" {
   description = "purpose of the instances being created"
   default = "jenkins" 

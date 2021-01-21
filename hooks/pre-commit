@@ -1,0 +1,53 @@
+#!/bin/bash 
+
+##### INITILISE TERRAFORM FOR VALIDATION #####
+
+echo '#### INIT #####'
+
+terraform init 
+
+echo '##### Validation #####'
+
+find ../ -name '*.tf' -exec  terraform validate  {} + 
+if test $? -ne 0 
+then 
+    echo 'validation error: please fix the above'
+    exit 1 
+fi
+
+echo "##### FORMATTING #####"
+
+terraform fmt --recursive --check
+if test $? -ne 0 
+then 
+    echo 'formatting error: please run "terraform fmt --recursive" then recommit.'
+    exit 1 
+fi
+
+echo "##### LINTING #####"
+
+tflint 
+if test $? -ne 0 
+then 
+    echo  'linting error: please fix the above'
+    exit 1 
+fi
+
+echo '##### ADDING DOCUMENTATION #####'
+
+find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/README.md;' \;
+if test $? -ne 0 
+then 
+    exit 1 
+fi
+
+echo '##### CHECKING FOR SECURITY ISSUES #####'
+
+find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} + 
+if test $? -ne 0 
+then 
+    echo 'security error: please fix the above'
+    exit 1 
+fi
+
+
