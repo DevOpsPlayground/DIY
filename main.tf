@@ -1,17 +1,17 @@
 module "network" {
-  count          = 0
+  count          = 1
   source         = "./modules/network"
   PlaygroundName = var.PlaygroundName
 }
 module "Jenkins_role" {
-  count          = 0
+  count          = 1
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("policies/assume_role.json")
   aws_iam_policy = [file("policies/jenkins_permissions.json")]
 }
 module "jenkins" {
-  count              = 0
+  count              = 1
   source             = "./modules/instance"
   depends_on         = [module.network]
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
@@ -47,11 +47,11 @@ module "tfStateBucket" {
   count          = 1
   source         = "./modules/s3"
   PlaygroundName = var.PlaygroundName
-  reason         = "TfState"
+  reason         = "tfstate"
 }
 module "artifactBucket" {
   count          = 1
   source         = "./modules/s3"
   PlaygroundName = var.PlaygroundName
-  reason         = "Artifact"
+  reason         = "artifact"
 }
