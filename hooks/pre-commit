@@ -1,53 +1,40 @@
-#!/bin/bash 
-
+#!/bin/bash
 ##### INITILISE TERRAFORM FOR VALIDATION #####
+# tput setaf 2; echo '#### INIT #####'
 
-echo '#### INIT #####'
 
-terraform init 
-
-echo '##### Validation #####'
-
+tput setaf 2; echo '##### Validation #####'
 find ../ -name '*.tf' -exec  terraform validate  {} + 
 if test $? -ne 0 
 then 
-    echo 'validation error: please fix the above'
     exit 1 
 fi
-
-echo "##### FORMATTING #####"
-
+tput setaf 2; echo "##### FORMATTING #####"
 terraform fmt --recursive --check
 if test $? -ne 0 
 then 
-    echo 'formatting error: please run "terraform fmt --recursive" then recommit.'
+    tput setaf 1 echo 'formatting error: please run "terraform fmt --recursive" then recommit.'
     exit 1 
 fi
-
-echo "##### LINTING #####"
-
-tflint 
+tput setaf 2; echo "##### LINTING #####"
+find ../ -name '*.tf' -exec  tflint  {} /
 if test $? -ne 0 
 then 
-    echo  'linting error: please fix the above'
+    tput setaf 1; echo 'Linting Error: Please fix the above errors the recommit'
     exit 1 
 fi
-
-echo '##### ADDING DOCUMENTATION #####'
-
-find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
+tput setaf 2; echo '##### ADDING DOCUMENTATION #####'
+find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/README.md;' \;
 if test $? -ne 0 
 then 
+    tput setaf 1; echo 'Documentation Error: Please make sure terraform-docs is installed'
     exit 1 
 fi
-
-echo '##### CHECKING FOR SECURITY ISSUES #####'
-
+tput setaf 2; echo '##### CHECKING FOR SECURITY ISSUES #####'
+pwd 
 find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} + 
 if test $? -ne 0 
 then 
-    echo 'security error: please fix the above'
+    tput setaf 1; echo 'security error: Please fix the above issues or add the security codes to tfsec.yml exclude'
     exit 0
 fi
-
-
