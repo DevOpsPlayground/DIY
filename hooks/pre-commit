@@ -35,7 +35,7 @@ fi
 
 echo '##### ADDING DOCUMENTATION #####'
 
-find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/README.md;' \;
+find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
 if test $? -ne 0 
 then 
     exit 1 
@@ -47,7 +47,7 @@ find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} +
 if test $? -ne 0 
 then 
     echo 'security error: please fix the above'
-    exit 1 
+    exit 0
 fi
 
 

@@ -42,8 +42,8 @@ module "workstation" {
 }
 
 module "dns" {
-  count = 1
-  depends_on     = [module.workstation,module.jenkins]
+  count          = 1
+  depends_on     = [module.workstation, module.jenkins]
   source         = "./modules/dns"
   instance_count = 1
   instance_ips   = flatten(module.jenkins.*.public_ips)

@@ -17,5 +17,5 @@ variable "WorkstationPassword" {
 }
 variable "use" {
   description = "purpose of the instances being created"
-  default = "jenkins" 
+  default     = "jenkins"
 }
