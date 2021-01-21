@@ -40,7 +40,7 @@ resource "aws_subnet" "public_subnets" {
   tags = {
     Name    = "${var.PlaygroundName}-${count.index}"
     Purpose = "Playground"
-    Tier    = "Public" #So can find the type of subnet
+    Tier    = "Public"    #So can find the type of subnet
     count   = count.index #So can find the first one
   }
 }
