@@ -1,5 +1,4 @@
 data "aws_route53_zone" "playground_hostedzone" {
-  name         = var.zone_name
+  name         = "devopsplayground.org"
   private_zone = false
-
 }

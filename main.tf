@@ -40,3 +40,12 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
+
+module "dns" {
+  depends_on     = [module.workstation, module.jenkins]
+  source         = "./modules/dns"
+  instance_count = 1
+  instance_ips   = module.workstation.*.public_ips
+  record_name    = "${module.dns.zone_id}-${var.PlaygroundName}-${count.index + 1}"
+
+}

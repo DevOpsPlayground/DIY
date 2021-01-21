@@ -1,6 +1,11 @@
+variable "instance_count" {
+  description = "number of instances to create records for"
+}
+variable "instance_ips" {
+  description = "List of IP's of the instances being used  the DNS hosted zone "
+}
 variable "record_name" {
   description = "the name of the dns record to create"
-  default     = "test"
 }
 variable "record_type" {
   description = "The dns record type to be used"
@@ -11,3 +16,4 @@ variable "record_ttl" {
   default     = 300
 }
 
+variable "zone_id" {}
