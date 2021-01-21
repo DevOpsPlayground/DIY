@@ -17,14 +17,18 @@ then
     exit 1 
 fi
 tput setaf 2; echo "##### LINTING #####"
-find ../ -name '*.tf' -exec  tflint  {} /
+# find ../ -name '*.tf' -exec  tflint  {} /;
+find ../ -name "*.tf" -print0 | while read -d $'\0' file
+do
+    tflint --module
+done 
 if test $? -ne 0 
 then 
     tput setaf 1; echo 'Linting Error: Please fix the above errors the recommit'
     exit 1 
 fi
 tput setaf 2; echo '##### ADDING DOCUMENTATION #####'
-find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/README.md;' \;
+find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
 if test $? -ne 0 
 then 
     tput setaf 1; echo 'Documentation Error: Please make sure terraform-docs is installed'
