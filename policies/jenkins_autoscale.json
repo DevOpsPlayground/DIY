@@ -1,0 +1,40 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "autoscaling:CreateLaunchConfiguration",
+            "Resource": "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/playground*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:DescribeLaunchConfigurations",    
+                "autoscaling:DescribeAutoScalingGroups"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:AttachLoadBalancers",
+                "autoscaling:SetDesiredCapacity",
+                "autoscaling:AttachLoadBalancerTargetGroups",
+                "autoscaling:AttachInstances",
+                "autoscaling:DeleteLaunchConfiguration",
+                "autoscaling:PutScalingPolicy",
+                "autoscaling:UpdateAutoScalingGroup",
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:TerminateInstanceInAutoScalingGroup",
+                "autoscaling:CreateAutoScalingGroup"
+            ],
+            "Resource": [
+                "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/playground*",
+                "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/playground*",
+            ]
+        }
+    ]
+}

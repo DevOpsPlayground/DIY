@@ -8,7 +8,7 @@ module "Jenkins_role" {
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("policies/assume_role.json")
-  aws_iam_policy = [file("policies/jenkins_permissions.json")]
+  aws_iam_policy = [file("policies/jenkins_autoscale.json"),file("policies/jenkins_ec2.json"),file("policies/jenkins_elb.json"),file("policies/jenkins_iam.json"),file("policies/jenkins_s3.json")]
 }
 module "jenkins" {
   count              = 1
