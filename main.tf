@@ -1,7 +1,13 @@
-resource "random_pet" "instance_pet" {
+resource "random_shuffle" "instance_pet" {
+  input        = var.adjectives
+  result_count = 1
+  keepers = {
+    "count" = var.deploy_count
+  }
 }
+
 module "network" {
-  count          = 1
+  count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source         = "./modules/network"
   PlaygroundName = var.PlaygroundName
 }
@@ -13,7 +19,7 @@ module "Jenkins_role" {
   aws_iam_policy = [file("policies/jenkins_permissions.json")]
 }
 module "jenkins" {
-  count              = 1
+  count              = var.deploy_count
   source             = "./modules/instance"
   depends_on         = [module.network]
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
@@ -23,7 +29,7 @@ module "jenkins" {
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = 1
+  count              = var.deploy_count
   source             = "./modules/instance"
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]
@@ -44,20 +50,21 @@ module "workstation" {
 }
 
 module "dns_jenkins" {
-  count          = 1
+  count          = var.deploy_count
   depends_on     = [module.workstation]
   source         = "./modules/dns"
   instance_count = 1
   instance_ips   = flatten(module.jenkins.*.public_ips)
-  record_name    = "${var.PlaygroundName}-workstation-${random_pet.instance_pet.id}-${count.index + 1}"
+  record_name    = "${var.PlaygroundName}-jenkins-${join("\", \"", random_shuffle.instance_pet.result)}-panda"
 }
 
 module "dns_workstation" {
-  count          = 1
+  count          = 0
   depends_on     = [module.jenkins]
   source         = "./modules/dns"
   instance_count = 1
   instance_ips   = flatten(module.workstation.*.public_ips)
-  record_name    = "${var.PlaygroundName}-jenkins-${random_pet.instance_pet.id}-${count.index + 1}"
-
+  record_name    = "${var.PlaygroundName}-jenkins-${join("\", \"", random_shuffle.instance_pet.result)}-panda"
 }
+
+
