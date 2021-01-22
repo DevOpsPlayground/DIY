@@ -1,11 +1,3 @@
-resource "random_shuffle" "instance_pet" {
-  input        = var.adjectives
-  result_count = 1
-  keepers = {
-    "count" = var.deploy_count
-  }
-}
-
 module "network" {
   count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source         = "./modules/network"
@@ -50,21 +42,21 @@ module "workstation" {
 }
 
 module "dns_jenkins" {
-  count          = var.deploy_count
-  depends_on     = [module.workstation]
-  source         = "./modules/dns"
-  instance_count = 1
-  instance_ips   = flatten(module.jenkins.*.public_ips)
-  record_name    = "${var.PlaygroundName}-jenkins-${join("\", \"", random_shuffle.instance_pet.result)}-panda"
+  count        = var.deploy_count
+  depends_on   = [module.workstation]
+  source       = "./modules/dns"
+  deploy_count = 1
+  instance_ips = element(module.jenkins.*.public_ips, count.index)
+  record_name  = "${var.PlaygroundName}-jenkins-${element(var.adjectives, count.index)}-panda"
 }
 
 module "dns_workstation" {
-  count          = 0
-  depends_on     = [module.jenkins]
-  source         = "./modules/dns"
-  instance_count = 1
-  instance_ips   = flatten(module.workstation.*.public_ips)
-  record_name    = "${var.PlaygroundName}-jenkins-${join("\", \"", random_shuffle.instance_pet.result)}-panda"
+  count        = var.deploy_count
+  depends_on   = [module.jenkins]
+  source       = "./modules/dns"
+  deploy_count = 1
+  instance_ips = element(module.workstation.*.public_ips, count.index)
+  record_name  = "${var.PlaygroundName}-workstation-${element(var.adjectives, count.index)}-panda"
 }
 
 
