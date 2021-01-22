@@ -4,7 +4,9 @@ No requirements.
 
 ## Providers
 
-No provider.
+| Name | Version |
+|------|---------|
+| random | n/a |
 
 ## Inputs
 
