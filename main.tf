@@ -1,3 +1,5 @@
+resource "random_pet" "instance_pet" {
+}
 module "network" {
   count          = 1
   source         = "./modules/network"
@@ -41,12 +43,21 @@ module "workstation" {
   amiOwner = "099720109477"
 }
 
-module "dns" {
+module "dns_jenkins" {
   count          = 1
-  depends_on     = [module.workstation, module.jenkins]
+  depends_on     = [module.workstation]
   source         = "./modules/dns"
   instance_count = 1
   instance_ips   = flatten(module.jenkins.*.public_ips)
-  record_name    = "${var.PlaygroundName}-${var.use}-${count.index + 1}"
+  record_name    = "${var.PlaygroundName}-workstation-${random_pet.instance_pet.id}-${count.index + 1}"
+}
+
+module "dns_workstation" {
+  count          = 1
+  depends_on     = [module.jenkins]
+  source         = "./modules/dns"
+  instance_count = 1
+  instance_ips   = flatten(module.workstation.*.public_ips)
+  record_name    = "${var.PlaygroundName}-jenkins-${random_pet.instance_pet.id}-${count.index + 1}"
 
 }
