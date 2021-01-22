@@ -15,6 +15,7 @@ module "jenkins" {
   source             = "./modules/instance"
   depends_on         = [module.network]
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
+  instance_type      = "t2.medium"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
   user_data          = file("scripts/install-jenkins.sh")

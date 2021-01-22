@@ -1,151 +1,173 @@
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-              "Sid": "VisualEditor0",
-              "Effect": "Allow",
-              "Action": "autoscaling:CreateLaunchConfiguration",
-              "Resource": "arn:aws:autoscaling:eu-west-2:*:launchConfiguration:*:launchConfigurationName/playground*",
-              "Condition": {
-                  "StringEquals": {
-                      "autoscaling:InstanceType": "t2.small"
-                  }
-              }
-          },
-          {
-              "Sid": "VisualEditor1",
-              "Effect": "Allow",
-              "Action": [
-                  "autoscaling:AttachLoadBalancers",
-                  "autoscaling:AttachInstances",
-                  "autoscaling:PutScalingPolicy",
-                  "autoscaling:UpdateAutoScalingGroup",
-                  "autoscaling:TerminateInstanceInAutoScalingGroup",
-                  "autoscaling:CreateAutoScalingGroup",
-                  "autoscaling:AttachLoadBalancerTargetGroups",
-                  "autoscaling:SetDesiredCapacity"
-              ],
-              "Resource": "arn:aws:autoscaling:eu-west-2:*:autoScalingGroup:*:autoScalingGroupName/playground*"
-          },
-          {
-              "Sid": "VisualEditor2",
-              "Effect": "Allow",
-              "Action": [
-                  "autoscaling:DescribeAutoScalingGroups",
-                  "autoscaling:DescribeLaunchConfigurations"
-              ],
-              "Resource": "*"
-          },
-    {
-      "Sid": "Stmt1605798796392",
-      "Action": [
-          "s3:*"
-      ],
-      "Effect": "Allow",
-      "Resource": ["arn:aws:s3:::dpg-november-tfstate-bucket", "arn:aws:s3:::dpg-november-tfstate-bucket/*", "arn:aws:s3:::dpg-november-artifact-bucket", "arn:aws:s3:::dpg-november-artifact-bucket/*"]
-    },
-    {
-      "Sid": "VisualEditor3",
-      "Effect": "Allow",
-      "Action": "ec2:RunInstances",
-      "Resource": "arn:aws:ec2:eu-west-2:*:instance/playground*",
-      "Condition": {
-          "ArnEquals": {
-              "ec2:Vpc": "arn:aws:ec2:eu-west-2:*:vpc/vpc-04560c31facf5a925"
-          }
-      }
-  },
-  {
-      "Sid": "VisualEditor4",
-      "Effect": "Allow",
-      "Action": [
-          "ec2:TerminateInstances",
-          "ec2:StartInstances",
-          "ec2:StopInstances"
-      ],
-      "Resource": "arn:aws:ec2:eu-west-2:*:instance/playground*"
-  },
-  {
-      "Sid": "VisualEditor5",
-      "Effect": "Allow",
-      "Action": [
-          "ec2:DisassociateAddress",
-          "ec2:ExportImage",
-          "ec2:ResetImageAttribute",
-          "ec2:DescribeAddresses",
-          "ec2:DescribeInstances",
-          "ec2:ImportInstance",
-          "ec2:ImportKeyPair",
-          "ec2:DescribeTags",
-          "ec2:RegisterImage",
-          "ec2:CreateImage",
-          "ec2:ResetInstanceAttribute",
-          "ec2:CopyImage",
-          "ec2:ModifyImageAttribute",
-          "ec2:DescribeSecurityGroups",
-          "ec2:AllocateAddress",
-          "ec2:DescribeSecurityGroups",
-          "ec2:DescribeImages",
-          "ec2:DescribeExportTasks",
-          "ec2:ModifyInstanceAttribute",
-          "ec2:ImportImage",
-          "ec2:DescribeVpcs",
-          "ec2:DescribeSubnets",
-          "ec2:DescribeVpcAttribute"
-      ],
-      "Resource": "*"
-  },
-  {
-    "Sid": "VisualEditor6",
-    "Effect": "Allow",
-    "Action": [
-        "elasticloadbalancing:DeleteLoadBalancer",
-        "elasticloadbalancing:CreateLoadBalancer",
-        "elasticloadbalancing:ConfigureHealthCheck",
-        "elasticloadbalancing:AddTags",
-        "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
-        "elasticloadbalancing:AttachLoadBalancerToSubnets",
-        "elasticloadbalancing:ModifyLoadBalancerAttributes",
-        "elasticloadbalancing:CreateLoadBalancerListeners"
-    ],
-    "Resource": "arn:aws:elasticloadbalancing:eu-west-2:*:loadbalancer/playground*"
-},
-{
-    "Sid": "VisualEditor7",
-    "Effect": "Allow",
-    "Action": [
-        "elasticloadbalancing:DescribeLoadBalancerAttributes",
-        "elasticloadbalancing:DescribeLoadBalancers",
-        "elasticloadbalancing:DescribeInstanceHealth",
-        "elasticloadbalancing:DescribeTags"
-    ],
-    "Resource": "*"
-},
-    {
-      "Sid": "VisualEditor8",
-      "Effect": "Allow",
-      "Action": [
-          "iam:CreateInstanceProfile",
-          "iam:GetRole",
-          "iam:GetPolicyVersion",
-          "iam:GetInstanceProfile",
-          "iam:GetPolicy",
-          "iam:DeletePolicy",
-          "iam:CreateRole",
-          "iam:DeleteRole",
-          "iam:AttachRolePolicy",
-          "iam:AddRoleToInstanceProfile",
-          "iam:CreatePolicy",
-          "iam:PassRole",
-          "iam:ListPolicyVersions",
-          "iam:ListAttachedRolePolicies",
-          "iam:CreatePolicyVersion"
-      ],
-      "Resource": [
-          "arn:aws:iam::*:instance-profile/playground*",
-          "arn:aws:iam::*:role/playground*",
-          "arn:aws:iam::*:policy/playground*"
-      ]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": "autoscaling:CreateLaunchConfiguration",
+            "Resource": "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/playground*",
+            "Condition": {
+                "StringEquals": {
+                    "autoscaling:InstanceType": "t2.small"
+                }
+            }
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "ec2:DisassociateAddress",
+                "ec2:ExportImage",
+                "ec2:DescribeAddresses",
+                "ec2:DescribeInstances",
+                "autoscaling:DescribeLaunchConfigurations",
+                "ec2:CreateImage",
+                "ec2:ResetInstanceAttribute",
+                "ec2:CopyImage",
+                "ec2:ModifyImageAttribute",
+                "ec2:DescribeVpcAttribute",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "autoscaling:DescribeAutoScalingGroups",
+                "ec2:DescribeExportTasks",
+                "elasticloadbalancing:DescribeInstanceHealth",
+                "ec2:ModifyInstanceAttribute",
+                "ec2:ImportImage",
+                "ec2:ResetImageAttribute",
+                "ec2:ImportInstance",
+                "ec2:ImportKeyPair",
+                "ec2:DescribeTags",
+                "elasticloadbalancing:DescribeTags",
+                "ec2:RegisterImage",
+                "ec2:DescribeSecurityGroups",
+                "ec2:AllocateAddress",
+                "elasticloadbalancing:DescribeLoadBalancerAttributes",
+                "ec2:DescribeImages",
+                "s3:ListAllMyBuckets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSubnets"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "autoscaling:AttachLoadBalancers",
+                "ec2:TerminateInstances",
+                "autoscaling:SetDesiredCapacity",
+                "elasticloadbalancing:DescribeTags",
+                "s3:ListBucket",
+                "ec2:StopInstances",
+                "autoscaling:AttachLoadBalancerTargetGroups",
+                "autoscaling:AttachInstances",
+                "ec2:StartInstances",
+                "autoscaling:DeleteLaunchConfiguration",
+                "autoscaling:PutScalingPolicy",
+                "autoscaling:UpdateAutoScalingGroup",
+                "autoscaling:DeleteAutoScalingGroup",
+                "autoscaling:TerminateInstanceInAutoScalingGroup",
+                "autoscaling:CreateAutoScalingGroup"
+            ],
+            "Resource": [
+                "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*",
+                "arn:aws:s3:::playground*",
+                "arn:aws:autoscaling:*:*:autoScalingGroup:*:autoScalingGroupName/playground*",
+                "arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/playground*",
+                "arn:aws:ec2:*:*:instance/playground*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Allow",
+            "Action": [
+                "iam:CreateInstanceProfile",
+                "iam:GetPolicyVersion",
+                "iam:RemoveRoleFromInstanceProfile",
+                "iam:DeletePolicy",
+                "iam:CreateRole",
+                "iam:AttachRolePolicy",
+                "iam:AddRoleToInstanceProfile",
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "iam:ListInstanceProfilesForRole",
+                "iam:PassRole",
+                "iam:DetachRolePolicy",
+                "iam:ListAttachedRolePolicies",
+                "iam:CreatePolicyVersion",
+                "iam:DeleteInstanceProfile",
+                "iam:GetRole",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "iam:GetInstanceProfile",
+                "iam:GetPolicy",
+                "iam:DeleteRole",
+                "iam:CreatePolicy",
+                "s3:PutObject",
+                "s3:GetObject",
+                "iam:ListPolicyVersions",
+                "elasticloadbalancing:AddTags",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
+                "iam:DeletePolicyVersion"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:policy/playground*",
+                "arn:aws:iam::*:role/playground*",
+                "arn:aws:iam::*:instance-profile/playground*",
+                "arn:aws:s3:::playground*/*",
+                "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor4",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "s3:PutObject",
+                "s3:GetObject",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:AddTags",
+                "s3:ListBucket",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes"
+            ],
+            "Resource": [
+                "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*",
+                "arn:aws:s3:::playground*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor5",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:DeleteLoadBalancer",
+                "elasticloadbalancing:CreateLoadBalancer",
+                "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                "elasticloadbalancing:ConfigureHealthCheck",
+                "elasticloadbalancing:AddTags",
+                "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
+                "elasticloadbalancing:CreateLoadBalancerListeners"
+            ],
+            "Resource": "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+        },
+        {
+            "Sid": "VisualEditor6",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                "elasticloadbalancing:ConfigureHealthCheck",
+                "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+                "elasticloadbalancing:CreateLoadBalancerListeners"
+            ],
+            "Resource": "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+        },
+        {
+            "Sid": "VisualEditor7",
+            "Effect": "Allow",
+            "Action": [
+                "elasticloadbalancing:AttachLoadBalancerToSubnets",
+                "elasticloadbalancing:ConfigureHealthCheck",
+                "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+                "elasticloadbalancing:CreateLoadBalancerListeners"
+            ],
+            "Resource": "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+        }
+    ]
 }
