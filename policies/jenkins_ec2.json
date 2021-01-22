@@ -1,46 +1,46 @@
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor1",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:DisassociateAddress",
-                "ec2:ExportImage",
-                "ec2:DescribeAddresses",
-                "ec2:DescribeInstances",
-                "ec2:CreateImage",
-                "ec2:ResetInstanceAttribute",
-                "ec2:CopyImage",
-                "ec2:ModifyImageAttribute",
-                "ec2:DescribeVpcAttribute",
-                "ec2:DescribeExportTasks",
-                "ec2:ModifyInstanceAttribute",
-                "ec2:ImportImage",
-                "ec2:ResetImageAttribute",
-                "ec2:ImportInstance",
-                "ec2:ImportKeyPair",
-                "ec2:DescribeTags",
-                "ec2:RegisterImage",
-                "ec2:DescribeSecurityGroups",
-                "ec2:AllocateAddress",
-                "ec2:DescribeImages",
-                "ec2:DescribeVpcs",
-                "ec2:DescribeSubnets"
-            ],
-            "Resource": "*"
-        },
-        {
-            "Sid": "VisualEditor2",
-            "Effect": "Allow",
-            "Action": [
-                "ec2:TerminateInstances",
-                "ec2:StopInstances",
-                "ec2:StartInstances"
-            ],
-            "Resource": [
-                "arn:aws:ec2:*:*:instance/playground*"
-            ]
-        }
+    "Version":"2012-10-17",
+    "Statement":[
+       {
+          "Sid":"VisualEditor1",
+          "Effect":"Allow",
+          "Action":[
+             "ec2:DisassociateAddress",
+             "ec2:ExportImage",
+             "ec2:DescribeAddresses",
+             "ec2:DescribeInstances",
+             "ec2:CreateImage",
+             "ec2:ResetInstanceAttribute",
+             "ec2:CopyImage",
+             "ec2:ModifyImageAttribute",
+             "ec2:DescribeVpcAttribute",
+             "ec2:DescribeExportTasks",
+             "ec2:ModifyInstanceAttribute",
+             "ec2:ImportImage",
+             "ec2:ResetImageAttribute",
+             "ec2:ImportInstance",
+             "ec2:ImportKeyPair",
+             "ec2:DescribeTags",
+             "ec2:RegisterImage",
+             "ec2:DescribeSecurityGroups",
+             "ec2:AllocateAddress",
+             "ec2:DescribeImages",
+             "ec2:DescribeVpcs",
+             "ec2:DescribeSubnets"
+          ],
+          "Resource":"*"
+       },
+       {
+          "Sid":"VisualEditor2",
+          "Effect":"Allow",
+          "Action":[
+             "ec2:TerminateInstances",
+             "ec2:StopInstances",
+             "ec2:StartInstances"
+          ],
+          "Resource":[
+             "arn:aws:ec2:*:*:instance/playground*"
+          ]
+       }
     ]
-}
+ }
