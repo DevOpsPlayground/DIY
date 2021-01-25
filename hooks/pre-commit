@@ -26,14 +26,14 @@ if test $? -ne 0
 then 
     tput setaf 1; echo 'Linting Error: Please fix the above errors the recommit'
     exit 1 
-fi
-tput setaf 2; echo '##### ADDING DOCUMENTATION #####'
-find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
-if test $? -ne 0 
-then 
-    tput setaf 1; echo 'Documentation Error: Please make sure terraform-docs is installed'
-    exit 1 
-fi
+# fi
+# tput setaf 2; echo '##### ADDING DOCUMENTATION #####'
+# find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
+# if test $? -ne 0 
+# then 
+#     tput setaf 1; echo 'Documentation Error: Please make sure terraform-docs is installed'
+#     exit 1 
+# fi
 tput setaf 2; echo '##### CHECKING FOR SECURITY ISSUES #####'
 pwd 
 find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} + 
