@@ -26,3 +26,7 @@ variable "deploy_count" {
   description = "Change this for the number of users of the playground"
   default     = 2
 }
+variable "InstanceRole" {
+  default     = ""
+  description = "The Role of the instance to take"
+}
