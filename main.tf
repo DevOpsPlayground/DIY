@@ -4,14 +4,14 @@ module "network" {
   PlaygroundName = var.PlaygroundName
 }
 module "Jenkins_role" {
-  count          = var.enable_jenkins == true ? 1 : 0
+  count          = 1
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("policies/assume_role.json")
   aws_iam_policy = { autoscale = file("policies/jenkins_autoscale.json"), ec2 = file("policies/jenkins_ec2.json"), elb = file("policies/jenkins_elb.json"), iam = file("policies/jenkins_iam.json"), s3 = file("policies/jenkins_s3.json") }
 }
 module "jenkins" {
-  count              = var.enable_jenkins == true ? var.deploy_count : 0
+  count              = var.deploy_count
   source             = "./modules/instance"
   depends_on         = [module.network]
   profile            = aws_iam_instance_profile.main_profile.name
@@ -23,9 +23,8 @@ module "jenkins" {
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = var.enable_workstations == true ? var.deploy_count : 0
+  count              = var.deploy_count
   source             = "./modules/instance"
-  profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
@@ -44,21 +43,21 @@ module "workstation" {
 }
 
 module "dns_jenkins" {
-  count        = var.enable_jenkins == true ? var.deploy_count : 0
+  count        = var.deploy_count
   depends_on   = [module.workstation]
   source       = "./modules/dns"
   instances    = var.instances
   instance_ips = element(module.jenkins.*.public_ips, count.index)
-  record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
+  record_name  = "${var.PlaygroundName}-jenkins-${element(var.adjectives, count.index)}-panda"
 }
 
 module "dns_workstation" {
-  count        = var.enable_workstations == true ? var.deploy_count : 0
+  count        = var.deploy_count
   depends_on   = [module.jenkins]
   source       = "./modules/dns"
   instances    = var.instances
   instance_ips = element(module.workstation.*.public_ips, count.index)
-  record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
+  record_name  = "${var.PlaygroundName}-workstation-${element(var.adjectives, count.index)}-panda"
 }
 module "tfStateBucket" {
   count          = 1

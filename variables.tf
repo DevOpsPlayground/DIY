@@ -34,15 +34,3 @@ variable "instance_type" {
   description = "instance type to be used for instances"
   default     = "t2.medium"
 }
-
-variable "enable_workstations" {
-  default = false
-  description = "Used to check if we want to create workstation instance(s)"
-  
-}
-
-variable "enable_jenkins" {
-  default = true
-  description = "Used to check if we want to create jenkins instance(s) and resources"
-  
-}
