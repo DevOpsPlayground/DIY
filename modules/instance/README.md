@@ -20,6 +20,7 @@ No requirements.
 | amiOwner | n/a | `string` | `"amazon"` | no |
 | instance\_count | The amount of instances to create | `number` | `1` | no |
 | instance\_type | The type of instance | `string` | `"t2.micro"` | no |
+| profile | n/a | `any` | n/a | yes |
 | security\_group\_ids | An array of security groups for the instance | `any` | n/a | yes |
 | subnet\_id | The id of the subnet | `any` | n/a | yes |
 | user\_data | Custom user data to run on first start | `string` | `""` | no |
