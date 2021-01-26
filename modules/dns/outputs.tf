@@ -1,5 +1,6 @@
 output "zone_id" {
-  value = data.aws_route53_zone.playground_hostedzone.name
+  value       = data.aws_route53_zone.playground_hostedzone.name
+  description = "The id of the zone the record is in"
 }
 
 output "name" {

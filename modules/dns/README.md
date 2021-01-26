@@ -1,24 +1,17 @@
-## Requirements
-
-- Required to have a DNS hosted zone to be created, then editing of the data.tf with the name of     your personal hosted zone to deploy DNS records into. 
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
-## Inputs
+#### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| instance\_ips | List of IP's of the instances being used  the DNS hosted zone | `any` | n/a | yes |
-| instances | number of instances to create records for | `any` | n/a | yes |
-| record\_name | the name of the dns record to create | `any` | n/a | yes |
-| record\_ttl | defauly time to live for domain records | `number` | `300` | no |
-| record\_type | The dns record type to be used | `string` | `"A"` | no |
+| instance_ips | List of IP's of the instances being used  the DNS hosted zone | `list(string)` | n/a | yes |
+| instances | number of instances to create records for | `number` | n/a | yes |
+| record_name | the name of the dns record to create | `string` | n/a | yes |
+| record_ttl | defauly time to live for domain records | `number` | `300` | no |
+| record_type | The dns record type to be used | `string` | `"A"` | no |
 
-## Outputs
+#### Outputs
 
-No output.
+| Name | Description |
+|------|-------------|
+| name | name of dns record created |
+| zone_id | n/a |
 

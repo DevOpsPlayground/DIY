@@ -35,11 +35,6 @@ variable "PlaygroundName" {
   type        = string
   description = "The name of the playground for tagging"
 }
-variable "InstanceRole" {
-  default     = null
-  description = "The Role of the instance to take"
-}
-
 variable "profile" {
   default     = null
   type        = string

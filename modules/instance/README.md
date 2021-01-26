@@ -5,12 +5,12 @@
 | PlaygroundName | The name of the playground for tagging | `string` | n/a | yes |
 | security_group_ids | An array of security groups for the instance | `list(string)` | n/a | yes |
 | subnet_id | The id of the subnet | `string` | n/a | yes |
-| InstanceRole | The Role of the instance to take | `string` | `""` | no |
 | amiName | The name of the ami to run on the instance | `string` | `"amzn2-ami-hvm*"` | no |
 | amiOwner | The Owner of the ami to run on the instance | `string` | `"amazon"` | no |
 | associate_public_ip_address | Should aws give the instance a public ip | `bool` | `true` | no |
 | instance_count | The amount of instances to create | `number` | `1` | no |
 | instance_type | The type of instance | `string` | `"t2.micro"` | no |
+| profile | The Role of the instance to take | `string` | `null` | no |
 | purpose | A tag to give each resource | `string` | `"Playground"` | no |
 | user_data | Custom user data to run on first start | `string` | `""` | no |
 
