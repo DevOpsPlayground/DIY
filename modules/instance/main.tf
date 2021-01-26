@@ -1,5 +1,3 @@
-resource "random_uuid" "test" {}
-
 resource "aws_instance" "main" {
   count                       = var.instance_count
   ami                         = data.aws_ami.amazon-linux-2.id

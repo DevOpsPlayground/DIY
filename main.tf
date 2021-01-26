@@ -14,7 +14,7 @@ module "jenkins" {
   count              = var.deploy_count
   source             = "./modules/instance"
   depends_on         = [module.network]
-  profile            = aws_iam_instance_profile.main_profile.name
+  profile            = aws_iam_instance_profile.jenkins_profile.name
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
   instance_type      = var.instance_type
   security_group_ids = [module.network.0.allow_all_security_group_id]

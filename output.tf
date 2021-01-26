@@ -19,5 +19,12 @@ output "artifactBucket" {
   value       = module.artifactBucket.*.name
   description = "The artifact bucket name"
 }
+output "dns_workstation" {
+  value = module.dns_workstation.*.name
+}
+
+output "dns_jenkins" {
+  value = module.dns_jenkins.*.name
+}
 
 
