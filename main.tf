@@ -7,8 +7,8 @@ module "Jenkins_role" {
   count          = 1
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
-  role_policy    = file("policies/assume_role.json")
-  aws_iam_policy = { autoscale = file("policies/jenkins_autoscale.json"), ec2 = file("policies/jenkins_ec2.json"), elb = file("policies/jenkins_elb.json"), iam = file("policies/jenkins_iam.json"), s3 = file("policies/jenkins_s3.json") }
+  role_policy    = file("${var.policyLocation}/assume_role.json")
+  aws_iam_policy = { autoscale = file("${var.policyLocation}/jenkins_autoscale.json"), ec2 = file("${var.policyLocation}/jenkins_ec2.json"), elb = file("${var.policyLocation}/jenkins_elb.json"), iam = file("${var.policyLocation}/jenkins_iam.json"), s3 = file("${var.policyLocation}/jenkins_s3.json") }
 }
 module "jenkins" {
   count              = var.deploy_count
@@ -19,7 +19,7 @@ module "jenkins" {
   instance_type      = var.instance_type
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
-  user_data          = file("scripts/install-jenkins.sh")
+  user_data          = file("${var.scriptLocation}/install-jenkins.sh")
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
@@ -30,7 +30,7 @@ module "workstation" {
   subnet_id          = module.network.0.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "scripts/workstation.sh",
+    "${var.scriptLocation}/workstation.sh",
     {
       hostname = "playground"
       username = "playground"

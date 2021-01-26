@@ -2,7 +2,7 @@ resource "aws_iam_role" "role" {
   name               = var.PlaygroundName
   assume_role_policy = var.role_policy
   tags = {
-    Purpose = "Playground"
+    Purpose = var.purpose
   }
 }
 
