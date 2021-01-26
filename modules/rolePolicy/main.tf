@@ -9,7 +9,7 @@ resource "aws_iam_role" "role" {
 resource "aws_iam_policy" "policy" {
   for_each    = var.aws_iam_policy
   name        = "${var.PlaygroundName}-${each.key}"
-  description = "Permissions for Jenkins to deploy application"
+  description = "Permissions for the resource for ${each.key}"
   policy      = each.value
 }
 
