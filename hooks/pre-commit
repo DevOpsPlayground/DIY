@@ -1,12 +1,12 @@
 #!/bin/bash
 
-echo '#### INITILISE TERRAFORM FOR VALIDATION #####'
-terraform init 
-if test $? -ne 0
-then 
-    echo 'TERRAFORM INIT ERROR: Please fix the above and recommit' 
-    exit 1
-fi
+# echo '#### INITILISE TERRAFORM FOR VALIDATION #####'
+# terraform init 
+# if test $? -ne 0
+# then 
+#     echo 'TERRAFORM INIT ERROR: Please fix the above and recommit' 
+#     exit 1
+# fi
 echo '##### Validation #####'
 find ../ -name '*.tf' -exec  terraform validate  {} + 
 if test $? -ne 0 
@@ -32,7 +32,7 @@ then
     exit 1 
 fi
 echo '##### ADDING DOCUMENTATION #####'
-find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
+find ../ -name "*.tf" -type d -exec bash -c 'terraform-docs md "{}" > "{}"/README.md;' \;
 if test $? -ne 0 
 then 
     echo 'Documentation Error: Please make sure terraform-docs is installed'
