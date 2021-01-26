@@ -36,8 +36,13 @@ variable "PlaygroundName" {
   description = "The name of the playground for tagging"
 }
 variable "InstanceRole" {
+  default     = null
+  description = "The Role of the instance to take"
+}
+
+variable "profile" {
+  default     = null
   type        = string
-  default     = ""
   description = "The Role of the instance to take"
 }
 variable "associate_public_ip_address" {
