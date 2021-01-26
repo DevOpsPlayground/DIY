@@ -1,44 +1,48 @@
 #!/bin/bash
-##### INITILISE TERRAFORM FOR VALIDATION #####
-# tput setaf 2; echo '#### INIT #####'
 
-
-tput setaf 2; echo '##### Validation #####'
+echo '#### INITILISE TERRAFORM FOR VALIDATION #####'
+terrafrom init 
+if test $? -ne 0
+then 
+    echo 'TERRAFORM INIT ERROR: Please fix the above and recommit' 
+    exit 1
+fi
+echo '##### Validation #####'
 find ../ -name '*.tf' -exec  terraform validate  {} + 
 if test $? -ne 0 
 then 
+    echo 'VALIDATION ERROR: Please fix the above and recommit'
     exit 1 
 fi
-tput setaf 2; echo "##### FORMATTING #####"
+echo "##### FORMATTING #####"
 terraform fmt --recursive --check
 if test $? -ne 0 
 then 
-    tput setaf 1 echo 'formatting error: please run "terraform fmt --recursive" then recommit.'
+    echo 'FORMATTING ERROR: please run "terraform fmt --recursive" then recommit.'
     exit 1 
 fi
-tput setaf 2; echo "##### LINTING #####"
-# find ../ -name '*.tf' -exec  tflint  {} /;
+echo "##### LINTING #####"
 find ../ -name "*.tf" -print0 | while read -d $'\0' file
 do
-    tflint --module
+    tflint  
 done 
 if test $? -ne 0 
 then 
-    tput setaf 1; echo 'Linting Error: Please fix the above errors the recommit'
+    echo 'LINGING ERROR: Please fix the above errors the recommit'
     exit 1 
-# fi
-# tput setaf 2; echo '##### ADDING DOCUMENTATION #####'
-# find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
-# if test $? -ne 0 
-# then 
-#     tput setaf 1; echo 'Documentation Error: Please make sure terraform-docs is installed'
-#     exit 1 
-# fi
-tput setaf 2; echo '##### CHECKING FOR SECURITY ISSUES #####'
+fi
+echo '##### ADDING DOCUMENTATION #####'
+find . -type d -exec bash -c 'terraform-docs md "{}" > "{}"/TERRAFORM.md;' \;
+if test $? -ne 0 
+then 
+    echo 'Documentation Error: Please make sure terraform-docs is installed'
+    exit 1 
+fi
+echo '##### CHECKING FOR SECURITY ISSUES #####'
 pwd 
 find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} + 
 if test $? -ne 0 
 then 
-    tput setaf 1; echo 'security error: Please fix the above issues or add the security codes to tfsec.yml exclude'
+    echo 'security error: Please fix the above issues or add the security codes to tfsec.yml exclude'
     exit 0
-fi
+fi 

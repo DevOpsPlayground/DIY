@@ -14,7 +14,7 @@ module "jenkins" {
   count              = var.deploy_count
   source             = "./modules/instance"
   depends_on         = [module.network]
-  profile = aws_iam_instance_profile.main_profile.name
+  profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
@@ -24,7 +24,7 @@ module "jenkins" {
 module "workstation" {
   count              = var.deploy_count
   source             = "./modules/instance"
-  profile = aws_iam_instance_profile.main_profile.name
+  profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0

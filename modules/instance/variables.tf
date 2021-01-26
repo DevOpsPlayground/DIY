@@ -34,4 +34,4 @@ variable "InstanceRole" {
   description = "The Role of the instance to take"
 }
 
-variable profile {}
+variable "profile" {}
