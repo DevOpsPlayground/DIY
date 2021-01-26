@@ -18,5 +18,5 @@
 
 | Name | Description |
 |------|-------------|
-| public_ips | n/a |
+| public_ips | The public ips of the workstation |
 
