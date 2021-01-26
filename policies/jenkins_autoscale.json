@@ -2,13 +2,13 @@
     "Version":"2012-10-17",
     "Statement":[
        {
-          "Sid":"VisualEditor0",
+          "Sid":"autoscaleLaunchConfig",
           "Effect":"Allow",
           "Action":"autoscaling:CreateLaunchConfiguration",
           "Resource":"arn:aws:autoscaling:*:*:launchConfiguration:*:launchConfigurationName/playground*"
        },
        {
-          "Sid":"VisualEditor1",
+          "Sid":"autoscaleAllResources",
           "Effect":"Allow",
           "Action":[
              "autoscaling:DescribeLaunchConfigurations",
@@ -17,7 +17,7 @@
           "Resource":"*"
        },
        {
-          "Sid":"VisualEditor2",
+          "Sid":"autoscaleContolGroup",
           "Effect":"Allow",
           "Action":[
              "autoscaling:AttachLoadBalancers",

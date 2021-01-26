@@ -2,7 +2,7 @@
     "Version":"2012-10-17",
     "Statement":[
        {
-          "Sid":"VisualEditor1",
+          "Sid":"ec2AllResouces",
           "Effect":"Allow",
           "Action":[
              "ec2:DisassociateAddress",
@@ -31,7 +31,7 @@
           "Resource":"*"
        },
        {
-          "Sid":"VisualEditor2",
+          "Sid":"ec2InstanceControl",
           "Effect":"Allow",
           "Action":[
              "ec2:TerminateInstances",

@@ -2,7 +2,7 @@
     "Version":"2012-10-17",
     "Statement":[
        {
-          "Sid":"VisualEditor1",
+          "Sid":"elbAllResources",
           "Effect":"Allow",
           "Action":[
              "elasticloadbalancing:DescribeLoadBalancers",
@@ -13,45 +13,18 @@
           "Resource":"*"
        },
        {
-          "Sid":"VisualEditor2",
+          "Sid":"elbTags",
           "Effect":"Allow",
           "Action":[
-             "elasticloadbalancing:DescribeTags"
-          ],
-          "Resource":[
-             "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
-          ]
-       },
-       {
-          "Sid":"VisualEditor3",
-          "Effect":"Allow",
-          "Action":[
+             "elasticloadbalancing:DescribeTags",
              "elasticloadbalancing:DeleteLoadBalancer",
              "elasticloadbalancing:CreateLoadBalancer",
              "elasticloadbalancing:AddTags",
-             "elasticloadbalancing:ModifyLoadBalancerAttributes"
-          ],
-          "Resource":[
-             "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
-          ]
-       },
-       {
-          "Sid":"VisualEditor4",
-          "Effect":"Allow",
-          "Action":[
+             "elasticloadbalancing:ModifyLoadBalancerAttributes",
              "elasticloadbalancing:DeleteLoadBalancer",
              "elasticloadbalancing:CreateLoadBalancer",
              "elasticloadbalancing:AddTags",
-             "elasticloadbalancing:ModifyLoadBalancerAttributes"
-          ],
-          "Resource":[
-             "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
-          ]
-       },
-       {
-          "Sid":"VisualEditor5",
-          "Effect":"Allow",
-          "Action":[
+             "elasticloadbalancing:ModifyLoadBalancerAttributes",
              "elasticloadbalancing:DeleteLoadBalancer",
              "elasticloadbalancing:CreateLoadBalancer",
              "elasticloadbalancing:AttachLoadBalancerToSubnets",
@@ -59,31 +32,19 @@
              "elasticloadbalancing:AddTags",
              "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
              "elasticloadbalancing:ModifyLoadBalancerAttributes",
-             "elasticloadbalancing:CreateLoadBalancerListeners"
-          ],
-          "Resource":"arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
-       },
-       {
-          "Sid":"VisualEditor6",
-          "Effect":"Allow",
-          "Action":[
+             "elasticloadbalancing:CreateLoadBalancerListeners",
+             "elasticloadbalancing:AttachLoadBalancerToSubnets",
+             "elasticloadbalancing:ConfigureHealthCheck",
+             "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
+             "elasticloadbalancing:CreateLoadBalancerListeners",
              "elasticloadbalancing:AttachLoadBalancerToSubnets",
              "elasticloadbalancing:ConfigureHealthCheck",
              "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
              "elasticloadbalancing:CreateLoadBalancerListeners"
           ],
-          "Resource":"arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
-       },
-       {
-          "Sid":"VisualEditor7",
-          "Effect":"Allow",
-          "Action":[
-             "elasticloadbalancing:AttachLoadBalancerToSubnets",
-             "elasticloadbalancing:ConfigureHealthCheck",
-             "elasticloadbalancing:ApplySecurityGroupsToLoadBalancer",
-             "elasticloadbalancing:CreateLoadBalancerListeners"
-          ],
-          "Resource":"arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+          "Resource":[
+             "arn:aws:elasticloadbalancing:*:*:loadbalancer/playground*"
+          ]
        }
     ]
  }

@@ -2,7 +2,7 @@
     "Version":"2012-10-17",
     "Statement":[
        {
-          "Sid":"VisualEditor3",
+          "Sid":"iam",
           "Effect":"Allow",
           "Action":[
              "iam:CreateInstanceProfile",
