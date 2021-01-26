@@ -16,8 +16,8 @@ This is the november playground
 | Name | Description |
 |------|-------------|
 | TFstateBucket | n/a |
-| WorkstationPassword | n/a |
+| WorkstationPassword | The password of the workstation |
 | artifactBucket | n/a |
-| jenkins_ips | n/a |
-| workstation_ips | n/a |
+| jenkins_ips | The ip of the jenkins instances |
+| workstation_ips | The ip of the workstation instances |
 
