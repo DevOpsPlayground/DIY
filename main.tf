@@ -8,7 +8,7 @@ module "Jenkins_role" {
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("policies/assume_role.json")
-  aws_iam_policy = [file("policies/jenkins_permissions.json")]
+  aws_iam_policy = { autoscale = file("policies/jenkins_autoscale.json"), ec2 = file("policies/jenkins_ec2.json"), elb = file("policies/jenkins_elb.json"), iam = file("policies/jenkins_iam.json"), s3 = file("policies/jenkins_s3.json") }
 }
 module "jenkins" {
   count              = var.deploy_count
@@ -16,13 +16,14 @@ module "jenkins" {
   depends_on         = [module.network]
   profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
+  instance_type      = "t2.medium"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
   user_data          = file("scripts/install-jenkins.sh")
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = var.deploy_count
+  count              = 0
   source             = "./modules/instance"
   profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}workstation"
@@ -35,7 +36,6 @@ module "workstation" {
       hostname = "playground"
       username = "playground"
       ssh_pass = var.WorkstationPassword
-      wetty_pw = "apsiohfophfipoefhepohf"
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS.git"
     }
   )
@@ -49,7 +49,7 @@ module "dns_jenkins" {
   source       = "./modules/dns"
   instances    = 1
   instance_ips = element(module.jenkins.*.public_ips, count.index)
-  record_name  = "${var.PlaygroundName}-jenkins-${element(var.adjectives, count.index)}-panda"
+  record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
 }
 
 module "dns_workstation" {
@@ -58,7 +58,17 @@ module "dns_workstation" {
   source       = "./modules/dns"
   instances    = 1
   instance_ips = element(module.workstation.*.public_ips, count.index)
-  record_name  = "${var.PlaygroundName}-workstation-${element(var.adjectives, count.index)}-panda"
+  record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
 }
-
-
+module "tfStateBucket" {
+  count          = 1
+  source         = "./modules/s3"
+  PlaygroundName = var.PlaygroundName
+  reason         = "tfstate"
+}
+module "artifactBucket" {
+  count          = 1
+  source         = "./modules/s3"
+  PlaygroundName = var.PlaygroundName
+  reason         = "artifact"
+}

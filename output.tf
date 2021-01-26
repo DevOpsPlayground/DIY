@@ -8,3 +8,9 @@ output "WorkstationPassword" {
   value     = var.WorkstationPassword
   sensitive = true
 }
+output "TFstateBucket" {
+  value = module.tfStateBucket.*.name
+}
+output "artifactBucket" {
+  value = module.artifactBucket.*.name
+}
