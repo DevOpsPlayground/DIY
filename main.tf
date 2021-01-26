@@ -34,7 +34,6 @@ module "workstation" {
       hostname = "playground"
       username = "playground"
       ssh_pass = var.WorkstationPassword
-      wetty_pw = "apsiohfophfipoefhepohf"
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS.git"
     }
   )
