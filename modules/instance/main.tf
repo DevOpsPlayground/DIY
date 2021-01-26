@@ -1,7 +1,7 @@
 resource "aws_instance" "main" {
   count                       = var.instance_count
   ami                         = data.aws_ami.amazon-linux-2.id
-  associate_public_ip_address = true
+  associate_public_ip_address = var.associate_public_ip_address
   iam_instance_profile        = aws_iam_instance_profile.main_profile.name
   instance_type               = var.instance_type
   vpc_security_group_ids      = var.security_group_ids
@@ -10,7 +10,7 @@ resource "aws_instance" "main" {
 
   tags = {
     Name    = "${var.PlaygroundName}-${count.index + 1}"
-    Purpose = "Playground"
+    Purpose = var.purpose
   }
 }
 resource "aws_iam_instance_profile" "main_profile" {

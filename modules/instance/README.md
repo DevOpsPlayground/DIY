@@ -4,81 +4,29 @@ No requirements.
 
 ## Providers
 
-The following providers are used by this module:
+| Name | Version |
+|------|---------|
+| aws | n/a |
 
-- aws
+## Inputs
 
-## Required Inputs
-
-The following input variables are required:
-
-### PlaygroundName
-
-Description: The name of the playground for tagging
-
-Type: `any`
-
-### security\_group\_ids
-
-Description: An array of security groups for the instance
-
-Type: `any`
-
-### subnet\_id
-
-Description: The id of the subnet
-
-Type: `any`
-
-## Optional Inputs
-
-The following input variables are optional (have default values):
-
-### InstanceRole
-
-Description: The Role of the instance to take
-
-Type: `string`
-
-Default: `""`
-
-### ami
-
-Description: The ami to run on the instance
-
-Type: `string`
-
-Default: `"false"`
-
-### instance\_count
-
-Description: The amount of instances to create
-
-Type: `number`
-
-Default: `1`
-
-### instance\_type
-
-Description: The type of instance
-
-Type: `string`
-
-Default: `"t2.micro"`
-
-### user\_data
-
-Description: Custom user data to run on first start
-
-Type: `string`
-
-Default: `""`
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| InstanceRole | The Role of the instance to take | `string` | `""` | no |
+| PlaygroundName | The name of the playground for tagging | `string` | n/a | yes |
+| amiName | The name of the ami to run on the instance | `string` | `"amzn2-ami-hvm*"` | no |
+| amiOwner | The Owner of the ami to run on the instance | `string` | `"amazon"` | no |
+| associate\_public\_ip\_address | Should aws give the instance a public ip | `bool` | `true` | no |
+| instance\_count | The amount of instances to create | `number` | `1` | no |
+| instance\_type | The type of instance | `string` | `"t2.micro"` | no |
+| purpose | A tag to give each resource | `string` | `"Playground"` | no |
+| security\_group\_ids | An array of security groups for the instance | `list(string)` | n/a | yes |
+| subnet\_id | The id of the subnet | `string` | n/a | yes |
+| user\_data | Custom user data to run on first start | `string` | `""` | no |
 
 ## Outputs
 
-The following outputs are exported:
-
-### public\_ips
-
-Description: n/a
+| Name | Description |
+|------|-------------|
+| public\_ips | n/a |
 

@@ -22,7 +22,7 @@ module "jenkins" {
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = 0
+  count              = 1
   source             = "./modules/instance"
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]

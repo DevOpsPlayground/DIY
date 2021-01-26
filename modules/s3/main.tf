@@ -3,7 +3,7 @@ resource "aws_s3_bucket" "buc" {
   bucket_prefix = "playground${var.reason}"
   tags = {
     Name    = var.PlaygroundName
-    Purpose = "Playground"
+    Purpose = var.purpose
     Reason  = var.reason
   }
 }

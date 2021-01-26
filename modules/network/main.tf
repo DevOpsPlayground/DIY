@@ -1,10 +1,10 @@
 resource "aws_vpc" "vpc" {
   cidr_block           = var.cidr_block
-  enable_dns_hostnames = true
+  enable_dns_hostnames = var.enable_dns_hostnames
 
   tags = {
     Name    = var.PlaygroundName
-    Purpose = "Playground"
+    Purpose = var.purpose
   }
 }
 
@@ -13,7 +13,7 @@ resource "aws_internet_gateway" "igw" {
 
   tags = {
     Name    = var.PlaygroundName
-    Purpose = "Playground"
+    Purpose = var.purpose
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_nat_gateway" "ngw" {
 
   tags = {
     Name    = var.PlaygroundName
-    Purpose = "Playground"
+    Purpose = var.purpose
   }
 }
 
@@ -39,7 +39,7 @@ resource "aws_subnet" "public_subnets" {
 
   tags = {
     Name    = "${var.PlaygroundName}-${count.index}"
-    Purpose = "Playground"
+    Purpose = var.purpose
     Tier    = "Public"    #So can find the type of subnet
     count   = count.index #So can find the first one
   }
@@ -53,7 +53,7 @@ resource "aws_subnet" "private_subnets" {
 
   tags = {
     Name    = "${var.PlaygroundName}-${count.index}"
-    Purpose = "Playground"
+    Purpose = var.purpose
     Tier    = "private"
   }
 }
