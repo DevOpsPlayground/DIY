@@ -13,7 +13,9 @@ output "WorkstationPassword" {
 }
 output "TFstateBucket" {
   value = module.tfStateBucket.*.name
+  description = "The TF state bucket name"
 }
 output "artifactBucket" {
   value = module.artifactBucket.*.name
+  description = "The artifact bucket name"
 }
