@@ -25,7 +25,7 @@ variable "scriptLocation" {
   description = "The location of the userData folder"
 }
 variable "policyLocation" {
-  type       = string
-  default    = "./policies"
-  descrition = "The location of the policys"
+  type        = string
+  default     = "./policies"
+  description = "The location of the policys"
 }

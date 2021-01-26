@@ -1,23 +1,13 @@
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
-## Inputs
+#### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | PlaygroundName | The name of the playground for tagging | `string` | n/a | yes |
-| aws\_iam\_policy | The Policy to attach to the file | `map(string)` | n/a | yes |
+| aws_iam_policy | The Policy to attach to the file | `map(string)` | n/a | yes |
+| role_policy | The role policy file | `string` | n/a | yes |
 | purpose | A tag to give each resource | `string` | `"Playground"` | no |
-| role\_policy | The role policy file | `string` | n/a | yes |
 
-## Outputs
+#### Outputs
 
 | Name | Description |
 |------|-------------|

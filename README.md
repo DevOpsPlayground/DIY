@@ -1,24 +1,23 @@
-## Requirements
+This is the november playground
 
-No requirements.
-
-## Providers
-
-No provider.
-
-## Inputs
+#### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| PlaygroundName | n/a | `string` | `"nov"` | no |
-| instance\_count | n/a | `number` | `1` | no |
-| instance\_type | n/a | `string` | `"t2_micro"` | no |
-| region | n/a | `string` | `"eu-west-2"` | no |
+| PlaygroundName | The playground name to tag all resouces with | `string` | `"nov"` | no |
+| WorkstationPassword | The password of the workstation ssh | `string` | `"playground"` | no |
+| instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
+| policyLocation | The location of the policys | `string` | `"./policies"` | no |
+| region | The aws region to deploy to | `string` | `"eu-west-2"` | no |
+| scriptLocation | The location of the userData folder | `string` | `"./modules/instance/scripts"` | no |
 
-## Outputs
+#### Outputs
 
 | Name | Description |
 |------|-------------|
-| jenkins\_ips | n/a |
-| workstation\_ips | n/a |
+| TFstateBucket | n/a |
+| WorkstationPassword | n/a |
+| artifactBucket | n/a |
+| jenkins_ips | n/a |
+| workstation_ips | n/a |
 

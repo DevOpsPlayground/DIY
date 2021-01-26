@@ -1,14 +1,4 @@
-## Requirements
-
-No requirements.
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | n/a |
-
-## Inputs
+#### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -17,7 +7,7 @@ No requirements.
 | purpose | A tag to give each resource | `string` | `"Playground"` | no |
 | reason | The reason for the bucket so it can be found | `string` | `"Playground"` | no |
 
-## Outputs
+#### Outputs
 
 | Name | Description |
 |------|-------------|
