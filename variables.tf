@@ -3,12 +3,8 @@ variable "region" {
   default     = "eu-west-2"
   description = "The aws region to deploy to"
 }
-variable "instance_count" {
-  default     = 0
-  description = "The amount of versions of the infrastructer to make "
-}
 variable "PlaygroundName" {
-  default     = "nov-"
+  default     = "nov"
   description = "The playground name to tag all resouces with"
 }
 variable "WorkstationPassword" {
@@ -17,6 +13,7 @@ variable "WorkstationPassword" {
 }
 
 variable "instances" {
+  default     = 1
   description = "number of instances per dns record"
 }
 variable "adjectives" {
@@ -30,6 +27,15 @@ variable "deploy_count" {
   default     = 2
 }
 variable "InstanceRole" {
-  default     = false
+  default     = null
   description = "The Role of the instance to take"
+}
+variable "instance_type" {
+  description = "instance type to be used for instances"
+  default     = "t2.medium"
+}
+
+variable "enabled" {
+  default = false
+
 }

@@ -16,20 +16,20 @@ module "jenkins" {
   depends_on         = [module.network]
   profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}Jenkins"
-  instance_type      = "t2.medium"
+  instance_type      = var.instance_type
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
   user_data          = file("scripts/install-jenkins.sh")
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = 0
+  count              = var.enabled == true ? var.deploy_count : 0
   source             = "./modules/instance"
   profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
-  instance_type      = "t2.medium"
+  instance_type      = var.instance_type
   user_data = templatefile(
     "scripts/workstation.sh",
     {
@@ -47,16 +47,16 @@ module "dns_jenkins" {
   count        = var.deploy_count
   depends_on   = [module.workstation]
   source       = "./modules/dns"
-  instances    = 1
+  instances    = var.instances
   instance_ips = element(module.jenkins.*.public_ips, count.index)
   record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
 }
 
 module "dns_workstation" {
-  count        = var.deploy_count
+  count        = var.enabled == true ? var.deploy_count : 0
   depends_on   = [module.jenkins]
   source       = "./modules/dns"
-  instances    = 1
+  instances    = var.instances
   instance_ips = element(module.workstation.*.public_ips, count.index)
   record_name  = "${var.PlaygroundName}-${element(var.adjectives, count.index)}-panda"
 }
