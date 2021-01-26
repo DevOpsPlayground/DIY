@@ -4,14 +4,14 @@ module "network" {
   PlaygroundName = var.PlaygroundName
 }
 module "Jenkins_role" {
-  count          = 1
+  count          = var.enable_jenkins == true ? 1 : 0
   source         = "./modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("policies/assume_role.json")
   aws_iam_policy = { autoscale = file("policies/jenkins_autoscale.json"), ec2 = file("policies/jenkins_ec2.json"), elb = file("policies/jenkins_elb.json"), iam = file("policies/jenkins_iam.json"), s3 = file("policies/jenkins_s3.json") }
 }
 module "jenkins" {
-  count              = var.deploy_count
+  count              = var.enable_jenkins == true ? var.deploy_count : 0
   source             = "./modules/instance"
   depends_on         = [module.network]
   profile            = aws_iam_instance_profile.main_profile.name
@@ -23,7 +23,7 @@ module "jenkins" {
   InstanceRole       = module.Jenkins_role.0.role
 }
 module "workstation" {
-  count              = var.enabled == true ? var.deploy_count : 0
+  count              = var.enable_workstations == true ? var.deploy_count : 0
   source             = "./modules/instance"
   profile            = aws_iam_instance_profile.main_profile.name
   PlaygroundName     = "${var.PlaygroundName}workstation"
@@ -44,7 +44,7 @@ module "workstation" {
 }
 
 module "dns_jenkins" {
-  count        = var.deploy_count
+  count        = var.enable_jenkins == true ? var.deploy_count : 0
   depends_on   = [module.workstation]
   source       = "./modules/dns"
   instances    = var.instances
@@ -53,7 +53,7 @@ module "dns_jenkins" {
 }
 
 module "dns_workstation" {
-  count        = var.enabled == true ? var.deploy_count : 0
+  count        = var.enable_workstations == true ? var.deploy_count : 0
   depends_on   = [module.jenkins]
   source       = "./modules/dns"
   instances    = var.instances
