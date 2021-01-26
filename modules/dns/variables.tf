@@ -1,4 +1,4 @@
-variable "deploy_count" {
+variable "instances" {
   description = "number of instances to create records for"
 }
 variable "instance_ips" {

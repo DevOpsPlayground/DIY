@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo '#### INITILISE TERRAFORM FOR VALIDATION #####'
-terrafrom init 
+terraform init 
 if test $? -ne 0
 then 
     echo 'TERRAFORM INIT ERROR: Please fix the above and recommit' 
@@ -28,7 +28,7 @@ do
 done 
 if test $? -ne 0 
 then 
-    echo 'LINGING ERROR: Please fix the above errors the recommit'
+    echo 'LINTING ERROR: Please fix the above errors the recommit'
     exit 1 
 fi
 echo '##### ADDING DOCUMENTATION #####'

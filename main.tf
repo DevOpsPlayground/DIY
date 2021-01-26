@@ -47,7 +47,7 @@ module "dns_jenkins" {
   count        = var.deploy_count
   depends_on   = [module.workstation]
   source       = "./modules/dns"
-  deploy_count = 1
+  instances    = 1
   instance_ips = element(module.jenkins.*.public_ips, count.index)
   record_name  = "${var.PlaygroundName}-jenkins-${element(var.adjectives, count.index)}-panda"
 }
@@ -56,7 +56,7 @@ module "dns_workstation" {
   count        = var.deploy_count
   depends_on   = [module.jenkins]
   source       = "./modules/dns"
-  deploy_count = 1
+  instances    = 1
   instance_ips = element(module.workstation.*.public_ips, count.index)
   record_name  = "${var.PlaygroundName}-workstation-${element(var.adjectives, count.index)}-panda"
 }
