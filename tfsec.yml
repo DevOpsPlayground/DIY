@@ -1,0 +1,4 @@
+exclude:
+  - AWS012 
+  - AWS009
+  - AWS008

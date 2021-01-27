@@ -1,0 +1,42 @@
+!/bin/bash
+
+echo '#### INITILISE TERRAFORM FOR VALIDATION #####'
+terraform init 
+if test $? -ne 0
+then 
+    echo 'TERRAFORM INIT ERROR: Please fix the above and recommit' 
+    exit 1
+fi
+
+echo '##### Validation #####'
+find ../ -name '*.tf' -exec  terraform validate  {} + 
+if test $? -ne 0 
+then 
+    echo 'VALIDATION ERROR: Please fix the above and recommit'
+    exit 1 
+fi
+echo "##### FORMATTING #####"
+terraform fmt --recursive --check
+if test $? -ne 0 
+then 
+    echo 'FORMATTING ERROR: please run "terraform fmt --recursive" then recommit.'
+    exit 1 
+fi
+echo "##### LINTING #####"
+find ../ -name "*.tf" -print0 | while read -d $'\0' file
+do
+    tflint  
+done 
+if test $? -ne 0 
+then 
+    echo 'LINTING ERROR: Please fix the above errors the recommit'
+    exit 1 
+fi
+echo '##### CHECKING FOR SECURITY ISSUES #####'
+pwd 
+find ../ -name '*.tf' -exec  tfsec --config-file tfsec.yml  {} + 
+if test $? -ne 0 
+then 
+    echo 'security error: Please fix the above issues or add the security codes to tfsec.yml exclude'
+    exit 0
+fi 
