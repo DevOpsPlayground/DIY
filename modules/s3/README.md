@@ -15,6 +15,8 @@ module "artifactBucket" {
 }
 ```
 
+This will create 2 buckets one called playgroundtfstate and another called playgroundartifact. Both the buckets have a random string of numbers after them to make sure they are always unique.
+
 #### Inputs
 
 | Name | Description | Type | Default | Required |
