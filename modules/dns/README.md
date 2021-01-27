@@ -21,9 +21,9 @@ For more information on the creation of a hosted zone:
 ##
 
 This module creates a separate DNS record for each user of the playground. 
-This is used to have a more memmoryable name so that user don't need to remember IP addresses. 
+This is used to have a more memorable name so that user don't need to remember IP addresses. 
 
-DNS records are automaticlly made when applyed and will give a random adjective.
+DNS records are automatically made when applied and will give a random adjective.
 This will end with the prefix of -panda as shown below.
 - To make the name more memorable. 
 
@@ -40,7 +40,7 @@ This will end with the prefix of -panda as shown below.
 | instance_ips | List of IP's of the instances being used  the DNS hosted zone | `list(string)` | n/a | yes |
 | instances | number of instances to create records for | `number` | n/a | yes |
 | record_name | the name of the dns record to create | `string` | n/a | yes |
-| record_ttl | defauly time to live for domain records | `number` | `300` | no |
+| record_ttl | default time to live for domain records | `number` | `300` | no |
 | record_type | The dns record type to be used | `string` | `"A"` | no |
 
 #### Outputs
