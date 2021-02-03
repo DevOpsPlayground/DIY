@@ -2,7 +2,7 @@ locals {
   adj = jsondecode(file("./adjectives.json"))
 }
 module "network" {
-  count          = 1
+  count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source         = "./../../modules/network"
   PlaygroundName = var.PlaygroundName
 }
@@ -36,12 +36,26 @@ module "workstation" {
 
 module "dns_workstation" {
   count        = var.deploy_count
-  depends_on   = [module.jenkins]
   source       = "./../../modules/dns"
   instances    = var.instances
   instance_ips = element(module.workstation.*.public_ips, count.index)
   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
+
 }
+
+module "flights_table" {
+  source  = "./../../modules/dynamodb"
+  name    = "flights_test"
+  hashKey = "test"
+
+}
+
+module "Passengers_table" {
+  source  = "./../../modules/dynamodb"
+  name    = "users_test"
+  hashKey = "test"
+}
+
 module "tfStateBucket" {
   count          = 1
   source         = "./../../modules/s3"

@@ -11,7 +11,7 @@ variable "instance_count" {
 }
 variable "PlaygroundName" {
   type        = string
-  default     = "oct-2020"
+  default     = "oct"
   description = "The playground name to tag all resouces with"
 }
 variable "WorkstationPassword" {
@@ -31,7 +31,7 @@ variable "instances" {
 variable "deploy_count" {
   type        = number
   description = "Change this for the number of users of the playground"
-  default     = 1
+  default     = 2
 }
 variable "InstanceRole" {
   type        = number
@@ -53,3 +53,4 @@ variable "policyLocation" {
   default     = "./../../policies"
   description = "The location of the policys"
 }
+
