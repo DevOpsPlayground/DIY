@@ -1,5 +1,5 @@
 formatter: markdown table
-header-from: header.txt
+header-from: header.md
 sections:
   hide-all: true
   show:
