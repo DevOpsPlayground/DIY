@@ -40,7 +40,7 @@ $ terraform init
 This will initialise a working directory containing our Terraform configuration files. This command is always safe to run multiple times, to bring the working directory up to date with changes in the configuration. You should see the following:
 
 <p align="center">
-<img src=../../README_images/tf_init.png width="500">
+<img src=../../README_images/tf_init.png width="600">
 </p>
 
 Then run:
@@ -53,7 +53,7 @@ This command is used to create an execution plan. Terraform performs a refresh, 
 This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state. For example, terraform plan might be run before committing a change to version control, to create confidence that it will behave as expected. The plan will be fairly long but if all went well you should see the following in your terminal:
 
 <p align="center">
-<img src=../../README_images/tf_plan.png width="500">
+<img src=../../README_images/tf_plan.png width="600">
 </p>
 
 Finally you need to run:
@@ -66,7 +66,7 @@ This command is used to apply the changes required to reach the desired state of
 Terraform will now build our required AWS infrastructure. This should complete after a minute or so showing the following:
 
 <p align="center">
-<img src=../../README_images/tf_apply.png width="500">
+<img src=../../README_images/tf_apply.png width="600">
 </p>
 
 Your EC2 instance will now be initialising and running the required script to install and launch Jenkins. Once ths `instance state` has changed to `Running` you should be able to access your instance in your browser using the jenkins IP detailed in your Terraform outputs.
