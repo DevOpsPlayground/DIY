@@ -82,6 +82,16 @@ $ aws --version
 aws-cli/2.1.22 Python/3.7.4 Darwin/18.7.0 botocore/2.0.0
 ```
 
+### Windows
+
+1. Download the AWS CLI MSI installer for Windows (64-bit):
+
+    * For the latest version of the AWS CLI: https://awscli.amazonaws.com/AWSCLIV2.msi
+
+2. Run the downloaded MSI installer and follow the on-screen instructions. By default, the AWS CLI installs to C:\Program Files\Amazon\AWSCLIV2.
+
+3. To confirm the installation, open the Start menu, search for cmd to open a command prompt window, and at the command prompt use the aws --version command.
+
 ## Set and view user configuration settings
 
 When using AWS services through Terraform you will need to provide user credentials for AWS. In order to do this we can use the AWS CLI to store these.
