@@ -14,16 +14,10 @@ variable "PlaygroundName" {
   default     = "nov"
   description = "The playground name to tag all resouces with"
 }
-variable "WorkstationPassword" {
-  type        = string
-  default     = "playground"
-  description = "The password of the workstation ssh"
-}
-
 variable "instances" {
   type        = number
   default     = 1
-  description = "number of instances per dns record"
+  description = "number of instances per user"
 }
 
 // PLEASE TAKE CARE WHEN EDITING THIS DUE TO COSTS. 
@@ -31,7 +25,7 @@ variable "instances" {
 variable "deploy_count" {
   type        = number
   description = "Change this for the number of users of the playground"
-  default     = 2
+  default     = 1
 }
 variable "InstanceRole" {
   type        = number

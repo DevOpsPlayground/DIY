@@ -1,4 +1,15 @@
-This is the november playground
+Welcome to the November playground!
+
+[The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS)
+
+For this playground, we will be building an automated CI/CD pipeline that deploys a scalable React web application to AWS. Here's an overview of what we'll cover:
+
+* Write a Jenkins DSL script. This allows us to define our pipeline configuration as code (Pipeline as Code).
+* Trigger a build of this script which will create a new, empty pipeline that is configured with all the settings we need.
+* Write *another* script for the newly created pipeline which will define the various stages our application needs to go through before being deployed to AWS. These include:
+    - Building the application.
+    - Testing it.
+    - Deploying it to an AWS autoscaling group using terraform (Infrastructure as Code).
 
 #### Inputs
 
@@ -6,8 +17,7 @@ This is the november playground
 |------|-------------|------|---------|:--------:|
 | InstanceRole | The Role of the instance to take | `number` | `null` | no |
 | PlaygroundName | The playground name to tag all resouces with | `string` | `"nov"` | no |
-| WorkstationPassword | The password of the workstation ssh | `string` | `"playground"` | no |
-| deploy_count | Change this for the number of users of the playground | `number` | `2` | no |
+| deploy_count | Change this for the number of users of the playground | `number` | `1` | no |
 | instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
 | instance_type | instance type to be used for instances | `string` | `"t2.medium"` | no |
 | instances | number of instances per dns record | `number` | `1` | no |
@@ -20,10 +30,6 @@ This is the november playground
 | Name | Description |
 |------|-------------|
 | TFstateBucket | The TF state bucket name |
-| WorkstationPassword | The password of the workstation |
 | artifactBucket | The artifact bucket name |
-| dns_jenkins | n/a |
-| dns_workstation | n/a |
 | jenkins_ips | The ip of the jenkins instances |
-| workstation_ips | The ip of the workstation instances |
 
