@@ -14,6 +14,10 @@ variable "PlaygroundName" {
   default     = "oct"
   description = "The playground name to tag all resouces with"
 }
+
+
+
+
 variable "WorkstationPassword" {
   type        = string
   default     = "playground"
