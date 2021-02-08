@@ -36,13 +36,14 @@ AWS CLI version 2 installation instructions:
 
 For information on the latest releases of AWS CLI version 2, see the [AWS CLI version 2 change notes](https://github.com/aws/aws-cli/blob/v2/CHANGELOG.rst) on GitHub.
 
-**`Linux`**
+### Linux
 1. For the latest version of the AWS CLI, use the following command:
-### Linux x86 (64-bit):
+
+**`Linux x86 (64-bit)`**:
 ```
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 ```
-### Linux ARM:
+**`Linux ARM`**:
 ```
 $ curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip"
 ```
@@ -62,7 +63,7 @@ $ sudo ./aws/install
 $ aws --version
 ```
 
-**`MacOS`**
+### MacOS
 
 1. For the latest version of the AWS CLI, use the following command block:
 ```
