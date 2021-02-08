@@ -2,7 +2,7 @@
 <img src=../../README_images/jen_ter_aws_logos.png width="400">
 </p>
 
-<h1 align="center">Welcome to the November playground!</h1>
+<h1 align="center">Welcome to the November playground! Hands on with Jenkins, Terraform and AWS</h1>
 
 [The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS)
 
