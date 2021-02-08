@@ -8,6 +8,16 @@ Whether you enjoyed a playground so much you want to do it again, missed one tha
 
 We have provided a step-by-step guide that will walk you through each playground getting your hands dirty with some awesome tools.
 
+## Getting started
+
+First off please clone this repo to your local machine:
+
+```
+$ git clone git@github.com:DevOpsPlayground/DIY.git
+```
+
+From there you can open using your text editor of choice but before moving on there area few things to get through first.
+
 ### [playgrounds](playgrounds)
 
 Within this folder you will find a breakdown of all the available playgrounds you can try. Keep checking this folder as it will be updated with new playgrounds as quickly as we can roll them out! So far we have:
