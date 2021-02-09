@@ -1,6 +1,6 @@
 resource "aws_iam_instance_profile" "jenkins_profile" {
   name = "${var.PlaygroundName}-instance-profile"
-  role = module.Jenkins_role.0.role
+  role = module.workstation_role.0.role
 }
 
 

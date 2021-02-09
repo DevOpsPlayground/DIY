@@ -15,9 +15,6 @@ variable "PlaygroundName" {
   description = "The playground name to tag all resouces with"
 }
 
-
-
-
 variable "WorkstationPassword" {
   type        = string
   default     = "playground"
@@ -35,7 +32,7 @@ variable "instances" {
 variable "deploy_count" {
   type        = number
   description = "Change this for the number of users of the playground"
-  default     = 2
+  default     = 1
 }
 variable "InstanceRole" {
   type        = number
@@ -57,4 +54,7 @@ variable "policyLocation" {
   default     = "./../../policies"
   description = "The location of the policys"
 }
-
+variable "key_name" {
+  description = "A key that has already be created and downloaded locally"
+  default     = "labkey01"
+}
