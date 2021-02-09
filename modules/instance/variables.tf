@@ -50,3 +50,7 @@ variable "purpose" {
   default     = "Playground"
   description = "A tag to give each resource"
 }
+
+variable "key_name" {
+  description = "Key pair that has already be created in your aws account"
+}

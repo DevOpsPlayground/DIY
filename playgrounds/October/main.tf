@@ -1,4 +1,3 @@
-
 locals {
   adj = jsondecode(file("./adjectives.json"))
 }
@@ -48,7 +47,7 @@ module "dns_workstation" {
 module "flights_table" {
   source         = "./../../modules/dynamodb"
   PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj)}-panda-passengers"
+  name           = "playground-${element(local.adj)}-panda-flights"
   hashKey        = "number"
 
 }
@@ -56,19 +55,6 @@ module "flights_table" {
 module "Passengers_table" {
   source         = "./../../modules/dynamodb"
   PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj)}-panda-flights"
+  name           = "playground-${element(local.adj)}-panda-passengers"
   hashKey        = "id"
-}
-
-module "tfStateBucket" {
-  count          = 1
-  source         = "./../../modules/s3"
-  PlaygroundName = var.PlaygroundName
-  reason         = "tfstate"
-}
-module "artifactBucket" {
-  count          = 1
-  source         = "./../../modules/s3"
-  PlaygroundName = var.PlaygroundName
-  reason         = "artifact"
 }

@@ -27,5 +27,3 @@ variable "billingMode" {
 variable "PlaygroundName" {
 }
 
-variable "reason" {
-}

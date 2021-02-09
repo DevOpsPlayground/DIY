@@ -7,7 +7,7 @@ resource "aws_dynamodb_table" "playground_table" {
     name = var.hashKey
   }
   tags = {
-    "Name" = "${var.playgroundName}-${aws_dynamodb_table.playground_table.name}-table"
+    "Name" = "${var.PlaygroundName}-${var.name}-table"
   }
 }
 
