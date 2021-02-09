@@ -15,6 +15,7 @@ module "Jenkins_role" {
 }
 module "jenkins" {
   count              = var.deploy_count
+  instance_count     = var.instance_count
   source             = "./../../modules/instance"
   depends_on         = [module.network]
   profile            = aws_iam_instance_profile.jenkins_profile.name
@@ -26,6 +27,7 @@ module "jenkins" {
 }
 module "workstation" {
   count              = var.deploy_count
+  instance_count     = var.instance_count
   source             = "./../../modules/instance"
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]

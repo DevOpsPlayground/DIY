@@ -7,7 +7,7 @@ variable "region" {
 variable "instance_count" {
   type        = number
   default     = 1
-  description = "The amount of versions of the infrastructer to make "
+  description = "The number of instances to create for each user"
 }
 variable "PlaygroundName" {
   type        = string
@@ -28,7 +28,7 @@ variable "WorkstationPassword" {
 
 variable "deploy_count" {
   type        = number
-  description = "Change this for the number of users of the playground"
+  description = "Number of versions of the infrastructure to create - change this for the number of users in the playground"
   default     = 1
 }
 variable "InstanceRole" {
