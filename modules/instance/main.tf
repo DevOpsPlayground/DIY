@@ -9,9 +9,6 @@ resource "aws_instance" "main" {
   user_data                   = var.user_data
 
   tags = {
-    Name = "${var.PlaygroundName}-${count.index + 1}"
-
-    Purpose = "Playground"
     Name    = "${var.PlaygroundName}-${count.index + 1}"
     Purpose = var.purpose
   }
