@@ -14,10 +14,14 @@ variable "PlaygroundName" {
   default     = "nov"
   description = "The playground name to tag all resouces with"
 }
-variable "instances" {
-  type        = number
-  default     = 1
-  description = "number of instances per user"
+# variable "domain_name" {
+#   type        = string
+#   description = "Your own registered domain name if using dns module"
+# }
+variable "WorkstationPassword" {
+  type        = string
+  default     = "playground"
+  description = "The password of the workstation ssh"
 }
 
 // PLEASE TAKE CARE WHEN EDITING THIS DUE TO COSTS. 
