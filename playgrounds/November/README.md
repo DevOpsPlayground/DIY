@@ -19,6 +19,7 @@ For this playground, we will be building an automated CI/CD pipeline that deploy
 
 Before we get started there are a few things that are worth noting. We have set the defaults to a number of variables that can be changed within the `variables.tf` file if required:
 
+* **Importnat to not this is not production infrastructure and does not adhere to strict security standards. It is simply a hands-on guide to Jenkins, Terraform and AWS. Please do not leave infrastructure up or host any sensitive data**
 * The current code will build a single Jenkins instance and a single workstation instance in AWS. However if you would rather work locally and just have the Jenkins instnce running please comment out lines `27-45` in `main.tf` and lines `21-25` in `variables.tf` to remove the workstation module and associated variables.
 * The workstation instance will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
 * If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `46-63` in `main.tf`, lines `16-21` in `outputs.tf` and lines `17-20` in `variables.tf`
@@ -226,7 +227,7 @@ This `pipelineJob(){}` is creating a second pipeline that we will use to destoy 
 
 # How to commit and push to master?
 
-1. If you haven't already done so, clone down your **forked** [react-app-devops-playground](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS) repository and cd into it. 
+1. If you haven't already done so, clone down your **forked** [react-app-devops-playground](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS) repository and cd into it.
 
 > Note: remember, if you are using a workstation, make sure you cd into `workdir/Hands-on-with-Jenkins-Terraform-and-AWS` if you haven't already done so
 
@@ -281,7 +282,7 @@ Now run the following commands to push up to your master or main (check in your 
 git add .
 git commit -m "Populating the Jenkins seed job script"
 git push -u origin master/main
-```
+```  
 And as mentioned before, you can paste your access token straight into the command line when it prompts you for your password.
 
 Now let's move onto section 2...
@@ -308,7 +309,7 @@ Once logged into Jenkins, click...
 
 ![global_creds](../../README_images/global_creds.png)
 
-* Click `Add Credentials` on the left 
+* Click `Add Credentials` on the left
 
 ![add_creds](../../README_images/add_creds.png)
 
@@ -317,7 +318,7 @@ Once logged into Jenkins, click...
     - `Password`: the access token we just generated in GitHub
     - `ID`: your GitHub username
     - `Description`: "git credentials"
-> **IMPORTANT: make sure you put your username in the ID section**. 
+> **IMPORTANT: make sure you put your username in the ID section**.
 
 ![username_password](../../README_images/username_password.png)
 
@@ -384,7 +385,7 @@ Now we have added NodeJS, Terraform and AWS to our Jenkins, let's go ahead and a
 This will hold the Groovy code that will build our CI/CD pipeline.
 
 - Click `New Item` located at the top left of the window.
-- Name the item `seed-job` and select `Freestyle project` as the option. Hit `OK`. 
+- Name the item `seed-job` and select `Freestyle project` as the option. Hit `OK`.
 
 ![new_item](../../readme_images/new_item.png)
 
@@ -392,7 +393,7 @@ This will hold the Groovy code that will build our CI/CD pipeline.
     - Select `This project is parameterized` and add `TWO` string paramters by clicking `Add Parameter > String Parameter` ![parameterised](../../readme_images/parameterised.png)
     - Add the two variables we saw in Section 1, which were `GIT_USER` and `GIT_URL`. Leave `Default Value` and `Description` blank.
     - In the `Source Code Management` section, select the `Git` radio button. Fill in `Repository URL` with your forked [react-app-devops-playground](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS) repository and `Credentials` with your credentials that we configured earlier. ![scm](../../readme_images/scm.png) Leave the branch as master or main.
-    - Lastly, we need to add a build step. In the `Build` section, select `Add build step > Process Job DSLs`. Fill in the `DSL Scripts` section with the file path to our DSL script. The path is `jobs/DeployReactApp.groovy` and it will look like this: ![dsl_build_step](../../readme_images/dsl_build_step.png)
+    - Lastly, we need to add a build step. In the `Build` section, select `Add build step > Process Job DSLs`. Fill in the `DSL Scripts` section with the file path to our DSL script. The path is `jobs/DeployReactApp.groovy` and it will look like this: ![dsl_build_step](../../readme_images/dsl_build_step.png)  
     Click `Save` and the configuration is done!
 
 Before we move onto part three of this section, we need to fork the [react-app-devops-playground](https://github.com/DevOpsPlayground/Hands-on-with-Jenkins-Terraform-and-AWS) repository, which is the one that holds the application code we need to deploy.
@@ -457,12 +458,12 @@ pipeline {
         }
         stage("Deploy") {
             environment {
-                ARTIFACT = sh (returnStdout: true, script: 
+                ARTIFACT = sh (returnStdout: true, script:
                 """
                 aws s3api list-buckets --query 'Buckets[].Name' | grep -wo "\\w*playgroundartifact\\w*" | cut -d" " -f2
                 """
                 ).trim()
-                TFSTATE = sh (returnStdout: true, script: 
+                TFSTATE = sh (returnStdout: true, script:
                 """
                 aws s3api list-buckets --query 'Buckets[].Name' | grep -wo "\\w*playgroundtfstate\\w*" | cut -d" " -f2
                 """
@@ -595,10 +596,10 @@ It should be a couple of minutes until the website is live. While we wait, lets 
 
 ### End to end
 
-1. A build folder is created which packages up our application.
-2. We zip up that folder and send it off to Amazon S3.
-3. Terraform is initialised and provisions a load balancer and an autoscaling group into a virtual private cloud (VPC)
-4. When the infrastructure is provisioned, the deployed servers will pull down that build zip file and unzip it.
+1. A build folder is created which packages up our application.  
+2. We zip up that folder and send it off to Amazon S3.  
+3. Terraform is initialised and provisions a load balancer and an autoscaling group into a virtual private cloud (VPC)  
+4. When the infrastructure is provisioned, the deployed servers will pull down that build zip file and unzip it.  
 5. The build package is then ultimately served on port 80 (http://), which allows the public to visit and use the website.
 
 ### Our infrastructure
@@ -608,7 +609,7 @@ It should be a couple of minutes until the website is live. While we wait, lets 
 ### 4. At the bottom of the logs, you'll see the following message:
 ```
 Application successfully deployed! Please visit http://<ELB_DOMAIN_NAME> in your browser to view it.
-```
+```  
 Click the link to see the deployed website!
 > Note: it will take a couple of minutes for the application to deploy, so don't be alarmed if the link isn't working just yet. It will!
 
@@ -620,11 +621,11 @@ Once you have finished with the playground and enjoyed seeing the running React 
 
 Navigate back to `Dashboard` in the top left of your screen. From there you will see the three pipelines that you created:
 
-![pipeline_list](readme_images/jenkins_pipeline_list.png)
+![pipeline_list](../../readme_images/jenkins_pipeline_list.png)
 
 Click on the `Destroy-React_App` pipeline and then select `Build with parameters` and you will see your unique identifier detailed. Hit `Build` and the pipeline will start.
 
-![confirm_pipeline_destroy](readme_images/jenkins_destroy_confirm.png)
+![confirm_pipeline_destroy](../../readme_images/jenkins_destroy_confirm.png)
 
 Once the pipeline has run and you have `Finished: success` the infrastructure has all been destroyed and we can move on to the final destroy.
 
@@ -645,10 +646,10 @@ We hope you enjoyed the playground DIY and make sure to keep coming back for mor
 |------|-------------|------|---------|:--------:|
 | InstanceRole | The Role of the instance to take | `number` | `null` | no |
 | PlaygroundName | The playground name to tag all resouces with | `string` | `"nov"` | no |
+| WorkstationPassword | The password of the workstation ssh | `string` | `"playground"` | no |
 | deploy_count | Change this for the number of users of the playground | `number` | `1` | no |
 | instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
 | instance_type | instance type to be used for instances | `string` | `"t2.medium"` | no |
-| instances | number of instances per user | `number` | `1` | no |
 | policyLocation | The location of the policys | `string` | `"./../../policies"` | no |
 | region | The aws region to deploy to | `string` | `"eu-west-2"` | no |
 | scriptLocation | The location of the userData folder | `string` | `"./../../modules/instance/scripts"` | no |
@@ -657,5 +658,8 @@ We hope you enjoyed the playground DIY and make sure to keep coming back for mor
 
 | Name | Description |
 |------|-------------|
+| WorkstationPassword | The password for the workstation |
 | jenkins_ips | The ip of the jenkins instances |
+| unique_identifier | Unique name for Jenkins instance |
+| workstation_ips | The ip of the workstation instances |
 

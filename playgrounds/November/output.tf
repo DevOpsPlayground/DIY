@@ -4,6 +4,7 @@ output "jenkins_ips" {
 }
 output "unique_identifier" {
   value       = module.jenkins.*.unique_identifiers
+  description = "Unique name for Jenkins instance"
 }
 output "workstation_ips" {
   value       = module.workstation.*.public_ips
