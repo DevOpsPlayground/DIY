@@ -54,7 +54,3 @@ variable "policyLocation" {
   default     = "./../../policies"
   description = "The location of the policys"
 }
-variable "key_name" {
-  description = "A key that has already be created and downloaded locally"
-  default     = "labkey01"
-}
