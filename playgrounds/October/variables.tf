@@ -16,8 +16,8 @@ variable "PlaygroundName" {
 }
 
 variable "WorkstationPassword" {
+  default     = ""
   type        = string
-  default     = "playground"
   description = "The password of the workstation ssh"
 }
 
@@ -53,8 +53,4 @@ variable "policyLocation" {
   type        = string
   default     = "./../../policies"
   description = "The location of the policys"
-}
-variable "key_name" {
-  description = "A key that has already be created and downloaded locally"
-  default     = "labkey01"
 }

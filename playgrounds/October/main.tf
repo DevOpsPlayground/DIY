@@ -1,6 +1,12 @@
 locals {
   adj = jsondecode(file("./adjectives.json"))
 }
+locals {
+  random_password = "${random_password.password.result}-${var.WorkstationPassword}"
+}
+
+
+
 module "network" {
   count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source         = "./../../modules/network"
@@ -21,13 +27,12 @@ module "workstation" {
   security_group_ids = [module.network.0.allow_all_security_group_id]
   subnet_id          = module.network.0.public_subnets.0
   instance_type      = var.instance_type
-  key_name           = var.key_name
   user_data = templatefile(
     "${var.scriptLocation}/oct-playground.sh",
     {
       hostname = "playground"
       username = "playground"
-      ssh_pass = var.WorkstationPassword
+      ssh_pass = local.random_password
       gitrepo  = "https://github.com/DevOpsPlayground/Introduction-to-GraphQL-with-GO.git"
     }
   )
@@ -45,16 +50,17 @@ module "dns_workstation" {
 }
 
 module "flights_table" {
+  count          = var.deploy_count
   source         = "./../../modules/dynamodb"
   PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj)}-panda-flights"
+  name           = "playground-${element(local.adj, count.index)}-panda-flights"
   hashKey        = "number"
 
 }
-
 module "Passengers_table" {
+  count          = var.deploy_count
   source         = "./../../modules/dynamodb"
   PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj)}-panda-passengers"
+  name           = "playground-${element(local.adj, count.index)}-panda-passengers"
   hashKey        = "id"
 }
