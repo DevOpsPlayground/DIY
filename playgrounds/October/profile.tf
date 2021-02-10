@@ -1,4 +1,4 @@
-resource "aws_iam_instance_profile" "jenkins_profile" {
+resource "aws_iam_instance_profile" "workstation_profile" {
   name = "${var.PlaygroundName}-instance-profile"
   role = module.workstation_role.0.role
 }
@@ -9,5 +9,5 @@ resource "random_password" "password" {
 }
 
 
-// If more instance profiles are needed for other purposes add them below.
+
 

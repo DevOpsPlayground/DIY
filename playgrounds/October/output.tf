@@ -5,7 +5,7 @@ output "workstation_ips" {
 }
 output "WorkstationPassword" {
   value       = local.random_password
-  description = "The password of the workstation"
+  description = "The password Used to SSH into the instance"
 
 }
 

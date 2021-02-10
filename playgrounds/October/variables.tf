@@ -14,13 +14,6 @@ variable "PlaygroundName" {
   default     = "oct"
   description = "The playground name to tag all resouces with"
 }
-
-variable "WorkstationPassword" {
-  default     = ""
-  type        = string
-  description = "The password of the workstation ssh"
-}
-
 variable "instances" {
   type        = number
   default     = 1

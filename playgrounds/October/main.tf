@@ -2,10 +2,8 @@ locals {
   adj = jsondecode(file("./adjectives.json"))
 }
 locals {
-  random_password = "${random_password.password.result}-${var.WorkstationPassword}"
+  random_password = random_password.password.result
 }
-
-
 
 module "network" {
   count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
@@ -17,7 +15,8 @@ module "workstation_role" {
   source         = "./../../modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
-  aws_iam_policy = { autoscale = file("${var.policyLocation}/jenkins_autoscale.json"), ec2 = file("${var.policyLocation}/jenkins_ec2.json"), elb = file("${var.policyLocation}/jenkins_elb.json"), iam = file("${var.policyLocation}/jenkins_iam.json"), s3 = file("${var.policyLocation}/jenkins_s3.json"), connect = file("${var.policyLocation}/managed_instance.json") }
+  aws_iam_policy = { elb = file("${var.policyLocation}/jenkins_elb.json"), 
+  database = file("${var.policyLocation}/managed_instance.json") }
 }
 
 module "workstation" {
