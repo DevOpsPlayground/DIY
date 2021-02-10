@@ -36,7 +36,6 @@ Before we get started there are a few things that are worth noting. We have set 
 # Build Infrastructure
 
 Make sure you are in the `October` directory and run:
-
 ```
 $ terraform init
 ```  
