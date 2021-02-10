@@ -52,7 +52,9 @@ sudo systemctl enable docker
 docker run --rm -p 80:3000 --detach wettyoss/wetty --ssh-host=172.17.0.1 --ssh-user ${username}
 
 # Add AWS config
-cat <<EOF
+sudo mkdir ~/.aws
+sudo touch ~/.aws/config
+echo <<EOF
 [default]
 region = ${region}
 EOF
