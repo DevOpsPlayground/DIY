@@ -7,9 +7,9 @@ output "WorkstationPassword" {
   value       = local.random_password
   description = "The password Used to SSH into the instance"
 }
-output "dns_workstation" {
-  value = module.dns_workstation.*.name
-}
+# output "dns_workstation" {
+#   value = module.dns_workstation.*.name
+# }
 output "unique_identifier" {
   value       = module.workstation.*.unique_identifiers
   description = "Unique identifiers for Workstation instances"

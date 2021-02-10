@@ -8,7 +8,7 @@
                 "dynamodb:Scan",
                 "dynamodb:Query"
             ],
-            "Resource": "arn:aws:dynamodb:*:630895193694:table/playground-*/index/*"
+            "Resource": "arn:aws:dynamodb:*:*:table/playground-*/index/*"
         },
         {
             "Sid": "AllowUpdateGetAllPlaygroundTables",
@@ -24,7 +24,7 @@
                 "dynamodb:UpdateItem",
                 "dynamodb:UpdateTable"
             ],
-            "Resource": "arn:aws:dynamodb:*:630895193694:table/playground-*"
+            "Resource": "arn:aws:dynamodb:*:*:table/playground-*"
         },
         {
             "Sid": "AllowAccessToListTables",
