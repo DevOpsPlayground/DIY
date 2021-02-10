@@ -15,8 +15,7 @@ module "workstation_role" {
   source         = "./../../modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
-  aws_iam_policy = { elb = file("${var.policyLocation}/jenkins_elb.json"),
-  database = file("${var.policyLocation}/managed_instance.json") }
+  aws_iam_policy = { database = file("${var.policyLocation}/dynamo_db.json") }
 }
 
 module "workstation" {
@@ -24,6 +23,7 @@ module "workstation" {
   source             = "./../../modules/instance"
   PlaygroundName     = "${var.PlaygroundName}workstation"
   security_group_ids = [module.network.0.allow_all_security_group_id]
+  profile            = aws_iam_instance_profile.workstation_profile.arn
   subnet_id          = module.network.0.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
