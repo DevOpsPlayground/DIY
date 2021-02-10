@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-sudo -su
-
-sudo apt-get update
+sudo apt-get update -y
+sudo apt-get install awscli -y
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get install terraform -y
@@ -10,6 +9,7 @@ sudo apt-get install -y language-pack-en
 sudo snap install go --classic 
 sudo apt install nodejs -y
 sudo apt install npm -y 
+
 echo "--> Setting hostname..."
 echo "${hostname}" | sudo tee /etc/hostname
 sudo hostname -F /etc/hostname

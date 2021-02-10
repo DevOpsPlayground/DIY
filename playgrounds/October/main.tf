@@ -15,7 +15,7 @@ module "workstation_role" {
   source         = "./../../modules/rolePolicy"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
-  aws_iam_policy = { elb = file("${var.policyLocation}/jenkins_elb.json"), 
+  aws_iam_policy = { elb = file("${var.policyLocation}/jenkins_elb.json"),
   database = file("${var.policyLocation}/managed_instance.json") }
 }
 
