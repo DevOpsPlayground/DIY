@@ -51,6 +51,13 @@ sudo systemctl enable docker
 
 docker run --rm -p 80:3000 --detach wettyoss/wetty --ssh-host=172.17.0.1 --ssh-user ${username}
 
+# Add AWS config
+cat <<EOF
+[default]
+region = ${region}
+EOF
+> ~/.aws/config
+
 echo "running VS code container"
 sudo mkdir /home/${username}/GraphQL
 sudo chown -R ${username} /home/${username}/GraphQL

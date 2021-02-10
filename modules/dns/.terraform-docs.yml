@@ -1,4 +1,5 @@
 formatter: markdown table
+header-from: header.md
 sections:
   hide-all: true
   show:

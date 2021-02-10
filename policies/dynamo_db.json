@@ -2,33 +2,35 @@
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "ListAndDescribe",
+            "Sid": "AllowScanQueryPlaygroundIndex",
             "Effect": "Allow",
             "Action": [
-                "dynamodb:List*",
-                "dynamodb:DescribeReservedCapacity*",
-                "dynamodb:DescribeLimits",
-                "dynamodb:DescribeTimeToLive"
+                "dynamodb:Scan",
+                "dynamodb:Query"
             ],
-            "Resource": "*"
+            "Resource": "arn:aws:dynamodb:*:630895193694:table/playground-*/index/*"
         },
         {
-            "Sid": "SpecificTable",
+            "Sid": "AllowUpdateGetAllPlaygroundTables",
             "Effect": "Allow",
             "Action": [
-                "dynamodb:BatchGet*",
-                "dynamodb:DescribeStream",
+                "dynamodb:BatchGetItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
                 "dynamodb:DescribeTable",
-                "dynamodb:Get*",
-                "dynamodb:Query",
+                "dynamodb:GetItem",
                 "dynamodb:Scan",
-                "dynamodb:BatchWrite*",
-                "dynamodb:CreateTable",
-                "dynamodb:Delete*",
-                "dynamodb:Update*",
-                "dynamodb:PutItem"
+                "dynamodb:Query",
+                "dynamodb:UpdateItem",
+                "dynamodb:UpdateTable"
             ],
-            "Resource": "arn:aws:dynamodb:*:*:table/MyTable"
+            "Resource": "arn:aws:dynamodb:*:630895193694:table/playground-*"
+        },
+        {
+            "Sid": "AllowAccessToListTables",
+            "Effect": "Allow",
+            "Action": "dynamodb:ListTables",
+            "Resource": "*"
         }
     ]
 }

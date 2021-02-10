@@ -3,6 +3,4 @@ resource "aws_iam_instance_profile" "jenkins_profile" {
   role = module.Jenkins_role.0.role
 }
 
-
 // If more instance profiles are needed for other purposes add them below.
-

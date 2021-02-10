@@ -20,3 +20,7 @@ variable "record_ttl" {
   description = "defauly time to live for domain records"
   default     = 300
 }
+variable "domain_name" {
+  type        = string
+  description = "Hosted zone domain name"
+}

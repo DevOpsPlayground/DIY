@@ -19,6 +19,11 @@ variable "instances" {
   default     = 1
   description = "number of instances per dns record"
 }
+variable "domain_name" {
+  type        = string
+  default     = "devopsplayground.org"
+  description = "Your own registered domain name if using dns module"
+}
 
 // PLEASE TAKE CARE WHEN EDITING THIS DUE TO COSTS. 
 

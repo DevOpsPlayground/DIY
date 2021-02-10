@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # DPG - VPC module
 ## Requirements
 
@@ -33,6 +34,25 @@ This will end with the prefix of -panda as shown below.
     workstation-alive-panda.devopsplayground.org
     workstation-advanced-panda.devopsplayground.org
 ```
+=======
+# DPG - dns module
+
+This requires a hosted zone so for the average use will not be used.
+
+example jenkins DNS module
+
+``` HCL
+  depends_on   = [module.jenkins]
+  instances    = 1
+  instance_ips = module.jenkins.public_ip
+  record_name  = "happy-panda"
+```
+
+This will create a DNS record for an instances ip with the prefix of happy-panda
+
+i.e happy-panda.devopsplayground.org
+
+>>>>>>> 62bf15d2796292b4b96cc90fb812d7ba12c9dfcb
 #### Inputs
 
 | Name | Description | Type | Default | Required |
@@ -48,5 +68,5 @@ This will end with the prefix of -panda as shown below.
 | Name | Description |
 |------|-------------|
 | name | name of dns record created |
-| zone_id | n/a |
+| zone_id | The id of the zone the record is in |
 
