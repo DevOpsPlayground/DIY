@@ -37,6 +37,8 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
+
+
 # module "dns_workstation" {
 #   count        = var.deploy_count
 #   source       = "./../../modules/dns"
@@ -45,17 +47,3 @@ module "workstation" {
 #   domain_name  = var.domain_name
 #   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
 # }
-module "flights_table" {
-  count          = var.deploy_count
-  source         = "./../../modules/dynamodb"
-  PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj, count.index)}-panda-flights"
-  hashKey        = "number"
-}
-module "Passengers_table" {
-  count          = var.deploy_count
-  source         = "./../../modules/dynamodb"
-  PlaygroundName = var.PlaygroundName
-  name           = "playground-${element(local.adj, count.index)}-panda-passengers"
-  hashKey        = "id"
-}
