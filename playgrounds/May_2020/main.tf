@@ -3,7 +3,6 @@ locals {
   random_password   = random_password.password.result
   database_password = random_password.db_password.result
 }
-
 module "network" {
   count            = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source           = "../../modules/network"
@@ -38,17 +37,6 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
-
-
-# module "dns_workstation" {
-#   count        = var.deploy_count
-#   source       = "./../../modules/dns"
-#   instances    = var.instances
-#   instance_ips = element(module.workstation.*.public_ips, count.index)
-#   domain_name  = var.domain_name
-#   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
-# }
-
 module "rds" {
   source             = "../../modules/rds"
   PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}"
@@ -60,4 +48,11 @@ module "rds" {
   rds_db_name        = "oct"
   security_group_ids = [module.network.0.allow_all_security_group_id]
 }
-
+# module "dns_workstation" {
+#   count        = var.deploy_count
+#   source       = "./../../modules/dns"
+#   instances    = var.instances
+#   instance_ips = element(module.workstation.*.public_ips, count.index)
+#   domain_name  = var.domain_name
+#   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
+# }
