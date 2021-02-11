@@ -12,7 +12,7 @@ module "network" {
 }
 module "workstation_role" {
   count          = 1
-  source         = "./../../modules/rolePolicy"
+  source         = "./../../modules/iam"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
   aws_iam_policy = { database = file("${var.policyLocation}/dynamo_db.json") }

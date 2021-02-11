@@ -8,7 +8,7 @@ variable "enable_dns_hostnames" {
   default     = true
   description = "Enable a dns on the vpc"
 }
-variable "public_subnets" {
+variable "required_subnets" {
   type        = number
   default     = 2
   description = "Number of Public subnets in the VPC. By default this number is 2, and should always be higher or equal to 2, so a load balancer and other resources could be created without AWS complaining"

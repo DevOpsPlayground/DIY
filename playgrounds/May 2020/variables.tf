@@ -52,3 +52,9 @@ variable "policyLocation" {
   default     = "./../../policies"
   description = "The location of the policys"
 }
+
+variable "username" {
+  type        = string
+  default     = "playground"
+  description = "The default username for the rds instance."
+}

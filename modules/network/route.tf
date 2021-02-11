@@ -30,7 +30,7 @@ resource "aws_route" "private_route_to_ngw" {
 }
 
 resource "aws_route_table_association" "public_rt_assoc" {
-  count          = var.public_subnets > 0 ? var.public_subnets : 1
+  count          = var.required_subnets > 0 ? var.required_subnets : 1
   subnet_id      = element(aws_subnet.public_subnets.*.id, count.index)
   route_table_id = aws_route_table.public_route_table.id
 }

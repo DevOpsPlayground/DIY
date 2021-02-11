@@ -1,10 +1,9 @@
-variable "count" {
-  default = 2
+variable "db_count" {
+  default = 1
 }
 
 variable "rds_password" {
   description = "Password for RDS database"
-  default     = "kfdkflkflkrtpplwepldspdfl"
 }
 
 variable "rds_username" {
@@ -14,7 +13,6 @@ variable "rds_username" {
 
 variable "rds_db_name" {
   description = "Name of initial DB"
-  default     = "gosucks"
 }
 
 variable "db_instance" {
@@ -24,22 +22,13 @@ variable "db_instance" {
 
 variable "subnet_ids" {
   description = "Subnet ids"
-  default     = ["subnet-0cb929b94e9a0374c", "subnet-066bf1b1ae0e1fd30"]
 }
 
 variable "security_group_ids" {
   description = "list of security groups"
-  default     = ["sg-0dfdd42b779c822fb"]
 }
-
-variable "instance_name" {
-  description = "database instance name, user friendly hostname"
-  default     = "playground"
-}
-
-variable "name" {
+variable "PlaygroundName" {
   description = "Stack name"
-  default     = "playground"
 }
 
 variable "db_engine" {
@@ -60,4 +49,8 @@ variable "storage_type" {
 variable "allocated_storage" {
   description = "Amount of dedicated storage"
   default     = 20
+}
+
+variable "db_identifier" {
+
 }

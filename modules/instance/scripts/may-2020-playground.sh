@@ -30,11 +30,11 @@ echo "--> Installing nodejs and nginx"
 sudo apt-get install -y nodejs npm nginx
 
 
-echo "--> Installing Wetty web terminal"
-git clone https://github.com/krishnasrinivas/wetty /opt/wetty
-cd /opt/wetty
-npm install
-npm install -g wetty
+# echo "--> Installing Wetty web terminal"
+# git clone https://github.com/krishnasrinivas/wetty /opt/wetty
+# cd /opt/wetty
+# npm install
+# npm install -g wetty
 
 
 echo "--> Configuring Nginx proxy for Wetty web terminal"
@@ -63,7 +63,7 @@ http {
       server_name _;
       location / {
         proxy_pass http://127.0.0.1:3000/;
-        proxy_http_version 1.1;
+        proxy_http_version 1.2;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
         proxy_read_timeout 43200000;
