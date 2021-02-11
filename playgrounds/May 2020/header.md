@@ -36,6 +36,7 @@ Before we get started there are a few things that are worth noting. We have set 
 # Build Infrastructure
 
 Make sure you are in the `October` directory and run:
+
 ```
 $ terraform init
 ```  
@@ -73,7 +74,7 @@ Terraform will now build our required AWS infrastructure. This should complete a
 
 > IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.
 
-Once the apply has completed your EC2 instance will now be initialising and running the required script to install and launch GraphQL. Once the `instance state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies.
+Once the apply has completed your EC2 instance will now be initialising and running the required script to install and launch GraphQL. Once the `instance state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies. 
 
 ## Access
 
@@ -92,7 +93,7 @@ You will be prompted for your workstation password, which was outputted at the e
 Change into the GraphQL directory:
 ```
 $ cd GraphQL
-```  
+```
 Create a directory for your project, and initialise it as a Go Module
 ```
 $ mkdir flights
@@ -102,7 +103,7 @@ $ cd flights
 ```
 ```
 $ go mod init flights
-```  
+```
 Retrieve the required [gqlgen](https://gqlgen.com/getting-started/) package:
 ```
 $ go get github.com/99designs/gqlgen
@@ -112,11 +113,11 @@ $ go get github.com/99designs/gqlgen
 Create the project skeleton:
 ```
 $ go run github.com/99designs/gqlgen init
-```  
+```
 Copy over a pre-prepared file using the command:
 ```
 $ mkdir -p datalayer && cp ~/GraphQL/Introduction-to-GraphQL-with-GO/datalayer/datalayer.go datalayer/datalayer.go
-```  
+```
 Your folder structure should now look like this:
 
 ![graphql_folder_struc](../../README_images/graphql_folder_struc.png)
@@ -167,7 +168,7 @@ type Flight {
   captain: String!
   plane: String!
 }
-```  
+```
 The language is pretty readable, but let's go over it so that we can have a shared vocabulary:
 
 * `Flight` is a GraphQL Object Type, meaning it's a type with some fields. Most of the types in your schema will be object types.
@@ -183,8 +184,7 @@ Now you know what a GraphQL object type looks like, and how to read the basics o
  Run the command
  ```
  $ go run github.com/99designs/gqlgen generate
-
-```  
+ ```
  Don't worry about the scary looking validation failed and exit status 1 output from the command:
 
  ![graphql_validation_failed](../../README_images/graphql_validation_failed.png)
@@ -207,16 +207,15 @@ Add the below into the file imports:
 
 ```
 "flights/datalayer"
-```  
+```
 Find the function `Passengers` and replace
 ```
 panic(fmt.Errorf("not implemented"))
-```  
+```
  with
  ```
  return datalayer.GetAllPassengers()
-
-```
+ ```
  ![graphql_flights_datalayer](../../README_images/graphql_flights_datalayer.png)
 
 Here we are replacing a returned error message with the `GetAllPassengers()` function that we are importing from `flights/datalayer`
@@ -224,7 +223,7 @@ Here we are replacing a returned error message with the `GetAllPassengers()` fun
 Run the command:
 ```
 $ go run ./server.go
-```  
+```
 Navigate to `<workstation_ip>:8080` in your browser to access your GraphQL server.
 
 Paste the below query into the left panel of the web page:
@@ -235,7 +234,7 @@ query Passengers {
     name
   }
 }
-```  
+```
 Execute the query and you should see the result:
 ```
 {
@@ -243,7 +242,7 @@ Execute the query and you should see the result:
     "passengers": null
   }
 }
-```  
+```
 This is because the DynamoDB table doesn't have any data in it yet!
 
 Return to your `flights` project and open `graph/schema.resolvers.go`
@@ -259,7 +258,7 @@ return datalayer.CreatePassenger(name)
 Start up the GraphQL server again and navigate to `<workstation_ip>:8080` in your browser:
 ```
 $ go run ./server.go
-```  
+```
 Paste the below query into the left panel of the web page:
 ```
 mutation CreatePassenger {
@@ -267,7 +266,7 @@ mutation CreatePassenger {
     id
   }
 }
-```  
+```
 Execute the query and you should see the result:
 ```
 {
@@ -277,7 +276,7 @@ Execute the query and you should see the result:
     }
   }
 }
-```  
+```
 Now re-run query Passengers from above and you should see the id and name of the newly created passenger detailed:
 ```
 query Passengers {
@@ -286,7 +285,7 @@ query Passengers {
     name
   }
 }
-```  
+```
 You should see the result:
 ```
 {
@@ -299,7 +298,7 @@ You should see the result:
     ]
   }
 }
-```  
+```
 Here we are adding a new passenger, named 'Bob' into the passenegers table and then querying the table again to return all passengers by name and id. Try adding more passengers in and see what is returned!
 
 Now we've created a passenger lets put some data in the flights table
@@ -311,7 +310,7 @@ To do this open the file `dynamodb/flight_data.json` and replace `<YOUR_ANIMAL_N
 Then run the below command with the file:
 ```
 $ aws dynamodb batch-write-item --region eu-west-2 --request-items file://~/GraphQL/Introduction-to-GraphQL-with-GO/dynamodb/flight_data.json
-```  
+```
 Return to your `flights` project and open `graph/schema.graphqls`
 
 Modify the Query type to look like this:
@@ -320,17 +319,17 @@ type Query {
   flights: [Flight!]
   passengers: [Passenger!]
 }
-```  
+```
 Run the command to update the schema:
 ```
 $ go run github.com/99designs/gqlgen generate
-```  
+```
 Open `graph/schema.resolvers.go`
 
 Find the function `Flights` and replace the implementation with:
 ```
 return datalayer.GetAllFlights()
-```  
+```
 You may see that "fmt" has appeared again in the file imports at the top. If so, please remove it again:
 
 ![graphql_flights](../../README_images/graphql_flights.png)
@@ -338,7 +337,7 @@ You may see that "fmt" has appeared again in the file imports at the top. If so,
 Get the server going again and navigate to `<workstation_ip>:8080` in your browser:
 ```
 $ go run ./server.go
-```  
+```
 Paste the below query into the left panel of the web page:
 ```
 query Flights {
@@ -346,7 +345,7 @@ query Flights {
     number
   }
 }
-```  
+```
 Execute the query and you should see the result:
 ```
 {
@@ -361,7 +360,7 @@ Execute the query and you should see the result:
     ]
   }
 }
-```  
+```
 Now lets book Bob onto this flight!
 
 Return to your `flights` project and open `graph/schema.graphqls`
@@ -372,11 +371,11 @@ type Mutation {
   createPassenger(name: String!): Passenger!
   bookFlight(flightNumber: String!, passengerId: ID!): Boolean!
 }
-```  
+```
 Run the command to update the schema:
 ```
 $ go run github.com/99designs/gqlgen generate
-```  
+```
 Open `graph/schema.resolvers.go`
 
 Find the function `BookFlight` and replace the implementation with:
@@ -388,7 +387,7 @@ return datalayer.BookFlight(flightNumber, passengerID)
 Start the server:
 ```
 $ go run ./server.go
-```  
+```
 Let's get Bob's passenger ID. Run the command:
 ```
 query Passengers {
@@ -397,7 +396,7 @@ query Passengers {
     name
   }
 }
-```  
+```
 Make a note of Bob's passenger ID as we will need this to book him a flight.
 
 Paste the below query into the left panel of the web page, pasting in Bob's ID:
@@ -405,7 +404,7 @@ Paste the below query into the left panel of the web page, pasting in Bob's ID:
 mutation BookFlight {
   bookFlight(flightNumber: "BA-386", passengerId: "<BOBS_ID>")
 }
-```  
+```
 Execute the query and you should see the result:
 ```
 {
@@ -413,7 +412,7 @@ Execute the query and you should see the result:
     "bookFlight": true
   }
 }
-```  
+```
 Paste the below query into the left panel of the web page:
 ```
 query Flights {
@@ -424,7 +423,7 @@ query Flights {
     },
   }
 }
-```  
+```
 Execute the query and you should see that Bob has been booked on BA flight 386!
 ```
 {
@@ -445,7 +444,7 @@ Execute the query and you should see that Bob has been booked on BA flight 386!
     ]
   }
 }
-```  
+```
 The above result you might use for a mobile app as the screen is small so only a small number of details should be shown. However if you were writing a desktop app instead then you may want to show more details. You can easily change the query to return more details from the flights like so:
 ```
 query Flights {
@@ -458,7 +457,7 @@ query Flights {
     captain
   }
 }
-```  
+```
 For completeness, please modify the Mutation type to look like this:
 ```
 type Mutation {
@@ -486,26 +485,3 @@ The command does exactly what it says on the tin. Infrastructure managed by Terr
 **Again, you will continue to be charged by AWS if you do not run this final step**
 
 We hope you enjoyed the playground DIY and make sure to keep coming back for more great content.
-
-#### Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| InstanceRole | The Role of the instance to take | `number` | `null` | no |
-| PlaygroundName | The playground name to tag all resouces with | `string` | `"oct"` | no |
-| deploy_count | Change this for the number of users of the playground | `number` | `1` | no |
-| instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
-| instance_type | instance type to be used for instances | `string` | `"t2.medium"` | no |
-| instances | number of instances per dns record | `number` | `1` | no |
-| policyLocation | The location of the policys | `string` | `"./../../policies"` | no |
-| region | The aws region to deploy to | `string` | `"eu-west-2"` | no |
-| scriptLocation | The location of the userData folder | `string` | `"./../../modules/instance/scripts"` | no |
-
-#### Outputs
-
-| Name | Description |
-|------|-------------|
-| WorkstationPassword | The password Used to SSH into the instance |
-| unique_identifier | Unique identifiers for Workstation instances |
-| workstation_ips | The ip of the workstation instances |
-
