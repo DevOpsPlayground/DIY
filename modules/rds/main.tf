@@ -13,6 +13,7 @@ resource "aws_db_instance" "postgres" {
   db_subnet_group_name   = aws_db_subnet_group.rds.id
   vpc_security_group_ids = var.security_group_ids
   skip_final_snapshot    = true
+  publicly_accessible    = true
 
   tags = {
     Name = "${var.PlaygroundName}-rds-instance"

@@ -2,6 +2,7 @@ locals {
   adj               = jsondecode(file("./adjectives.json"))
   random_password   = random_password.password.result
   database_password = random_password.db_password.result
+  rds_db_name       = "${element(local.adj, 0)}panda"
 }
 module "network" {
   count            = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
@@ -14,7 +15,7 @@ module "workstation_role" {
   source         = "../../modules/iam"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
-  aws_iam_policy = { database = file("${var.policyLocation}/dynamo_db.json") }
+  aws_iam_policy = { database = file("${var.policyLocation}/rds.json"), ssm = file("${var.policyLocation}/managed_instance.json") }
 }
 module "workstation" {
   count              = var.deploy_count
@@ -25,13 +26,17 @@ module "workstation" {
   subnet_id          = module.network.0.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "${var.scriptLocation}/oct-playground.sh",
+    "${var.scriptLocation}/may-2020.sh",
     {
-      hostname = "playground"
-      username = "playground"
-      ssh_pass = local.random_password
-      region   = var.region
-      gitrepo  = "https://github.com/DevOpsPlayground/Introduction-to-GraphQL-with-GO.git"
+      hostname     = "playground"
+      username     = "playground"
+      rds_username = "playground"
+      rds_password = local.database_password
+      rds_db_name  = local.rds_db_name
+      rds_host     = module.rds.0.single_hostname
+      ssh_pass     = local.random_password
+      region       = var.region
+      gitrepo      = "https://github.com/DevOpsPlayground/Hands-On-Ready-To-Deploy-Golang-CRUD-API.git"
     }
   )
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
@@ -45,7 +50,7 @@ module "rds" {
   subnet_ids         = module.network[count.index].public_subnets
   rds_username       = var.username
   rds_password       = local.database_password
-  rds_db_name        = "oct"
+  rds_db_name        = "may"
   security_group_ids = [module.network.0.allow_all_security_group_id]
 }
 # module "dns_workstation" {

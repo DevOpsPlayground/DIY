@@ -1,0 +1,1153 @@
+Script started on Thu Feb 11 16:02:06 2021
+[oh-my-zsh] Insecure completion-dependent directories detected:
+drwxrwxr-x   7 alastairsumner  admin  224  3 Oct 11:56 /usr/local/share/zsh
+drwxrwxr-x  10 alastairsumner  admin  320 18 Jan 14:29 /usr/local/share/zsh/site-functions
+
+[oh-my-zsh] For safety, we will not load completions from these directories until
+[oh-my-zsh] you fix their permissions and ownership and restart zsh.
+[oh-my-zsh] See the above list for directories with group or other writability.
+
+[oh-my-zsh] To fix your permissions you can do so by disabling
+[oh-my-zsh] the write permission of "group" and "others" and making sure that the
+[oh-my-zsh] owner of these directories is either root or your current user.
+[oh-my-zsh] The following command may help:
+[oh-my-zsh]     compaudit | xargs chmod g-w,o-w
+
+[oh-my-zsh] If the above didn't help or you want to skip the verification of
+[oh-my-zsh] insecure directories you can set the variable ZSH_DISABLE_COMPFIX to
+[oh-my-zsh] "true" before oh-my-zsh is sourced in your zshrc file.
+
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance]1;..ules/instance[0m[27m[24m[J[01;32m➜  [36minstance[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hscripts[?1l>[?2004l
+]2;scripts]1;scripts[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance/scripts]1;..tance/scripts[0m[27m[24m[J[01;32m➜  [36mscripts[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls -G]1;lsinstall-jenkins.sh may-2020.sh        oct-playground.sh  workstation.sh
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance/scripts]1;..tance/scripts[0m[27m[24m[J[01;32m➜  [36mscripts[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls -la[?1l>[?2004l
+]2;ls -G -la]1;lstotal 32
+drwxr-xr-x   6 alastairsumner  staff   192 11 Feb 14:08 [1m[36m.[39;49m[0m
+drwxr-xr-x  11 alastairsumner  staff   352 11 Feb 16:02 [1m[36m..[39;49m[0m
+-rw-r--r--   1 alastairsumner  staff   967  8 Feb 10:49 install-jenkins.sh
+-rw-r--r--   1 alastairsumner  staff  2886 11 Feb 14:28 may-2020.sh
+-rw-r--r--   1 alastairsumner  staff  2202 11 Feb 14:00 oct-playground.sh
+-rw-r--r--   1 alastairsumner  staff  1699  8 Feb 10:49 workstation.sh
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance/scripts]1;..tance/scripts[0m[27m[24m[J[01;32m➜  [36mscripts[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hls -la   scripts     s  tterrafomr   rm plan[?1l>[?2004l
+]2;terraform plan]1;terraform[31m
+[1m[31mError: [0m[0m[1mNo configuration files[0m
+
+[0mPlan requires configuration to be present. Planning without a configuration
+would mark everything for destruction, which is normally not what is desired.
+If you would like to destroy everything, run plan with the -destroy option.
+Otherwise, create a Terraform configuration file (.tf file) and try again.
+[0m[0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance/scripts]1;..tance/scripts[0m[27m[24m[J[01;31m➜  [36mscripts[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hccd ..[?1l>[?2004l
+]2;cd ..]1;cd[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance]1;..ules/instance[0m[27m[24m[J[01;32m➜  [36minstance[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls -G]1;lsREADME.md    ami.tf       header.md    main.tf      output.tf    [1m[36mscripts[39;49m[0m      typescript   variables.tf
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance]1;..ules/instance[0m[27m[24m[J[01;32m➜  [36minstance[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hccd .[?1l>[?2004l
+]2;cd .]1;cd[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules/instance]1;..ules/instance[0m[27m[24m[J[01;32m➜  [36minstance[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hccd ..[?1l>[?2004l
+]2;cd ..]1;cd[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules]1;..d/DIY/modules[0m[27m[24m[J[01;32m➜  [36mmodules[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls -G]1;ls[1m[36mdns[39;49m[0m      [1m[36mdynamodb[39;49m[0m [1m[36miam[39;49m[0m      [1m[36minstance[39;49m[0m [1m[36mnetwork[39;49m[0m  [1m[36mrds[39;49m[0m      [1m[36ms3[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/modules]1;..d/DIY/modules[0m[27m[24m[J[01;32m➜  [36mmodules[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hccd ..[?1l>[?2004l
+]2;cd ..]1;cd[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY]1;..layground/DIY[0m[27m[24m[J[01;32m➜  [36mDIY[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls -G]1;lsREADME.md         [1m[36mREADME_images[39;49m[0m     [1m[36mhooks[39;49m[0m             [1m[36mmodules[39;49m[0m           [1m[36mplaygrounds[39;49m[0m       [1m[36mpolicies[39;49m[0m          terraform.tfstate tfsec.yml
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY]1;..layground/DIY[0m[27m[24m[J[01;32m➜  [36mDIY[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hpplaygrounds[1m/[0m[0m [?1l>[?2004l
+]2;playgrounds]1;playgrounds[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds]1;..Y/playgrounds[0m[27m[24m[J[01;32m➜  [36mplaygrounds[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hmmay[?1l>[?2004l
+]2;may]1;mayzsh: command not found: may
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds]1;..Y/playgrounds[0m[27m[24m[J[01;31m➜  [36mplaygrounds[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hlls[?1l>[?2004l
+]2;ls -G]1;ls[1m[36mMay_2020[39;49m[0m      [1m[36mNovember_2020[39;49m[0m [1m[36mOctober_2020[39;49m[0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds]1;..Y/playgrounds[0m[27m[24m[J[01;32m➜  [36mplaygrounds[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hMMay_2020[1m/[0m[0m [?1l>[?2004l
+]2;May_2020]1;May_2020[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hMay_2020[8Dls      mayplaygrounds[11Dls         [9Dcd ..ls   cd .. ls  cd ..terraform plan[?1l>[?2004l
+]2;terraform plan]1;terraform[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211153752100000000001][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-062e1bbd65904a924][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.workstation[0].aws_instance.main[0][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_instance" "main" {
+      [32m+[0m [0m[1m[0mami[0m[0m                          = "ami-09b984029e6b0326b"
+      [32m+[0m [0m[1m[0marn[0m[0m                          = (known after apply)
+      [32m+[0m [0m[1m[0massociate_public_ip_address[0m[0m  = true
+      [32m+[0m [0m[1m[0mavailability_zone[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mcpu_core_count[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mcpu_threads_per_core[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mget_password_data[0m[0m            = false
+      [32m+[0m [0m[1m[0mhost_id[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0miam_instance_profile[0m[0m         = "may-instance-profile"
+      [32m+[0m [0m[1m[0mid[0m[0m                           = (known after apply)
+      [32m+[0m [0m[1m[0minstance_state[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0minstance_type[0m[0m                = "t2.medium"
+      [32m+[0m [0m[1m[0mipv6_address_count[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mipv6_addresses[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mkey_name[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0moutpost_arn[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mpassword_data[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mplacement_group[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mprimary_network_interface_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_dns[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_ip[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mpublic_dns[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mpublic_ip[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0msecondary_private_ips[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0msecurity_groups[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0msource_dest_check[0m[0m            = true
+      [32m+[0m [0m[1m[0msubnet_id[0m[0m                    = "subnet-0c37ff288bc539438"
+      [32m+[0m [0m[1m[0mtags[0m[0m                         = {
+          [32m+[0m [0m"Name"    = "funny-panda-may-workstation-1"
+          [32m+[0m [0m"Purpose" = "Playground"
+        }
+      [32m+[0m [0m[1m[0mtenancy[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0muser_data[0m[0m                    = "6ff0368359b778ab5ffe6d7c5bc36618b82f9720"
+      [32m+[0m [0m[1m[0mvpc_security_group_ids[0m[0m       = [
+          [32m+[0m [0m"sg-01326725bf9b357b8",
+        ]
+
+      [32m+[0m [0mebs_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0msnapshot_id[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+
+      [32m+[0m [0menclave_options {
+          [32m+[0m [0m[1m[0menabled[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mephemeral_block_device {
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mno_device[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mvirtual_name[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0mhttp_endpoint[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_tokens[0m[0m                 = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_index[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mnetwork_interface_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mroot_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+    }
+
+[1m  # module.workstation_role[0].aws_iam_policy.policy["ssm"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_policy" "policy" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "Permissions for the resource for ssm"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "may-ssm"
+      [32m+[0m [0m[1m[0mpath[0m[0m        = "/"
+      [32m+[0m [0m[1m[0mpolicy[0m[0m      = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ssm:DescribeAssociation",
+                          [32m+[0m [0m"ssm:GetDeployablePatchSnapshotForInstance",
+                          [32m+[0m [0m"ssm:GetDocument",
+                          [32m+[0m [0m"ssm:DescribeDocument",
+                          [32m+[0m [0m"ssm:GetManifest",
+                          [32m+[0m [0m"ssm:GetParameter",
+                          [32m+[0m [0m"ssm:GetParameters",
+                          [32m+[0m [0m"ssm:ListAssociations",
+                          [32m+[0m [0m"ssm:ListInstanceAssociations",
+                          [32m+[0m [0m"ssm:PutInventory",
+                          [32m+[0m [0m"ssm:PutComplianceItems",
+                          [32m+[0m [0m"ssm:PutConfigurePackageResult",
+                          [32m+[0m [0m"ssm:UpdateAssociationStatus",
+                          [32m+[0m [0m"ssm:UpdateInstanceAssociationStatus",
+                          [32m+[0m [0m"ssm:UpdateInstanceInformation",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ssmmessages:CreateControlChannel",
+                          [32m+[0m [0m"ssmmessages:CreateDataChannel",
+                          [32m+[0m [0m"ssmmessages:OpenControlChannel",
+                          [32m+[0m [0m"ssmmessages:OpenDataChannel",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ec2messages:AcknowledgeMessage",
+                          [32m+[0m [0m"ec2messages:DeleteMessage",
+                          [32m+[0m [0m"ec2messages:FailMessage",
+                          [32m+[0m [0m"ec2messages:GetEndpoint",
+                          [32m+[0m [0m"ec2messages:GetMessages",
+                          [32m+[0m [0m"ec2messages:SendReply",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+    }
+
+[1m  # module.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "deploy_attachment" {
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mpolicy_arn[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mrole[0m[0m       = "may"
+    }
+
+[0m[1mPlan:[0m 3 to add, 0 to change, 0 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [33m~[0m [0m[1m[0mworkstation_ips[0m[0m = [
+      [31m-[0m [0m[
+          [31m-[0m [0m"18.134.152.154",
+        ],
+      [32m+[0m [0m[
+          [32m+[0m [0m(known after apply),
+        ],
+    ][0m
+
+------------------------------------------------------------------------
+
+Note: You didn't specify an "-out" parameter to save this plan, so Terraform
+can't guarantee that exactly these actions will be performed if
+"terraform apply" is subsequently run.
+
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004htterrfaiomr      ro  orm al pply[?1l>[?2004l
+]2;terrform apply]1;terrformzsh: command not found: terrform
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;31m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004htterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211153752100000000001][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-062e1bbd65904a924][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.workstation[0].aws_instance.main[0][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_instance" "main" {
+      [32m+[0m [0m[1m[0mami[0m[0m                          = "ami-09b984029e6b0326b"
+      [32m+[0m [0m[1m[0marn[0m[0m                          = (known after apply)
+      [32m+[0m [0m[1m[0massociate_public_ip_address[0m[0m  = true
+      [32m+[0m [0m[1m[0mavailability_zone[0m[0m            = (known after apply)
+      [32m+[0m [0m[1m[0mcpu_core_count[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mcpu_threads_per_core[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mget_password_data[0m[0m            = false
+      [32m+[0m [0m[1m[0mhost_id[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0miam_instance_profile[0m[0m         = "may-instance-profile"
+      [32m+[0m [0m[1m[0mid[0m[0m                           = (known after apply)
+      [32m+[0m [0m[1m[0minstance_state[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0minstance_type[0m[0m                = "t2.medium"
+      [32m+[0m [0m[1m[0mipv6_address_count[0m[0m           = (known after apply)
+      [32m+[0m [0m[1m[0mipv6_addresses[0m[0m               = (known after apply)
+      [32m+[0m [0m[1m[0mkey_name[0m[0m                     = (known after apply)
+      [32m+[0m [0m[1m[0moutpost_arn[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mpassword_data[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mplacement_group[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0mprimary_network_interface_id[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_dns[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mprivate_ip[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mpublic_dns[0m[0m                   = (known after apply)
+      [32m+[0m [0m[1m[0mpublic_ip[0m[0m                    = (known after apply)
+      [32m+[0m [0m[1m[0msecondary_private_ips[0m[0m        = (known after apply)
+      [32m+[0m [0m[1m[0msecurity_groups[0m[0m              = (known after apply)
+      [32m+[0m [0m[1m[0msource_dest_check[0m[0m            = true
+      [32m+[0m [0m[1m[0msubnet_id[0m[0m                    = "subnet-0c37ff288bc539438"
+      [32m+[0m [0m[1m[0mtags[0m[0m                         = {
+          [32m+[0m [0m"Name"    = "funny-panda-may-workstation-1"
+          [32m+[0m [0m"Purpose" = "Playground"
+        }
+      [32m+[0m [0m[1m[0mtenancy[0m[0m                      = (known after apply)
+      [32m+[0m [0m[1m[0muser_data[0m[0m                    = "6ff0368359b778ab5ffe6d7c5bc36618b82f9720"
+      [32m+[0m [0m[1m[0mvpc_security_group_ids[0m[0m       = [
+          [32m+[0m [0m"sg-01326725bf9b357b8",
+        ]
+
+      [32m+[0m [0mebs_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0msnapshot_id[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+
+      [32m+[0m [0menclave_options {
+          [32m+[0m [0m[1m[0menabled[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mephemeral_block_device {
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mno_device[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mvirtual_name[0m[0m = (known after apply)
+        }
+
+      [32m+[0m [0mmetadata_options {
+          [32m+[0m [0m[1m[0mhttp_endpoint[0m[0m               = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mhttp_tokens[0m[0m                 = (known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_index[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mnetwork_interface_id[0m[0m  = (known after apply)
+        }
+
+      [32m+[0m [0mroot_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+    }
+
+[1m  # module.workstation_role[0].aws_iam_policy.policy["ssm"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_policy" "policy" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "Permissions for the resource for ssm"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "may-ssm"
+      [32m+[0m [0m[1m[0mpath[0m[0m        = "/"
+      [32m+[0m [0m[1m[0mpolicy[0m[0m      = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ssm:DescribeAssociation",
+                          [32m+[0m [0m"ssm:GetDeployablePatchSnapshotForInstance",
+                          [32m+[0m [0m"ssm:GetDocument",
+                          [32m+[0m [0m"ssm:DescribeDocument",
+                          [32m+[0m [0m"ssm:GetManifest",
+                          [32m+[0m [0m"ssm:GetParameter",
+                          [32m+[0m [0m"ssm:GetParameters",
+                          [32m+[0m [0m"ssm:ListAssociations",
+                          [32m+[0m [0m"ssm:ListInstanceAssociations",
+                          [32m+[0m [0m"ssm:PutInventory",
+                          [32m+[0m [0m"ssm:PutComplianceItems",
+                          [32m+[0m [0m"ssm:PutConfigurePackageResult",
+                          [32m+[0m [0m"ssm:UpdateAssociationStatus",
+                          [32m+[0m [0m"ssm:UpdateInstanceAssociationStatus",
+                          [32m+[0m [0m"ssm:UpdateInstanceInformation",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ssmmessages:CreateControlChannel",
+                          [32m+[0m [0m"ssmmessages:CreateDataChannel",
+                          [32m+[0m [0m"ssmmessages:OpenControlChannel",
+                          [32m+[0m [0m"ssmmessages:OpenDataChannel",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = [
+                          [32m+[0m [0m"ec2messages:AcknowledgeMessage",
+                          [32m+[0m [0m"ec2messages:DeleteMessage",
+                          [32m+[0m [0m"ec2messages:FailMessage",
+                          [32m+[0m [0m"ec2messages:GetEndpoint",
+                          [32m+[0m [0m"ec2messages:GetMessages",
+                          [32m+[0m [0m"ec2messages:SendReply",
+                        ]
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+    }
+
+[1m  # module.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "deploy_attachment" {
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mpolicy_arn[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mrole[0m[0m       = "may"
+    }
+
+[0m[1mPlan:[0m 3 to add, 0 to change, 0 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [33m~[0m [0m[1m[0mworkstation_ips[0m[0m = [
+      [31m-[0m [0m[
+          [31m-[0m [0m"18.134.152.154",
+        ],
+      [32m+[0m [0m[
+          [32m+[0m [0m(known after apply),
+        ],
+    ][0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Creating...[0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creating...[0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Creation complete after 3s [id=arn:aws:iam::630895193694:policy/may-ssm][0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Creating...[0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Creation complete after 1s [id=may-20210211160737368600000001][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [20s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creation complete after 21s [id=i-0c3f7b055c8346483][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+WorkstationPassword = "uA+}dp}uM[BOht#r"
+rds_password = "DFn4sr8dkv0hm6z4"
+subnet_id = [
+  [
+    "subnet-0c37ff288bc539438",
+    "subnet-0550a0fbd792abab6",
+  ],
+]
+unique_identifier = [
+  [
+    "funny-panda-may-workstation-1",
+  ],
+]
+workstation_ips = [
+  [
+    "35.177.134.88",
+  ],
+][0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-ssm][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211153752100000000001][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Refreshing state... [id=may-20210211160737368600000001][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-0c3f7b055c8346483][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+[31m-[0m/[32m+[0m destroy and then create replacement
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.workstation[0].aws_instance.main[0][0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_instance" "main" {
+      [33m~[0m [0m[1m[0marn[0m[0m                          = "arn:aws:ec2:eu-west-2:630895193694:instance/i-0c3f7b055c8346483" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mavailability_zone[0m[0m            = "eu-west-2a" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcpu_core_count[0m[0m               = 2 [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcpu_threads_per_core[0m[0m         = 1 [33m->[0m [0m(known after apply)
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m      = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                  = false [90m->[0m [0m[90mnull[0m[0m
+      [32m+[0m [0m[1m[0mhost_id[0m[0m                      = (known after apply)
+      [33m~[0m [0m[1m[0mid[0m[0m                           = "i-0c3f7b055c8346483" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0minstance_state[0m[0m               = "running" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mipv6_address_count[0m[0m           = 0 [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mipv6_addresses[0m[0m               = [] [33m->[0m [0m(known after apply)
+      [32m+[0m [0m[1m[0mkey_name[0m[0m                     = (known after apply)
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                   = false [90m->[0m [0m[90mnull[0m[0m
+      [32m+[0m [0m[1m[0moutpost_arn[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mpassword_data[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mplacement_group[0m[0m              = (known after apply)
+      [33m~[0m [0m[1m[0mprimary_network_interface_id[0m[0m = "eni-05960ab817f2ad498" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mprivate_dns[0m[0m                  = "ip-10-0-10-121.eu-west-2.compute.internal" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mprivate_ip[0m[0m                   = "10.0.10.121" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_dns[0m[0m                   = "ec2-35-177-134-88.eu-west-2.compute.amazonaws.com" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_ip[0m[0m                    = "35.177.134.88" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0msecondary_private_ips[0m[0m        = [] [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0msecurity_groups[0m[0m              = [] [33m->[0m [0m(known after apply)
+        [1m[0mtags[0m[0m                         = {
+            "Name"    = "funny-panda-may-workstation-1"
+            "Purpose" = "Playground"
+        }
+      [33m~[0m [0m[1m[0mtenancy[0m[0m                      = "default" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0muser_data[0m[0m                    = "6ff0368359b778ab5ffe6d7c5bc36618b82f9720" [33m->[0m [0m"d66f4c374af959105d75adb87cf2578500e1e2bf" [31m# forces replacement[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m [0mcredit_specification {
+          [31m-[0m [0m[1m[0mcpu_credits[0m[0m = "standard" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [32m+[0m [0mebs_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0msnapshot_id[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+
+      [33m~[0m [0menclave_options {
+          [33m~[0m [0m[1m[0menabled[0m[0m = false [33m->[0m [0m(known after apply)
+        }
+
+      [32m+[0m [0mephemeral_block_device {
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mno_device[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mvirtual_name[0m[0m = (known after apply)
+        }
+
+      [33m~[0m [0mmetadata_options {
+          [33m~[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [33m->[0m [0m(known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_index[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mnetwork_interface_id[0m[0m  = (known after apply)
+        }
+
+      [33m~[0m [0mroot_block_device {
+          [33m~[0m [0m[1m[0mdelete_on_termination[0m[0m = true [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sda1" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mencrypted[0m[0m             = false [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0miops[0m[0m                  = 100 [33m->[0m [0m(known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [33m~[0m [0m[1m[0mtags[0m[0m                  = {} [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mthroughput[0m[0m            = 0 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_id[0m[0m             = "vol-060477f56c3d6782d" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_size[0m[0m           = 8 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_type[0m[0m           = "gp2" [33m->[0m [0m(known after apply)
+        }
+    }
+
+[0m[1mPlan:[0m 1 to add, 0 to change, 1 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [33m~[0m [0m[1m[0mworkstation_ips[0m[0m = [
+      [31m-[0m [0m[
+          [31m-[0m [0m"35.177.134.88",
+        ],
+      [32m+[0m [0m[
+          [32m+[0m [0m(known after apply),
+        ],
+    ][0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Destroying... [id=i-0c3f7b055c8346483][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-0c3f7b055c8346483, 10s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-0c3f7b055c8346483, 20s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-0c3f7b055c8346483, 30s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Destruction complete after 40s[0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creating...[0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [20s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [30s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creation complete after 31s [id=i-07c0d32e75025725a][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+WorkstationPassword = "uA+}dp}uM[BOht#r"
+rds_password = "DFn4sr8dkv0hm6z4"
+subnet_id = [
+  [
+    "subnet-0c37ff288bc539438",
+    "subnet-0550a0fbd792abab6",
+  ],
+]
+unique_identifier = [
+  [
+    "funny-panda-may-workstation-1",
+  ],
+]
+workstation_ips = [
+  [
+    "35.177.24.102",
+  ],
+][0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[31m
+[1m[31mError: [0m[0m[1mUnsupported argument[0m
+
+[0m  on main.tf line 55, in module "rds":
+  55:   [4mpublicly_accesible[0m = true
+[0m
+An argument named "publicly_accesible" is not expected here.
+[0m[0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;31m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-ssm][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211153752100000000001][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Refreshing state... [id=may-20210211160737368600000001][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-07c0d32e75025725a][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [32m+[0m create
+  [33m~[0m update in-place
+[31m-[0m/[32m+[0m destroy and then create replacement
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.network[0].aws_security_group.allow_all[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_security_group" "allow_all" {
+        [1m[0mid[0m[0m                     = "sg-01326725bf9b357b8"
+      [33m~[0m [0m[1m[0mingress[0m[0m                = [
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = [
+                  [31m-[0m [0m"0.0.0.0/0",
+                ]
+              [31m-[0m [0mdescription      = "TLS from VPC"
+              [31m-[0m [0mfrom_port        = 0
+              [31m-[0m [0mipv6_cidr_blocks = [
+                  [31m-[0m [0m"::/0",
+                ]
+              [31m-[0m [0mprefix_list_ids  = []
+              [31m-[0m [0mprotocol         = "tcp"
+              [31m-[0m [0msecurity_groups  = []
+              [31m-[0m [0mself             = false
+              [31m-[0m [0mto_port          = 0
+            },
+          [32m+[0m [0m{
+              [32m+[0m [0mcidr_blocks      = [
+                  [32m+[0m [0m"0.0.0.0/0",
+                ]
+              [32m+[0m [0mdescription      = "TLS from VPC"
+              [32m+[0m [0mfrom_port        = 0
+              [32m+[0m [0mipv6_cidr_blocks = []
+              [32m+[0m [0mprefix_list_ids  = []
+              [32m+[0m [0mprotocol         = "-1"
+              [32m+[0m [0msecurity_groups  = []
+              [32m+[0m [0mself             = false
+              [32m+[0m [0mto_port          = 0
+            },
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = []
+              [31m-[0m [0mdescription      = "TLS from VPC"
+              [31m-[0m [0mfrom_port        = 0
+              [31m-[0m [0mipv6_cidr_blocks = [
+                  [31m-[0m [0m"::/0",
+                ]
+              [31m-[0m [0mprefix_list_ids  = []
+              [31m-[0m [0mprotocol         = "-1"
+              [31m-[0m [0msecurity_groups  = []
+              [31m-[0m [0mself             = false
+              [31m-[0m [0mto_port          = 0
+            },
+        ]
+        [1m[0mname[0m[0m                   = "allow_all"
+        [1m[0mtags[0m[0m                   = {
+            "Name"    = "may-allow_all"
+            "Purpose" = "Playground"
+        }
+        [90m# (6 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.rds[0].aws_db_instance.postgres[0][0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_db_instance" "postgres" {
+        [1m[0mid[0m[0m                                    = "funnypanda"
+        [1m[0mname[0m[0m                                  = "may"
+      [33m~[0m [0m[1m[0mpublicly_accessible[0m[0m                   = false [33m->[0m [0mtrue
+        [1m[0mtags[0m[0m                                  = {
+            "Name" = "funny-panda-may-rds-instance"
+        }
+        [90m# (42 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.workstation[0].aws_instance.main[0][0m must be [1m[31mreplaced[0m[0m
+[0m[31m-[0m/[32m+[0m[0m resource "aws_instance" "main" {
+      [33m~[0m [0m[1m[0marn[0m[0m                          = "arn:aws:ec2:eu-west-2:630895193694:instance/i-07c0d32e75025725a" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mavailability_zone[0m[0m            = "eu-west-2a" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcpu_core_count[0m[0m               = 2 [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mcpu_threads_per_core[0m[0m         = 1 [33m->[0m [0m(known after apply)
+      [31m-[0m [0m[1m[0mdisable_api_termination[0m[0m      = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mebs_optimized[0m[0m                = false [90m->[0m [0m[90mnull[0m[0m
+      [31m-[0m [0m[1m[0mhibernation[0m[0m                  = false [90m->[0m [0m[90mnull[0m[0m
+      [32m+[0m [0m[1m[0mhost_id[0m[0m                      = (known after apply)
+      [33m~[0m [0m[1m[0mid[0m[0m                           = "i-07c0d32e75025725a" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0minstance_state[0m[0m               = "running" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mipv6_address_count[0m[0m           = 0 [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mipv6_addresses[0m[0m               = [] [33m->[0m [0m(known after apply)
+      [32m+[0m [0m[1m[0mkey_name[0m[0m                     = (known after apply)
+      [31m-[0m [0m[1m[0mmonitoring[0m[0m                   = false [90m->[0m [0m[90mnull[0m[0m
+      [32m+[0m [0m[1m[0moutpost_arn[0m[0m                  = (known after apply)
+      [32m+[0m [0m[1m[0mpassword_data[0m[0m                = (known after apply)
+      [32m+[0m [0m[1m[0mplacement_group[0m[0m              = (known after apply)
+      [33m~[0m [0m[1m[0mprimary_network_interface_id[0m[0m = "eni-085f2064f7ca09c1b" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mprivate_dns[0m[0m                  = "ip-10-0-10-203.eu-west-2.compute.internal" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mprivate_ip[0m[0m                   = "10.0.10.203" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_dns[0m[0m                   = "ec2-35-177-24-102.eu-west-2.compute.amazonaws.com" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0mpublic_ip[0m[0m                    = "35.177.24.102" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0msecondary_private_ips[0m[0m        = [] [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0msecurity_groups[0m[0m              = [] [33m->[0m [0m(known after apply)
+        [1m[0mtags[0m[0m                         = {
+            "Name"    = "funny-panda-may-workstation-1"
+            "Purpose" = "Playground"
+        }
+      [33m~[0m [0m[1m[0mtenancy[0m[0m                      = "default" [33m->[0m [0m(known after apply)
+      [33m~[0m [0m[1m[0muser_data[0m[0m                    = "d66f4c374af959105d75adb87cf2578500e1e2bf" [33m->[0m [0m"202a32f57df95b327b674ca7e0e67f2613c5a25f" [31m# forces replacement[0m[0m
+        [90m# (8 unchanged attributes hidden)[0m[0m
+
+      [31m-[0m [0mcredit_specification {
+          [31m-[0m [0m[1m[0mcpu_credits[0m[0m = "standard" [90m->[0m [0m[90mnull[0m[0m
+        }
+
+      [32m+[0m [0mebs_block_device {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mencrypted[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0miops[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0msnapshot_id[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mtags[0m[0m                  = (known after apply)
+          [32m+[0m [0m[1m[0mthroughput[0m[0m            = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_id[0m[0m             = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_size[0m[0m           = (known after apply)
+          [32m+[0m [0m[1m[0mvolume_type[0m[0m           = (known after apply)
+        }
+
+      [33m~[0m [0menclave_options {
+          [33m~[0m [0m[1m[0menabled[0m[0m = false [33m->[0m [0m(known after apply)
+        }
+
+      [32m+[0m [0mephemeral_block_device {
+          [32m+[0m [0m[1m[0mdevice_name[0m[0m  = (known after apply)
+          [32m+[0m [0m[1m[0mno_device[0m[0m    = (known after apply)
+          [32m+[0m [0m[1m[0mvirtual_name[0m[0m = (known after apply)
+        }
+
+      [33m~[0m [0mmetadata_options {
+          [33m~[0m [0m[1m[0mhttp_endpoint[0m[0m               = "enabled" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mhttp_put_response_hop_limit[0m[0m = 1 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mhttp_tokens[0m[0m                 = "optional" [33m->[0m [0m(known after apply)
+        }
+
+      [32m+[0m [0mnetwork_interface {
+          [32m+[0m [0m[1m[0mdelete_on_termination[0m[0m = (known after apply)
+          [32m+[0m [0m[1m[0mdevice_index[0m[0m          = (known after apply)
+          [32m+[0m [0m[1m[0mnetwork_interface_id[0m[0m  = (known after apply)
+        }
+
+      [33m~[0m [0mroot_block_device {
+          [33m~[0m [0m[1m[0mdelete_on_termination[0m[0m = true [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mdevice_name[0m[0m           = "/dev/sda1" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mencrypted[0m[0m             = false [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0miops[0m[0m                  = 100 [33m->[0m [0m(known after apply)
+          [32m+[0m [0m[1m[0mkms_key_id[0m[0m            = (known after apply)
+          [33m~[0m [0m[1m[0mtags[0m[0m                  = {} [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mthroughput[0m[0m            = 0 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_id[0m[0m             = "vol-0aad9b0407fcd58a0" [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_size[0m[0m           = 8 [33m->[0m [0m(known after apply)
+          [33m~[0m [0m[1m[0mvolume_type[0m[0m           = "gp2" [33m->[0m [0m(known after apply)
+        }
+    }
+
+[1m  # module.workstation_role[0].aws_iam_policy.policy["database"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_policy" "policy" {
+      [32m+[0m [0m[1m[0marn[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mdescription[0m[0m = "Permissions for the resource for database"
+      [32m+[0m [0m[1m[0mid[0m[0m          = (known after apply)
+      [32m+[0m [0m[1m[0mname[0m[0m        = "may-database"
+      [32m+[0m [0m[1m[0mpath[0m[0m        = "/"
+      [32m+[0m [0m[1m[0mpolicy[0m[0m      = jsonencode(
+            {
+              [32m+[0m [0mStatement = [
+                  [32m+[0m [0m{
+                      [32m+[0m [0mAction   = "rds:*"
+                      [32m+[0m [0mEffect   = "Allow"
+                      [32m+[0m [0mResource = "*"
+                      [32m+[0m [0mSid      = "VisualEditor0"
+                    },
+                ]
+              [32m+[0m [0mVersion   = "2012-10-17"
+            }
+        )
+    }
+
+[1m  # module.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"][0m will be created[0m[0m
+[0m  [32m+[0m[0m resource "aws_iam_role_policy_attachment" "deploy_attachment" {
+      [32m+[0m [0m[1m[0mid[0m[0m         = (known after apply)
+      [32m+[0m [0m[1m[0mpolicy_arn[0m[0m = (known after apply)
+      [32m+[0m [0m[1m[0mrole[0m[0m       = "may"
+    }
+
+[0m[1mPlan:[0m 3 to add, 2 to change, 1 to destroy.[0m
+[0m
+[1mChanges to Outputs:[0m
+  [33m~[0m [0m[1m[0mworkstation_ips[0m[0m = [
+      [31m-[0m [0m[
+          [31m-[0m [0m"35.177.24.102",
+        ],
+      [32m+[0m [0m[
+          [32m+[0m [0m(known after apply),
+        ],
+    ][0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Creating...[0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Destroying... [id=i-07c0d32e75025725a][0m[0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Modifying... [id=sg-01326725bf9b357b8][0m[0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Modifications complete after 0s [id=sg-01326725bf9b357b8][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifying... [id=funnypanda][0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Creation complete after 2s [id=arn:aws:iam::630895193694:policy/may-database][0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Creating...[0m[0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Creation complete after 3s [id=may-20210211173146113600000001][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-07c0d32e75025725a, 10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 10s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-07c0d32e75025725a, 20s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 20s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still destroying... [id=i-07c0d32e75025725a, 30s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 30s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Destruction complete after 40s[0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 40s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 50s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m0s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m20s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m30s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m40s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m50s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 2m0s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifications complete after 2m3s [id=funnypanda][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creating...[0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [10s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [20s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Still creating... [30s elapsed][0m[0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Creation complete after 32s [id=i-0ebf9f23fb035380f][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 3 added, 2 changed, 1 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+WorkstationPassword = "uA+}dp}uM[BOht#r"
+rds_password = "DFn4sr8dkv0hm6z4"
+subnet_id = [
+  [
+    "subnet-0c37ff288bc539438",
+    "subnet-0550a0fbd792abab6",
+  ],
+]
+unique_identifier = [
+  [
+    "funny-panda-may-workstation-1",
+  ],
+]
+workstation_ips = [
+  [
+    "18.135.98.99",
+  ],
+][0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-ssm][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211173146113600000001][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Refreshing state... [id=may-20210211160737368600000001][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-0ebf9f23fb035380f][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.network[0].aws_security_group.allow_all[0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_security_group" "allow_all" {
+        [1m[0mid[0m[0m                     = "sg-01326725bf9b357b8"
+      [33m~[0m [0m[1m[0mingress[0m[0m                = [
+          [31m-[0m [0m{
+              [31m-[0m [0mcidr_blocks      = [
+                  [31m-[0m [0m"0.0.0.0/0",
+                ]
+              [31m-[0m [0mdescription      = ""
+              [31m-[0m [0mfrom_port        = 5432
+              [31m-[0m [0mipv6_cidr_blocks = [
+                  [31m-[0m [0m"::/0",
+                ]
+              [31m-[0m [0mprefix_list_ids  = []
+              [31m-[0m [0mprotocol         = "tcp"
+              [31m-[0m [0msecurity_groups  = []
+              [31m-[0m [0mself             = false
+              [31m-[0m [0mto_port          = 5432
+            },
+            [90m# (1 unchanged element hidden)[0m[0m
+        ]
+        [1m[0mname[0m[0m                   = "allow_all"
+        [1m[0mtags[0m[0m                   = {
+            "Name"    = "may-allow_all"
+            "Purpose" = "Playground"
+        }
+        [90m# (6 unchanged attributes hidden)[0m[0m
+    }
+
+[1m  # module.rds[0].aws_db_instance.postgres[0][0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_db_instance" "postgres" {
+        [1m[0mid[0m[0m                                    = "funnypanda"
+        [1m[0mname[0m[0m                                  = "may"
+      [33m~[0m [0m[1m[0mpublicly_accessible[0m[0m                   = true [33m->[0m [0mfalse
+        [1m[0mtags[0m[0m                                  = {
+            "Name" = "funny-panda-may-rds-instance"
+        }
+        [90m# (42 unchanged attributes hidden)[0m[0m
+    }
+
+[0m[1mPlan:[0m 0 to add, 2 to change, 0 to destroy.[0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1mmodule.network[0].aws_security_group.allow_all: Modifying... [id=sg-01326725bf9b357b8][0m[0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Modifications complete after 0s [id=sg-01326725bf9b357b8][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifying... [id=funnypanda][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 20s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 30s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 40s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 50s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m0s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifications complete after 1m11s [id=funnypanda][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 2 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+WorkstationPassword = "uA+}dp}uM[BOht#r"
+rds_password = "DFn4sr8dkv0hm6z4"
+subnet_id = [
+  [
+    "subnet-0c37ff288bc539438",
+    "subnet-0550a0fbd792abab6",
+  ],
+]
+unique_identifier = [
+  [
+    "funny-panda-may-workstation-1",
+  ],
+]
+workstation_ips = [
+  [
+    "18.135.98.99",
+  ],
+][0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hterraform apply[?1l>[?2004l
+]2;terraform apply]1;terraform[0m[1mrandom_password.password: Refreshing state... [id=none][0m
+[0m[1mrandom_password.db_password: Refreshing state... [id=none][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role.role: Refreshing state... [id=may][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["database"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-database][0m
+[0m[1mmodule.workstation_role[0].aws_iam_policy.policy["ssm"]: Refreshing state... [id=arn:aws:iam::630895193694:policy/may-ssm][0m
+[0m[1mmodule.network[0].aws_eip.ngw_ip: Refreshing state... [id=eipalloc-0d10dad23644436f7][0m
+[0m[1mmodule.network[0].aws_vpc.vpc: Refreshing state... [id=vpc-044c6d0a070e87dfa][0m
+[0m[1maws_iam_instance_profile.workstation_profile: Refreshing state... [id=may-instance-profile][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["ssm"]: Refreshing state... [id=may-20210211160737368600000001][0m
+[0m[1mmodule.workstation_role[0].aws_iam_role_policy_attachment.deploy_attachment["database"]: Refreshing state... [id=may-20210211173146113600000001][0m
+[0m[1mmodule.network[0].aws_route_table.public_route_table: Refreshing state... [id=rtb-0d64c14ac82b5428f][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[1]: Refreshing state... [id=subnet-0550a0fbd792abab6][0m
+[0m[1mmodule.network[0].aws_subnet.public_subnets[0]: Refreshing state... [id=subnet-0c37ff288bc539438][0m
+[0m[1mmodule.network[0].aws_internet_gateway.igw: Refreshing state... [id=igw-0a39d631f1e39140c][0m
+[0m[1mmodule.network[0].aws_default_security_group.database: Refreshing state... [id=sg-009ab9624fcb17beb][0m
+[0m[1mmodule.network[0].aws_security_group.allow_all: Refreshing state... [id=sg-01326725bf9b357b8][0m
+[0m[1mmodule.network[0].aws_route.public_route_to_igw: Refreshing state... [id=r-rtb-0d64c14ac82b5428f1080289494][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[1]: Refreshing state... [id=rtbassoc-03416bb877e4a2870][0m
+[0m[1mmodule.network[0].aws_route_table_association.public_rt_assoc[0]: Refreshing state... [id=rtbassoc-020ba9db03e87a782][0m
+[0m[1mmodule.rds[0].aws_db_subnet_group.rds: Refreshing state... [id=funny-panda-may-subnet-group][0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Refreshing state... [id=funnypanda][0m
+[0m[1mmodule.workstation[0].aws_instance.main[0]: Refreshing state... [id=i-0ebf9f23fb035380f][0m
+
+An execution plan has been generated and is shown below.
+Resource actions are indicated with the following symbols:
+  [33m~[0m update in-place
+[0m
+Terraform will perform the following actions:
+
+[1m  # module.rds[0].aws_db_instance.postgres[0][0m will be updated in-place[0m[0m
+[0m  [33m~[0m[0m resource "aws_db_instance" "postgres" {
+        [1m[0mid[0m[0m                                    = "funnypanda"
+        [1m[0mname[0m[0m                                  = "may"
+      [33m~[0m [0m[1m[0mpublicly_accessible[0m[0m                   = false [33m->[0m [0mtrue
+        [1m[0mtags[0m[0m                                  = {
+            "Name" = "funny-panda-may-rds-instance"
+        }
+        [90m# (42 unchanged attributes hidden)[0m[0m
+    }
+
+[0m[1mPlan:[0m 0 to add, 1 to change, 0 to destroy.[0m
+
+[0m[1mDo you want to perform these actions?[0m
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  [1mEnter a value:[0m [0myes
+
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifying... [id=funnypanda][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 20s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 30s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 40s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 50s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m0s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m20s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m30s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m40s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 1m50s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 2m0s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Still modifying... [id=funnypanda, 2m10s elapsed][0m[0m
+[0m[1mmodule.rds[0].aws_db_instance.postgres[0]: Modifications complete after 2m13s [id=funnypanda][0m[0m
+[0m[1m[32m
+Apply complete! Resources: 0 added, 1 changed, 0 destroyed.[0m
+[0m[1m[32m
+Outputs:
+
+WorkstationPassword = "uA+}dp}uM[BOht#r"
+rds_password = "DFn4sr8dkv0hm6z4"
+subnet_id = [
+  [
+    "subnet-0c37ff288bc539438",
+    "subnet-0550a0fbd792abab6",
+  ],
+]
+unique_identifier = [
+  [
+    "funny-panda-may-workstation-1",
+  ],
+]
+workstation_ips = [
+  [
+    "18.135.98.99",
+  ],
+][0m
+[1m[7m%[27m[1m[0m                                                                                                                                                                                                             ]2;alastairsumner@C02DDKGYMD6M:~/Projects/playground/DIY/playgrounds/May_2020]1;..unds/May_2020[0m[27m[24m[J[01;32m➜  [36mMay_2020[00m [01;34mgit:([31mfeature/may-2020[34m) [33m✗[00m [K[?1h=[?2004hg
