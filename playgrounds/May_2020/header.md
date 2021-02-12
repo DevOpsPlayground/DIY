@@ -1,10 +1,10 @@
 <p align="center">
-<img src=../../README_images/graphql_go.jpeg width="400">
+<img src=../../README_images/go_logo.jpeg width="400">
 </p>
 
-<h1 align="center">Welcome to the October playground! Introduction to GraphQL with Go</h1>
+<h1 align="center">Welcome to the May playground! Hands-on, Ready to Deploy, Golang CRUD API</h1>
 
-[The Playground link](https://github.com/DevOpsPlayground/Introduction-to-GraphQL-with-GO)
+[The Playground link](https://github.com/DevOpsPlayground/Hands-On-Ready-To-Deploy-Golang-CRUD-API)
 
 # Check Before You Start!
 
@@ -16,16 +16,18 @@ We will be building the required infrastructure using Terraform so if you do not
 
 Before we get started there are a few things that are worth noting. We have set the defaults to a number of variables that can be changed within the `variables.tf` file if required:
 
-* The current code will build a single workstation instance in AWS.
+* The current code will build a single workstation instance in AWS and a single RDS Postgres instance.
 * The workstation instance will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
-* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `40-47` in `main.tf`, lines `10-12` in `outputs.tf` and lines `22-26` in `variables.tf`
+* The playground author is a big fan of VIM so, if you'd rather challenge yourself a little, give that a Go (no pun intended)! If not, you can use the VS Code IDE.
+* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `54-61` in `main.tf`, lines `21-23` in `outputs.tf` and lines `27-31` in `variables.tf`
 * The default `region` is set to `eu-west-2`
 * The default `deploy_count` is set to 1. Change this if you are running the playground for more than one user.
-* The default `instance_type` is set to t2.medium as the t2.micro does not have enough resource to efficiently run the workstation. This on-demand pricing is $0.0464 per hour (£0.034 per hour) per instance. Should you leave this running for 1 month (720 hours), you would be charged $33.63 (£24.48) per instance. **make sure you delete the instance when finished with the playground!**
+* The RDS instance is running on a `db.t2-micro`, which is part of the free tier so no charge there!
+* The default `instance_type` is set to `t2.medium` as the t2.micro does not have enough resource to efficiently run the workstation. This on-demand pricing is $0.0464 per hour (£0.034 per hour) per instance. Should you leave this running for 1 month (720 hours), you would be charged $33.63 (£24.48) per instance. **make sure you delete the instance when finished with the playground!**
 
 # Build Infrastructure
 
-Make sure you are in the `October` directory and run:
+Make sure you are in the `May_2020` directory and run:
 
 ```
 $ terraform init
