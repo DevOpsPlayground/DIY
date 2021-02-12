@@ -19,6 +19,11 @@ variable "instances" {
   default     = 1
   description = "number of instances per dns record"
 }
+variable "rds_db_name" {
+  type        = string
+  default     = "maypanda"
+  description = "RDS database name"
+}
 # variable "domain_name" {
 #   type        = string
 #   default     = "devopsplayground.org"
