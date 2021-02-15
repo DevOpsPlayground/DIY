@@ -700,12 +700,6 @@ Some materials were adopted from this cool book:
 
 ## Thanks for participating!
 
-
-
-
-
-
-
 ## Clean up
 
 **Once you have finished playing around remember to delete the infrastructure to avoid any additional running charges as mentioned**
