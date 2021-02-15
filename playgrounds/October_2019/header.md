@@ -26,10 +26,9 @@ Before we get started there are a few things that are worth noting. We have set 
 * The current code will build two EC2 instances one for a workstation and a second for the ansible remote host.
 * The workstation instance and remote host will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code. 
 * If you prefer to use VIM then you can ! If not, you can use the VS Code IDE.
-* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `54-61` in `main.tf`, lines `21-23` in `outputs.tf` and lines `27-31` in `variables.tf`
+* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `51-67` in `main.tf`, lines `25-31` in `outputs.tf` and lines `23-27` in `variables.tf`
 * The default `region` is set to `eu-west-2`
 * The default `deploy_count` is set to 1. Change this if you are running the playground for more than one user.
-* The RDS instance is running on a `db.t2-micro`, which is part of the free tier so no charge there!
 * The default `instance_type` is set to `t2.medium` as the t2.micro does not have enough resource to efficiently run the workstation. This on-demand pricing is $0.0464 per hour (£0.034 per hour) per instance. Should you leave this running for 1 month (720 hours), you would be charged $33.63 (£24.48) per instance. **make sure you delete the instance when finished with the playground!**
 
 # Build Infrastructure
@@ -71,22 +70,22 @@ Terraform will now build our required AWS infrastructure. This should complete a
 <img src=../../README_images/oct-19-apply.png width="600">
 </p>
 
-> IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.
+> IMPORTANT! - make a note of the `WorkstationPassword` and `RemoteHostPassword` as these are auto-generated and will only be shown once. If lost you may need to build your instances again.
 
-Once the apply has completed your EC2 instance(s) will now be initialising and running the required script(s). Once the `instances state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies. 
+Once the apply has completed your EC2 instance(s) will now be initialising and running the required script(s). Once the `instances state` have changed to `Running` they may take a further 4/5 minutes to install all the required dependencies. 
 
 ## Access
 
 To access your instances check outputs in terminal after running `terraform apply`:
 
-* Workstation instance - <workstation_ip>/wetty in browser e.g. 18.130.177.57:3000/wetty
+* Workstation instance - <workstation_ip>/wetty in 
+* Remote Host instance - <remote_host_ip>/wetty in
+browser e.g. 18.130.177.57:3000/wetty
 * IDE access - <workstation_ip>:8000 in browser e.g. 318.130.177.57:8000
 * Workstation password - provided at the end of terraform apply
-
+* Remote Host password - provided at the end of terraform apply
 # Ansible Hands On
-
 ### Our task: Create a real-world LAMP stack for development and deploy Wordpress app using Ansible
-
 ## Summary:
 
 [Let's](#lets-start "Goto Let's start")
@@ -112,29 +111,20 @@ To access your instances check outputs in terminal after running `terraform appl
 [10. References](#10-references "Goto 10. References")
 
 -----
-
-You will need:
-
-1. An AWS account 
-2. Terraform Installed 
-3. The Google Chrome browser (preferably, but Firefox can also do).
-
------
-
 ### Ansible control node and remote hosts
 
 Ansible works from a control machine to send commands to one or more remote machines.
-In Ansible terminology, these are referred to as a *control node* and *remote hosts*.
+In Ansible terminology, these are referred to as a *control node>* and *remote hosts*.
 We have set up a `control node` and one `remote host` for each one of you to use.
 
-You may have noticed from your terraform outputs that you have been assigned two IP' Workstaion and Remote Host. 
+You may have noticed from your terraform outputs that you have been assigned two IP's Workstaion and Remote Host. These are to be your `control node` and `remote host` respectively.
 
 Further these machines can be accessed via a command line in the browser (a web terminal called WeTTy), under the following links:
 
-- `<REMOTE_HOST_IP>/wetty/ or  b<DNS_URL>/wetty` 
-- `<WORKSTATION_IP>wetty/ or <DNS_URL>/wetty` 
+- `<WORKSTATION_IP>wetty/ or   <workstation_dns>/wetty` 
+- `<REMOTE_HOST_IP>/wetty/ or  <remote_host_dns>/wetty` 
 
-representing the Ansible `control node` and `remote host`, respectively.
+representing the Ansible `control node <workstaion>` and `remote host <remote_host`, respectively.
 
 ### Let's start
 
@@ -145,7 +135,7 @@ representing the Ansible `control node` and `remote host`, respectively.
 3. Type some shell commands to get familiar with the web terminal.
    From now on we will be working from the browsers only.
 
-4. Without changing machine, (you are in your `control-panda`), set up some ENVIRONMENT variables that you will use later. Again, the necessary details are on your information-slip.
+4. Without changing machine, (you are in your workstation instance), set up some ENVIRONMENT variables that you will use later. 
 
 We'll append two useful env vars to your .profile, as follows
 
@@ -157,7 +147,7 @@ cd ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
 EOF
 ```
 
-but substituting the IP address of your  machine: This will be the workstation_ip from your terraform apply outputs, e.g. "18.133.245.208"
+but substituting the IP address and password of your  machine: This will be the `remote_host_ip` from your terraform apply and the `remote_host_password` outputs, e.g. "18.133.245.208" and "playground" 
 
 ```bash
 cat << EOF >> ~/.profile
@@ -169,20 +159,19 @@ EOF
 # then 
 source ~/.profile
 ```
-
-After this change log out `exit` and log back in and verify that your session has the env vars:
+After this change log out `exit` and log back in with your workstation password and verify that your session has the environment variables.
 
 ```bash
 echo $REMOTE_HOST, $PASSWORD
 52.51.15.91, Ansible     # You will see something like this
 
 ```
-
 -----
-
 ## Step 1. Install Ansible
 
 Check whether Ansible is installed by running:
+
+Ansible is installed during the creation of the instances but just in case run the following command. 
 
 ```bash
 ansible --version  
@@ -190,7 +179,7 @@ ansible 2.8.6       # If Ansible is installed you will see something like this
 ...
 ```
 
-If not, run these commands:
+If for some reason it isn't installed run the following:
 
 ```bash
 sudo apt update     #  (respond with your password at the `[sudo] password for playground:` prompt)
@@ -199,16 +188,15 @@ sudo apt-add-repository --yes --update ppa:ansible/ansible
 sudo apt install ansible
 ```
 
-and again
-
 ```bash
 ansible --version
 ```
-That's it!
+
+Now all should be working as expected.
 
 ## Step 2. Configuring passwordless SSH Access to the remote host
 
-Run the following command from your `control-panda`.
+Run the following command from your `workstation`.
 
 ```bash
 cd ~/Hands-on-with-Ansible-Oct-2019
@@ -218,7 +206,7 @@ You should see output something like the following:
 
 ![Output1](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-21%20at%2023.57.21.png)
 
-Answer yes to this question, then the proces should continue something like the following:
+Answer yes to this question, then the proccess should continue something like the following:
 
 ![Output2](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2000.01.24.png)
 
@@ -348,7 +336,7 @@ Here is the high-level hierarchy structure of the playbook:
 Before we start, take a look at the directory structure of a fully fledged playbook. Click here:
 [Playbook directory structure](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/hierarchy_structure.md#hierarchy-structure-of-playbook). This is what we are aiming for ;-)
 
-To save time, I have already created some roles for you. Go back to the Web Terminal of your `control node`.
+To save time, I have already created some roles for you. Go back to the Web Terminal of your `workstation`.
 
 ### Step 7.1 The Webserver Role
 
