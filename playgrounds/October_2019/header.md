@@ -206,7 +206,7 @@ You should see output something like the following:
 
 ![Output1](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-21%20at%2023.57.21.png)
 
-Answer yes to this question, then the proccess should continue something like the following:
+Answer yes to this question, then the process should continue something like the following:
 
 ![Output2](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2000.01.24.png)
 
