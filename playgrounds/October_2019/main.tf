@@ -38,8 +38,8 @@ module "remote_host" {
   user_data = templatefile(
     "${var.scriptLocation}/oct-2019.sh",
     {
-      hostname = "remote_host"
-      username = "remote_host"
+      hostname = "playground"
+      username = "playground"
       ssh_pass = local.RemoteHostPassword
       region   = var.region
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git"
