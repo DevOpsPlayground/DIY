@@ -78,8 +78,8 @@ Once the apply has completed your EC2 instance(s) will now be initialising and r
 
 To access your instances check outputs in terminal after running `terraform apply`:
 
-* Workstation instance - <workstation_ip>/wetty in 
-* Remote Host instance - <remote_host_ip>/wetty in
+* Workstation instance - <workstation_ip>/wetty e.g. 318.130.177.57/wetty
+* Remote Host instance - <remote_host_ip>/wetty e.g. 318.131.177.57/wetty
 browser e.g. 18.130.177.57:3000/wetty
 * IDE access - <workstation_ip>:8000 in browser e.g. 318.130.177.57:8000
 * Workstation password - provided at the end of terraform apply
@@ -111,24 +111,9 @@ browser e.g. 18.130.177.57:3000/wetty
 [10. References](#10-references "Goto 10. References")
 
 -----
-### Ansible control node and remote hosts
-
-Ansible works from a control machine to send commands to one or more remote machines.
-In Ansible terminology, these are referred to as a *control node>* and *remote hosts*.
-We have set up a `control node` and one `remote host` for each one of you to use.
-
-You may have noticed from your terraform outputs that you have been assigned two IP's Workstaion and Remote Host. These are to be your `control node` and `remote host` respectively.
-
-Further these machines can be accessed via a command line in the browser (a web terminal called WeTTy), under the following links:
-
-- `<WORKSTATION_IP>wetty/ or   <workstation_dns>/wetty` 
-- `<REMOTE_HOST_IP>/wetty/ or  <remote_host_dns>/wetty` 
-
-representing the Ansible `control node <workstaion>` and `remote host <remote_host`, respectively.
-
 ### Let's start
 
-1. Open up the `<WORKSTATION_IP>/wetty/ or <DNS_URL>/wetty` 
+1. Open up the `<WORKSTATION_IP>/wetty/` 
 
 2. Use the workstation password provided within the terraform outputs to login.
 
@@ -138,12 +123,14 @@ representing the Ansible `control node <workstaion>` and `remote host <remote_ho
 4. Without changing machine, (you are in your workstation instance), set up some ENVIRONMENT variables that you will use later. 
 
 We'll append two useful env vars to your .profile, as follows
+- Remote Host IP and Remote Host Password are outputted in the terminal after apply enter these values below. 
+- for the password surround it in quotes e.g. `export PASSWORD='password123'`
 
 ```bash
 cat << EOF >> ~/.profile
-export REMOTE_HOST=remote_host_ip
+export REMOTE_HOST=REMOTE_HOST_IP
 export PASSWORD=remote_host_password
-cd ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+cd ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook/roles
 EOF
 ```
 
@@ -153,7 +140,7 @@ but substituting the IP address and password of your  machine: This will be the 
 cat << EOF >> ~/.profile
 export REMOTE_HOST=52.51.15.91
 export PASSWORD=mySecret
-cd ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+cd ~/workdir//Hands-on-with-Ansible-Oct-2019/playbook/roles
 EOF
 
 # then 
@@ -461,7 +448,7 @@ Listen 8080
 Then
 
 ```bash
-# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+# in ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook/roles
 
 vi webserver/templates/web.conf.j2
 ```
@@ -541,8 +528,7 @@ ansible-playbook -i inventory site.yml
 
 Success! :+1: :+1: :+1:
 
-#### Go to `http://remote-xxx.ldn.devopsplayground.com/apache/wordpress` 
-(replace the `xxx` with the `animal name` on your info-slip)
+#### Go to `<remote_host_ip>:8080/wordpress e.g`. `3.10.154.170:8080/wordpress`
 
 You should see:
 
