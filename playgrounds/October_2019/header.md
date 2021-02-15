@@ -2,17 +2,14 @@
 <img src=../../README_images/go_logo.jpeg width="400">
 </p>
 
-<h1 align="center">Welcome to the May playground! Hands-on, Ready to Deploy, Golang CRUD API</h1>
+<h1 align="center">Welcome to the October playground! Hands on with Ansible</h1>
 
-[The Playground link](https://github.com/DevOpsPlayground/Hands-On-Ready-To-Deploy-Golang-CRUD-API)
+[The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git)
 
 # Intro
 
-Hello and welcome to the May playground DIY.
+Hello and welcome to the October playground DIY.
 
-This playground assumes that you know nothing about Go and will explain a lot of stuff to some detail - if you want to learn more, we recommend [A Tour of Go](https://tour.golang.org) and [The Go Programming Language](https://www.amazon.co.uk/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440) by A. Donovan and B. Kernighan.
-
-What we're going to do - we will build a simple, ready to deploy Go CRUD (Create-Read-Update-Delete) API that will deal with Posts. So, think about it as a small blogging backend!
 
 Let's go!
 
@@ -26,9 +23,9 @@ We will be building the required infrastructure using Terraform so if you do not
 
 Before we get started there are a few things that are worth noting. We have set the defaults to a number of variables that can be changed within the `variables.tf` file if required:
 
-* The current code will build a single workstation instance in AWS and a single RDS Postgres instance.
-* The workstation instance will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
-* The playground author is a big fan of VIM so, if you'd rather challenge yourself a little, give that a Go (no pun intended)! If not, you can use the VS Code IDE.
+* The current code will build two EC2 instances one for a workstation and a second for the ansible remote host.
+* The workstation instance and remote host will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code. 
+* If you prefer to use VIM then you can ! If not, you can use the VS Code IDE.
 * If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `54-61` in `main.tf`, lines `21-23` in `outputs.tf` and lines `27-31` in `variables.tf`
 * The default `region` is set to `eu-west-2`
 * The default `deploy_count` is set to 1. Change this if you are running the playground for more than one user.
@@ -37,7 +34,7 @@ Before we get started there are a few things that are worth noting. We have set 
 
 # Build Infrastructure
 
-Make sure you are in the `May_2020` directory and run:
+Make sure you are in the `October_2019` directory and run:
 
 ```
 $ terraform init
@@ -58,7 +55,7 @@ This command is used to create an execution plan. Terraform performs a refresh, 
 This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state. For example, terraform plan might be run before committing a change to version control, to create confidence that it will behave as expected. The plan will be fairly long but if all went well you should see the following in your terminal:
 
 <p align="center">
-<img src=../../README_images/tf_plan_may.png width="600">
+<img src=../../README_images/oct-19-plan.png width="600">
 </p>
 
 Finally you need to run:
@@ -71,1490 +68,669 @@ This command is used to apply the changes required to reach the desired state of
 Terraform will now build our required AWS infrastructure. This should complete after a minute or so showing the following:
 
 <p align="center">
-<img src=../../README_images/tf_apply_may.png width="600">
+<img src=../../README_images/oct-19-apply.png width="600">
 </p>
 
 > IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.
 
-Once the apply has completed your EC2 instance will now be initialising and running the required script to install and launch GraphQL. Once the `instance state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies. 
+Once the apply has completed your EC2 instance(s) will now be initialising and running the required script(s). Once the `instances state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies. 
 
 ## Access
 
 To access your instances check outputs in terminal after running `terraform apply`:
 
-* Workstation instance - <workstation_ip>:3000/wetty in browser e.g. 18.130.177.57:3000/wetty
+* Workstation instance - <workstation_ip>/wetty in browser e.g. 18.130.177.57:3000/wetty
 * IDE access - <workstation_ip>:8000 in browser e.g. 318.130.177.57:8000
 * Workstation password - provided at the end of terraform apply
-* DB password - not required for playground but if you wanted to play around with your database you will need this. Provided at the end of terraform apply so think about making a note of it!
 
-# Hands-on Golang CRUD API
+# Ansible Hands On
 
-Powered by [ECS Digital](https://ecs.co.uk/digital-engineering/) and [DevOps Playground](https://www.meetup.com/DevOpsPlayground/)
+### Our task: Create a real-world LAMP stack for development and deploy Wordpress app using Ansible
 
-Quick and straight to the point - let's build a quick CRUD API using Go!
+## Summary:
 
-Cheat sheet -> [HERE](https://gist.github.com/youshy/a92020e228ef5a164a75be4733650ad7)
+[Let's](#lets-start "Goto Let's start")
 
+[1. Install Ansible](#step-1-install-ansible "Goto Step 1. Install Ansible")
+
+[2. SSH Access to the remote host](#step-2-configuring-passwordless-ssh-access-to-the-remote-host "Goto Step 2. Configuring passwordless SSH Access to the remote host")
+
+[3. Connectivity with the host](#step-3-lets-check-out-the-connectivity-with-the-host "Goto Step 3. Let's check out the connectivity with the host")
+
+[4. Ansible hostfile and configuration file](#step-4-ansible-hostfile-and-configuration-file "Goto Step 4. Ansible Hostfile and configuration file")
+
+[5. Simple playbook](#step-5-write-a-simple-playbook "Goto Step 5. Write a simple playbook")
+
+[6. Run the playbook](#step-6-run-the-playbook "Goto Step 6. Run the playbook")
+
+[7. Build a LAMP stack and deploy Wordpress](#step-7-build-a-lamp-stack-and-deploy-wordpress "Goto Step 7. Build a LAMP stack and deploy Wordpress")
+
+[8. Playbook basics](#8-playbook-basics "Goto 8. Playbook basics")
+
+[9. Notes](#9-notes "Goto 9. Notes")
+
+[10. References](#10-references "Goto 10. References")
+
+-----
+
+You will need:
+
+1. An AWS account 
+2. Terraform Installed 
+3. The Google Chrome browser (preferably, but Firefox can also do).
+
+-----
+
+### Ansible control node and remote hosts
+
+Ansible works from a control machine to send commands to one or more remote machines.
+In Ansible terminology, these are referred to as a *control node* and *remote hosts*.
+We have set up a `control node` and one `remote host` for each one of you to use.
+
+You may have noticed from your terraform outputs that you have been assigned two IP' Workstaion and Remote Host. 
+
+Further these machines can be accessed via a command line in the browser (a web terminal called WeTTy), under the following links:
+
+- `<REMOTE_HOST_IP>/wetty/ or  b<DNS_URL>/wetty` 
+- `<WORKSTATION_IP>wetty/ or <DNS_URL>/wetty` 
+
+representing the Ansible `control node` and `remote host`, respectively.
+
+### Let's start
+
+1. Open up the `<WORKSTATION_IP>/wetty/ or <DNS_URL>/wetty` 
+
+2. Use the workstation password provided within the terraform outputs to login.
+
+3. Type some shell commands to get familiar with the web terminal.
+   From now on we will be working from the browsers only.
+
+4. Without changing machine, (you are in your `control-panda`), set up some ENVIRONMENT variables that you will use later. Again, the necessary details are on your information-slip.
+
+We'll append two useful env vars to your .profile, as follows
+
+```bash
+cat << EOF >> ~/.profile
+export REMOTE_HOST=remote_host_ip
+export PASSWORD=remote_host_password
+cd ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+EOF
+```
+
+but substituting the IP address of your  machine: This will be the workstation_ip from your terraform apply outputs, e.g. "18.133.245.208"
+
+```bash
+cat << EOF >> ~/.profile
+export REMOTE_HOST=52.51.15.91
+export PASSWORD=mySecret
+cd ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+EOF
+
+# then 
+source ~/.profile
+```
+
+After this change log out `exit` and log back in and verify that your session has the env vars:
+
+```bash
+echo $REMOTE_HOST, $PASSWORD
+52.51.15.91, Ansible     # You will see something like this
+
+```
+
+-----
+
+## Step 1. Install Ansible
+
+Check whether Ansible is installed by running:
+
+```bash
+ansible --version  
+ansible 2.8.6       # If Ansible is installed you will see something like this
+...
+```
+
+If not, run these commands:
+
+```bash
+sudo apt update     #  (respond with your password at the `[sudo] password for playground:` prompt)
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible
+```
+
+and again
+
+```bash
+ansible --version
+```
+That's it!
+
+## Step 2. Configuring passwordless SSH Access to the remote host
+
+Run the following command from your `control-panda`.
+
+```bash
+cd ~/Hands-on-with-Ansible-Oct-2019
+./setup.sh $REMOTE_HOST
+```
+You should see output something like the following:
+
+![Output1](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-21%20at%2023.57.21.png)
+
+Answer yes to this question, then the proces should continue something like the following:
+
+![Output2](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2000.01.24.png)
+
+## Step 3. Let's check out the connectivity with the host
+
+Run the following to ping the remote host.
+
+And, yes! That `comma` is right in its place! It tells ansible that there is only that one host in your inline inventory.
+
+```bash
+ansible all -i "$REMOTE_HOST," -m ping
+```
+
+ Or check its memory and disk space:
+
+```bash
+ansible all -i "$REMOTE_HOST," -m shell -a 'free -m && df -h'
+```
+
+What we did just now was to run ansible `ad-hoc commands` on our remote host. [Let's explore ad-hoc commands :panda_face:](https://docs.ansible.com/ansible/latest/user_guide/intro_adhoc.html)
+
+## Step 4. Ansible Hostfile and configuration file
+
+Let's  create the inventory of hosts and Ansible configuration file at the root of our project. Run:
+
+```bash
+./inventory_and_config.sh $REMOTE_HOST
+```
+
+Let's take a look what those two files look like for us:
+
+```bash
+cat playbook/inventory
+# you should see something like:
+[lamp]
+lampstack ansible_host=52.214.226.94 ansible_become_pass=my_pass
+```
+
+Ansible has a `default inventory` and a `default configuration file`. Let's explore them as examples :panda_face:
+
+```bash
+less /etc/ansible/hosts
+```
+
+and
+
+```bash
+less /etc/ansible/ansible.cfg
+```
+
+## Step 5. Write a simple playbook
+
+We will put together a simple playbook to update our remote host, and check its memory and disk space. The first time around we did this using ad-hoc commands but this time we will transform them into a playbook file. We can now store this in version control, we can let other systems check it out and run it as many times as we want.
+Create a file `update.yml`
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019
+
+vi update.yml
+```
+
+and paste the following. Careful with the spaces - YAML is fussy!
+
+```YAML
 ---
+- hosts: lamp
+  remote_user: playground
+  become: yes
 
-<a name="top">
+  tasks:
+    - name: Update all packages on a Debian/Ubuntu
+      apt:
+        update_cache: yes
+        upgrade: dist
+        force_apt_get: yes
 
-# Table Of Content
-
-* [Intro](#intro)
-* [What is Go](#go-intro)
-* [Why Go?](#go-why)
-* [My setup](#my-setup)
-* [Small catch](#catch)
-* [Initial app setup](#initial-app-setup)
-* [Setup entrypoint](#entrypoint)
-* [Initial server](#initial-server)
-* [Broker](#broker)
-* [Update server](#update-server)
-* [Handlers](#handlers)
-* [More handlers](#more-handlers)
-* [Finish server](#finish-server)
-* [Test the server](#test-server)
-* [Dockerfile](#dockerfile)
-* [How to improve](#improve)
-* [Word from the author](#author)
-
-[^Top](#top)
-
-(From this point the README assumes that you're using our Go instance. If you want to follow the instructions locally, go to [golang.org](https://golang.org) and download a build for your machine.)
-
-<a name="go-intro"/>
-
-## What Is Go
-
-**Go** (or known also as **golang** because of it's domain) is a statically typed, compiled programming language designed at Google by Robert Griesemer, Rob Pike, and Ken Thompson. Mr Pike and Mr Thompson designed, developed and implemented the original Unix system; Mr Griesemer was working on Chrome's V8 JavaScript engine. And that's just a tip of the iceberg of their collective experience.
-
-Nowadays Go is a backbone of multitude of DevOps tools - from Docker, to Terraform or Vault to Kubernetes. Also Prometheus, Helm, Loki, Grafana... The list goes on and on.
-
-[^Top](#top)
-
-<a name="go-why"/>
-
-## Why Go?
-
-Every tech person should know at least one programming language that allows them a total freedom in tech world. In DevOps world, most of the time it's Python; some of us know Ruby or JavaScript.
-
-Go gives you the type safety, allows you for low-level programming, allows you to cut corners in a production-friendly way; the best example would be, that you can create a load balancer system from ground up using Go in-built concurrency support.
-
-The thing that would be the most interesting to us now is that Go is the perfect candidate for high-performance web servers - it can run as one straight out of the box, but today we'll use some extra packages to take our code to the next level.
-
-Also, the very good thing about go is it's documentation. If there's something you won't understand after our playground, then go to [golang.org](https://golang.org) and go over the documentation for a package. Answers will be there!
-
-[^Top](#top)
-
-<a name="my-setup"/>
-
-## My Setup
-
-I'm using Vim exclusively; you can try using amazing GoLand IDE by JetBrains. 
-
-For syntax highlight, automatic imports and autoformatting I'm using [vim-go](https://github.com/fatih/vim-go) plugin for Vim but I'll do my best to import everything manually!
-
-[^Top](#top)
-
-<a name="catch"/>
-
-## Small catch
-
-This API will most definitely show some of my preferences in writing code - which are neither bad or good. If there's anything that I do out of preference, it'll be highlighted in this README.
-
-Also, the app will be written without any tests and won't follow TDD practices - because we don't want to run this playground till dawn.
-
-[^Top](#top)
-
-<a name="initial-app-setup"/>
-
-## Initial App Setup
-
-Let's create a new folder for our app and enter it:
-
-```
-mkdir go-crud-api && cd go-crud-api
+    - name: Check disk space and memory
+      shell: free -m && df -h
 ```
 
-For our app to work we need to initialize **Go Modules**. Go Modules is the way how Go manages it's dependencies. 
+### Tip!
 
-In your terminal type:
+What if we don't have access to the documentation in the web? Ansible ships with the `ansible-doc` tool. We can access the documentation from the command line.
 
-```
-go mod init go-crud-api
-```
-
-This will create new file `go.mod` in our folder. That's the last thing we'll have to do ANYTHING with our dependencies.
-
-If you have any problems here, do this:
-
-```
-export GO111MODULE=on
+```bash
+ansible-doc apt
 ```
 
-To ensure that your app will use Go Modules.
+Explore the output in the command line :panda_face:
 
-Our app will use four environmental variables for connecting to Amazon RDS PostgreSQL* instance:
+It starts like this:
+![ansible-doc apt output](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2012.36.18.png)
 
-* `PG_USERNAME` - username for our database
-* `PG_PASSWORD` - password
-* `PG_DB_NAME` - name of our database
-* `PG_DB_HOST` - database host
+## Step 6. Run the playbook
 
-> Our instance is predefined with dev_ops_playground database and the above environment varibales already exported. If you're using your own, make sure that your Postgres instance has dev_ops_playground database within and you will need to add the environment variables.
-
-[^Top](#top)
-
-<a name="entrypoint"/>
-
-## Setup entrypoint
-
-Each Go application requires `main.go` file to run. `main.go` is our entrypoint for the app - whenever we'll run it or compile it, `main.go` has to have all the logic we need for the app to start. Let's write our first Go code!
-
-Create a file called `main.go` and add below:
-
-**main.go**
-```go
-package main
-
-import (
-  "log"
-  "os"
-)
-
-func main() {
-  a := App{}
-  a.Initialize()
-  a.Run(":9000")
-}
+```bash
+ansible-playbook -i playbook/inventory update.yml
 ```
 
-So, line by line:
+### Success! :+1: :+1: :+1:
 
-**main.go**
-```go
-package main
-```
+You should see something similar:
+![Result](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-20%20at%2018.49.34.png)
 
-If we're building executable program, we need to use `main` as our package name. `main` tells the Go compiler that the package should compile as an executable instead of a shared library. If we'd be building a microservices mesh, we might use different names for packages to decouple the code and use it all as a library.
+## Step 7. Build a LAMP stack and deploy Wordpress
 
-**main.go**
-```go
-import (
-  "log"
-  "os"
-)
-```
+We will now look at how to write a LAMP stack playbook using the features offered by Ansible.
 
-`import` statement imports necessary packages to our code. Here we're importing `log` and `os` from standard library - these are the libraries included in Go.
+The directory, where all our playbook files will live, has already been created for you. Unsurprisingly it is called `playbook`. But you can name it according to what its purpose is. It will become a good mnemonic for you.
 
-**main.go**
-```go
-func main() {
-```
+Here is the high-level hierarchy structure of the playbook:
 
-`func` is the way we define functions in Go. `func main()` is our entry point for the application - anything that is needed for the app to run has to go here. Let's take a look at what we have:
-
-**main.go**
-```go
-func main() {
-  a := App{}
-  a.Initialize()
-  a.Run(":9000")
-}
-```
-
-Line by line:
-
-**main.go**
-```go
-a := App{}
-```
-
-`a` is the name of our variable. `:=` is the way we initialize variable and assign the value of right-hand statement. `App{}` is our struct (object) that we'll create in the `server.go`.
-
-**main.go**
-```go
-a.Initialize()
-```
-
-Remember when I've told you that there might be some preferences here? `a.Initialize()` is a method from our `App{}` struct that will perform all the logic before the server runs - establish handlers and connect to PostgreSQL instance.
-
-This could be easily done in `main()` but I prefer keeping my entry function as clean as possible and abstract any extra logic outside.
-
-**main.go**
-```go
-a.Run(":9000")
-```
-
-And last, but not least `a.Run()` method will start the server. The parameter we use here is the port we'll use for the app. This can be changed to anything or even exported as an environmental variable.
-
-About these variables - we have them, but we don't know if they exist before we run the app. We need to check that. In our `main.go` let's add:
-
-**main.go**
-```go
-func init() {
-	if ok := os.Getenv("PG_USERNAME"); ok == "" {
-		log.Fatalln("PG_USERNAME not specified")
-	}
-	if ok := os.Getenv("PG_PASSWORD"); ok == "" {
-		log.Fatalln("PG_PASSWORD not specified")
-	}
-	if ok := os.Getenv("PG_DB_NAME"); ok == "" {
-		log.Fatalln("PG_DB_NAME not specified")
-	}
-	if ok := os.Getenv("PG_DB_HOST"); ok == "" {
-		log.Fatalln("PG_DB_HOST_ not specified")
-	}
-}
-```
-
-Woah, a lot of code. Don't panic, we'll get through it.
-
-`func init()` is a in-built function that runs before `main()` runs. It's a perfect candidate for our app to check if our necessary environmental variables exists. As you can see, we repeat the whole thing four times, so let's take one of these statements and inspect it:
-
-**main.go**
-```go
-if ok := os.Getenv("PG_PASSWORD"); ok == "" {
-  log.Fatalln("PG_PASSWORD not specified")
-}
-```
-
-`if` is the classic **if** statement we know from any other programming language. We'll see a lot of it in Go. So, what we have here:
-
-* `if ok :=` starts the statement, creates a variable `ok` and assigns the value of
-* `os.Getenv("PG_PASSWORD");` - `os.Getenv` is a function from `os` package that checks for an env variable named `PG_PASSWORD`
-* `ok == ""` - we could easily spread the whole line into:
-
-**main.go**
-```go
-ok := os.Getenv("PG_PASSWORD")
-if ok == "" {
-```
-
-But in our case, it makes way more sense to keep it as a one-liner. Here we check if the `ok` variable is an empty string. `os.Getenv` always return a string - if the variable exists if will be something; if not, then it'll be an empty string - `""`.
-
-If the variable is an empty string then:
-
-**main.go**
-```go
-log.Fatalln("PG_PASSWORD not specified")
-```
-
-`log.Fatalln` is a function from `log` package that prints something to `stdout` and is followed by a call to `os.Exit(1)`. So, in other terms - it prints our error and then exits the program.
-
-Huh, we've done a lot! Our `main.go` file should look like this now:
-
-**main.go**
-```go
-package main
-
-import (
-	"log"
-	"os"
-)
-
-func main() {
-	a := App{}
-	a.Initialize()
-	a.Run(":9000")
-}
-
-func init() {
-	if ok := os.Getenv("PG_USERNAME"); ok == "" {
-		log.Fatalln("PG_USERNAME not specified")
-	}
-	if ok := os.Getenv("PG_PASSWORD"); ok == "" {
-		log.Fatalln("PG_PASSWORD not specified")
-	}
-	if ok := os.Getenv("PG_DB_NAME"); ok == "" {
-		log.Fatalln("PG_DB_NAME not specified")
-	}
-	if ok := os.Getenv("PG_DB_HOST"); ok == "" {
-		log.Fatalln("PG_DB_HOST_ not specified")
-	}
-}
-```
-
-[^Top](#top)
-
-<a name="initial-server"/>
-
-## Initial server
-
-Ok, we've got the `main.go` file done. Let's move to a new file called `server.go` and create logic for `App{}`, `Initialize()` and `Run()`:
-
-**server.go**
-```go
-package main
-
-import (
-	"encoding/json"
-	"fmt"
-	"log"
-	"net/http"
-	"os"
-
-	"github.com/gorilla/mux"
-	"github.com/rs/cors"
-)
-
-type App struct {
-	Router *mux.Router
-	Broker Broker
-}
-
-func (a *App) Initialize() {
-
-}
-
-func (a *App) Run(addr string) {
-
-}
-```
-
-Some new things here:
-
-In import you can see `github.com/gorilla/mux` and `github.com/rs/cors` - that means that we'll use 3rd party library for some of our application.
-[Mux](https://github.com/gorilla/mux) is one of the nicest HTTP routers for Go with insanely good documentation. 
-[Cors](https://github.com/rs/cors) is a handler implementing `Cross Origin Resource Sharing W3 specification` - in short, this is what we need to give this API to our FrontEnd developers and to make the whole API more secure.
-
-Also, we have a definition of struct:
-
-**server.go**
-```go
-type App struct {
-  Router *mux.Router
-  Broker Broker
-}
-```
-
-**Structs** in Go are the way we deal with Object-Oriented code. It's not entirely the same way as we'd have in any other language - for example, Go doesn't have classes. Keyword `type` defines that whatever will follow, will be taken as type (this will make way more sense in the next chapter of our workshop).
-
-Our `App` struct has two fields - `Router` and `Broker`. Without getting too much into computer science theory, `Router` is of a type of `*mux.Router` which means it's a pointer to `Router` type in `mux` package. In other words - there's a `mux.Router` type somewhere in memory, and we want our `Router` to reference it.
-
-Second field is way easier - `Broker` will be of a type `Broker` which we'll define in a sec.
-
-Let's add some more code to `initialize()` and `run()`:
-
-**server.go**
-```go
-func (a *App) Initialize() {
-
-  router := mux.NewRouter()
-
-  prefix := "/api"
-
-  a.Router = router
-}
-
-func (a *App) Run(addr string) {
-  handler := cors.Default().Handler(a.Router)
-  log.Printf("Server is listening on %v", addr)
-  http.ListenAndServe(addr, handler)
-}
-```
-
-Now we can talk about that `func (a *App)` thing here. As I've said earlier, Go deals with OOP a bit different that other languages. Both `Initialize` and `Run` are methods of `App` struct. The `(a *App)` denotes, that these methods will use the memory from `App`. If we'd lose the `*`, then these methods would create a new copy of `App` every time we'd call them.
-
-In `Initialize()` now we have `router` which will hold all handlers for our api. We have `prefix` - this is my preference - which we could use for versioning later in our application. Heck, we could even export it as a environmental variable and have different versions per each docker container if we'd want to. Last, we assign `router` to `a.Router` - which is `Router` within `App` struct.
-
-In `Run` we've added full code for the API to run, we've defined default cors support ([cors](https://github.com/rs/cors) documentation defines what that is) and we call `http.ListenAndServe()` function to make the whole thing alive. 
-
-[^Top](#top)
-
-<a name="broker"/>
-
-## Broker
-
-Probably you've been wondering "what is that Broker thingy?" - Broker is my way of defining logic required for DB connection. This `broker` is very much stripped-down version of the one I use as a package im my code.
-
-Without further ado, create a file `broker.go` and add below:
-
-**broker.go**
-```go
-package main
-
-import (
-	"fmt"
-	"time"
-
-	"github.com/gofrs/uuid"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-)
-
-type Broker struct {
-	postgresDBSetup pgSetup
-	postgresDB      *gorm.DB
-}
-
-func NewBroker() Broker {
-	b := Broker{}
-	return b
-}
-
-type pgSetup struct {
-	username string
-	password string
-	dbName   string
-	dbHost   string
-}
-
-type Post struct {
-	Id        uuid.UUID `gorm:"type:uuid"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
-
-func (b *Broker) InitializeBroker() error {
-	err := b.setPostgres()
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (b *Broker) GetPostgres() *gorm.DB {
-	return b.postgresDB
-}
-
-func (b *Broker) SetPostgresConfig(username, password, dbName, dbHost string) {
-	pgs := pgSetup{
-		username: username,
-		password: password,
-		dbName:   dbName,
-		dbHost:   dbHost,
-	}
-	b.postgresDBSetup = pgs
-}
-
-func (b *Broker) setPostgres() error {
-	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", b.postgresDBSetup.dbHost, b.postgresDBSetup.username, b.postgresDBSetup.dbName, b.postgresDBSetup.password)
-	conn, err := gorm.Open("postgres", dbUri)
-	if err != nil {
-		return err
-	}
-	b.postgresDB = conn
-	b.postgresDB.LogMode(true)
-	b.postgresDB.Debug().AutoMigrate(
-		&Post{},
-	)
-	return nil
-}
-```
-
-Break it apart:
-
-**broker.go**
-```go
-import (
-	"fmt"
-	"time"
-
-	"github.com/gofrs/uuid"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
-)
-
-type Broker struct {
-	postgresDBSetup pgSetup
-	postgresDB      *gorm.DB
-}
-
-func NewBroker() Broker {
-	b := Broker{}
-	return b
-}
-```
-
-There's a few interesting things here:
-
-* `_ "github.com/jinzhu/gorm/dialects/postgres"` is something called "import with blank identifier" (explained well [here](https://www.calhoun.io/why-we-import-sql-drivers-with-the-blank-identifier/)), that allows our code to understand the database dialect;
-* finally we can see how `Broker` type looks
-* there's `func NewBroker()` function that returns `Broker`. We could get away with calling in `server.go` something like:
-
-```go
-b := Broker{}
-```
-
-But in this case, I think, it makes it more readable. And if we'd have to do any setup for our broker, we can do it here.
-
-**broker.go**
-```go
-type Post struct {
-	Id        uuid.UUID `gorm:"type:uuid"`
-	Title     string    `json:"title"`
-	Content   string    `json:"content"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
-```
-
-`Post` struct will be our main struct holding data for our posts. Few interesting things:
-
-* what's `uuid.UUID`? It's a type of `UUID` from the [uuid](https://github.com/gofrs/uuid) package, that will give us a [uuid v4](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)), which is a fully random identifier;
-* those `gorm:"type:uuid"` and `json:"title"` fields are helpers for the database to understand what's the type of the field and for Go JSON Marshal mechanism to know what's the name of the key in JSON payload.
-
-In **Structs** there's one thing you should be aware of - if keys of your type are capitalized, then they'll be exported/used to encode/decode to JSON. If we'd have something like:
-
-```go
-type Post struct {
-	Id        uuid.UUID `gorm:"type:uuid"`
-	title     string    `json:"title"`
-	content   string    `json:"content"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
-```
-
-Then no matter however hard we've tried, Go won't decode/encode those fields.
-
-**broker.go**
-```go
-func (b *Broker) GetPostgres() *gorm.DB {
-	return b.postgresDB
-}
-```
-
-I like to have `b.postgresDB` as a small Get wrapper - we'll use this function a lot in our handlers code.
-
-**broker.go**
-```go
-func (b *Broker) setPostgres() error {
-	dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", b.postgresDBSetup.dbHost, b.postgresDBSetup.username, b.postgresDBSetup.dbName, b.postgresDBSetup.password)
-	conn, err := gorm.Open("postgres", dbUri)
-	if err != nil {
-		return err
-	}
-	b.postgresDB = conn
-	b.postgresDB.LogMode(true)
-	b.postgresDB.Debug().AutoMigrate(
-		&Post{},
-	)
-	return nil
-}
-```
-
-And this is the meat and bones of our `broker`:
-
-* dbUri - again, my preference - we create a connection string to use with `gorm.Open`. That string holds all the values we need to connect to Postgres;
-* `b.postgresDB.LogMode(true)` - this line allows us to see the queries the engine makes to postgres
-
-```go
-b.postgresDB.Debug().AutoMigrate(
-  &Post{},
-)
-```
-
-This is my favourite part of the broker - thanks to `AutoMigrate` function, we can migrate the schema automatically to postgres! Schema is created from `Post` struct, that's why we have `&Post{}`. `&` returns the address of a variable (again, pointers!) - without that, the engine would panic and break.
-
-Once we have `broker.go` done, let's go back to `server.go` and update everything we need for connecting to the db.
-
-[^Top](#top)
-
-<a name="update-server"/>
-
-## Update server
-
-In `server.go`, just after `Initialize()` let's add:
-
-**server.go**
-```go
-a.Broker = NewBroker()
-PgUsername := os.Getenv("PG_USERNAME")
-PgPassword := os.Getenv("PG_PASSWORD")
-PgDbName := os.Getenv("PG_DB_NAME")
-PgDbHost := os.Getenv("PG_DB_HOST")
-a.Broker.SetPostgresConfig(PgUsername, PgPassword, PgDbName, PgDbHost)
-if err := a.Broker.InitializeBroker(); err != nil {
-  log.Fatalf("Error initializing postgres connection: %v", err)
-}
-```
-
-This will, again, create the broker, get all the necessary environmental variables and initialize the `broker`. If the process breaks, `log.Fatal` will print the exact error and then exit the application.
-
-After that, our `initialize()` function will look like this:
-
-**server.go**
-```go
-func (a *App) Initialize() {
-  a.Broker = NewBroker()
-  PgUsername := os.Getenv("PG_USERNAME")
-  PgPassword := os.Getenv("PG_PASSWORD")
-  PgDbName := os.Getenv("PG_DB_NAME")
-  PgDbHost := os.Getenv("PG_DB_HOST")
-  a.Broker.SetPostgresConfig(PgUsername, PgPassword, PgDbName, PgDbHost)
-  if err := a.Broker.InitializeBroker(); err != nil {
-    log.Fatalf("Error initializing postgres connection: %v", err)
-  }
-
-  router := mux.NewRouter()
-
-  prefix := "/api"
-
-  a.Router = router
-}
-```
-
-Pretty empty, isn't it? Let's recap what we have so far:
-
-* We have `main.go` that will be our entrypoint and will check for all environmental variables we might need
-* We have `server.go` that will deal with the server initialization and running
-* We have `broker.go` that will deal with database connection and schema migration
-
-Next step - handlers. Let's handle that! (Sorry, couldn't resist)
-
-[^Top](#top)
-
-<a name="handlers"/>
-
-## Handlers
-
-Handler is a function, that will get something from our request, do some logic and then return some response to the client. So far, we've set up `router` and `prefix` for the routes. Let's add them.
-
-In `initialize()` let's define the handlers:
-
-**server.go**
-```go
-router.Handle(prefix+"/post", a.GetAllPost()).Methods(http.MethodGet)
-router.Handle(prefix+"/post/{post_id}", a.GetSinglePost()).Methods(http.MethodGet)
-router.Handle(prefix+"/post", a.CreatePost()).Methods(http.MethodPost)
-router.Handle(prefix+"/post/{post_id}", a.UpdatePost()).Methods(http.MethodPut)
-router.Handle(prefix+"/post/{post_id}", a.DeletePost()).Methods(http.MethodDelete)
-```
-
-Let's take apart one of these routes:
-
-```go
-router.Handle(prefix+"/post/{post_id}", a.GetSinglePost()).Methods(http.MethodGet)
-```
-
-* `router.Handle` - this is a method from `mux.NewRouter()` that allows us to register the handler
-* `(prefix+"/post/{post_id})` - we concatenate our `prefix` with the rest of the route. `{post_id}` will be the variable which we'll use in handler's logic.
-* `a.GetSinglePost()` - this will be the function we will write in next chapter. Take note on `a.` - if you remember, most of the functions so far use `App` struct to access variables across multiple components. We could get away without using that - then, we'd have to either establish connection to Postgres every time we want to use it (which is wasteful) or use global variables (which we don't want to do).
-* `Methods(http.MethodGet)` - this is the logic for our router that will denote which method was used for the request. As you can see, we also have `prefix+"/post/{post_id}"` for `UpdatePost()` and `DeletePost()` - we need a way to switch between these functions. `http.MethodGet` is a constant defined in `http` package which is simply a string `"GET"`
-
-We've got the basics, let's write the logic.
-
-[^Top](#top)
-
-<a name="more-handlers"/>
-
-## More Handlers
-
-Create new file called `handlers.go` and let's scaffold our handlers:
-
-**handlers.go**
-```go
-package main
-
-import (
-  "encoding/json"
-  "log"
-  "net/http"
-
-  "github.com/gofrs/uuid"
-  "github.com/gorilla/mux"
-)
-
-func (a *App) GetAllPost() http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-  })
-}
-
-func (a *App) GetSinglePost() http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-  })
-}
-
-func (a *App) CreatePost() http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-  })
-}
-
-func (a *App) UpdatePost() http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-  })
-}
-
-func (a *App) DeletePost() http.Handler {
-  return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-
-  })
-}
-```
-
-Some of you might go now: 
-
-"But why are you doing that? Why not do:
-
-```go
-func (a *App) GetAllPost(w http.ResponseWriter, r *http.Request) {
-
-}
-```
-And keep the logic simple?"
-
-What I'm using here is a **decorator pattern**. Later, when we'll add logic to the handlers, we can set up the database before the return of the function, which in a long run saves the resources and simplifies the logic a bit. Also helps us with refactoring the application once we'll be done with it.
-
-Before writing logic for the handlers, let's add one more function in `handlers.go`:
-
-**handlers.go**
-```go
-func JSONResponse(w http.ResponseWriter, code int, output interface{}) {
-	response, _ := json.Marshal(output)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	w.Write(response)
-}
-```
-
-Another small preference of mine - with `JSONResponse` I can quickly set up the response from the API, marshal anything I need to JSON and return it to the client.
-
-For the sake of time, code for each function and the explanation for it is within next 5 paragraphs here:
-
-### GetAllPost
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    func (a *App) GetAllPost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        posts := make([]*Post, 0)
-        defer r.Body.Close()
-        err := db.Table("posts").Find(&posts).Error
-        if err != nil {
-          log.Printf("get all posts %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, posts)
-      })
-    }
-  ```
-
-  This is where the decorator pattern shines - by keeping the `db` variable before `return`, it'll be initialized once until the application exits and reused by each call to `GetAllPost()`.
-
-  We initialize `post` variable which is a slice of `Post` - in other words, it's an array of objects of type `Post`.
-
-  `defer` is a keyword in Go, that means whenever the function exit, execute. In this case it closes the stream of `r.Body` - we could easily do nothing about it, but then it creates a problem with a memory leak from not closed stream.
-
-  `db.Table("posts").Find(&posts).Error` is a statement from `gorm` that allows us to query the database with chaining functions instead of writing the statements ourselves. Of course, if we'd need to do so, we can!
-
-  Then the last part is the most interesting one here:
-
-  ```go
-    if err != nil {
-      log.Printf("get all posts %v", err)
-      JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-      return
-    }
-  ```
-
-  If you remember the call to `JSONResponse` it took three arguments:
+```YAML
+- name: LAMP stack setup and Wordpress installation on Ubuntu 18.04
+  hosts: lamp
+  remote_user: "{{ remote_username }}"
+  become: yes
   
-  * `w` of type ` http.ResponseWriter`
-  * `code` of type `int`
-  * `output` of type `interface{}`
-  
-  `interface{}` type in Go is a quite interesting one. In Layman's terms it's an in-built type that it kind of a wildcard - any type satisfies this interface, therefore it can be anything. That allows us to return `posts` in the last line as a JSON array and to return an error in `if err != nil` statement.
-
-  If you look at `map[string]interface{}` you can understand it as a key-value pair that has a key of type `string` and a value of type `interface`.
-
-</details>
-
-### GetSinglePost
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    func (a *App) GetSinglePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        var post Post
-        defer r.Body.Close()
-        err := db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-        if err != nil {
-          log.Printf("get single post %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, post)
-      })
-    }
-  ```
-  
-  The only difference from `GetAllPost` here is different variable to which we will write data - `var post Post` and different query to the database.
-
-</details>
-
-### CreatePost
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    func (a *App) CreatePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        var post Post
-        decoder := json.NewDecoder(r.Body)
-        decoder.DisallowUnknownFields()
-        err := decoder.Decode(&post)
-        if err != nil {
-          JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-          return
-        }
-        defer r.Body.Close()
-
-        uid, _ := uuid.NewV4()
-        post.Id = uid
-        err = db.Create(&post).Error
-        if err != nil {
-          log.Printf("create post error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusCreated, nil)
-      })
-    }
-  ```
-  
-  Let's take out the interesting bits:
-
-  * `decoder` - as `CreatePost` will require a payload to create the post, we need to decode it somehow. Remember `Post` struct?
-  
-  ```go
-    type Post struct {
-      Id        uuid.UUID `gorm:"type:uuid"`
-      Title     string    `json:"title"`
-      Content   string    `json:"content"`
-      CreatedAt time.Time
-      UpdatedAt time.Time
-    }
-  ```
-
-  As we can see, this type will require `title` and `content` in the payload. So `decoder` will decode the JSON payload into Go type which we can use.
-
-  * `decoder.DisallowUnknownFields()` is a method that will return error if the payload contains any keys that we don't allow
-
-  * `uid, _ := uuid.NewV4()` - creates a new `UUID`
-
-  * `db.Create(&post).Error` - creates a new post in `posts` table - gorm is smart enough to know which struct is assigned to which table!
-
-</details>
-
-### UpdatePost
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    func (a *App) UpdatePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        var post Post
-        var newPost Post
-        decoder := json.NewDecoder(r.Body)
-        decoder.DisallowUnknownFields()
-        err := decoder.Decode(&newPost)
-        if err != nil {
-          JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-          return
-        }
-        defer r.Body.Close()
-
-        err = db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-        if err != nil {
-          log.Printf("update post fetch error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        post.Content = newPost.Content
-        db.Save(&post)
-        JSONResponse(w, http.StatusNoContent, nil)
-      })
-    }
-  ```
-
-  Compared to `CreatePost` the only difference here is that we fetch the already existing post, change it's values from the payload and then save the updated one. Easy-peasy!
-  
-</details>
-
-### DeletePost
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    func (a *App) DeletePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        defer r.Body.Close()
-        err := db.Where("id = ?", vars["post_id"]).Delete(&Post{}).Error
-        if err != nil {
-          log.Printf("delete post etch error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, nil)
-      })
-    }
-  ```
-
-  Simplest one of all and the best moment to mention `vars := mux.Vars(r)`. In `DeletePost` handler we have `{post_id}` variable. This will be fetched by `mux.Vars()` and used in the query as `vars["post_id"]` to find the correct record in the database and delete it.
-  
-</details>
-
-This is how the full file should look now:
-
-**handlers.go**
-```go
-package main
-
-import (
-	"encoding/json"
-	"log"
-	"net/http"
-
-	"github.com/gofrs/uuid"
-	"github.com/gorilla/mux"
-)
-
-func (a *App) GetAllPost() http.Handler {
-	db := a.Broker.GetPostgres()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		posts := make([]*Post, 0)
-		defer r.Body.Close()
-		err := db.Table("posts").Find(&posts).Error
-		if err != nil {
-			log.Printf("get all posts %v", err)
-			JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		JSONResponse(w, http.StatusOK, posts)
-	})
-}
-
-func (a *App) GetSinglePost() http.Handler {
-	db := a.Broker.GetPostgres()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		var post Post
-		defer r.Body.Close()
-		err := db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-		if err != nil {
-			log.Printf("get single post %v", err)
-			JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		JSONResponse(w, http.StatusOK, post)
-	})
-}
-
-func (a *App) CreatePost() http.Handler {
-	db := a.Broker.GetPostgres()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var post Post
-		decoder := json.NewDecoder(r.Body)
-		decoder.DisallowUnknownFields()
-		err := decoder.Decode(&post)
-		if err != nil {
-			JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-			return
-		}
-		defer r.Body.Close()
-
-		uid, _ := uuid.NewV4()
-		post.Id = uid
-		err = db.Create(&post).Error
-		if err != nil {
-			log.Printf("create post error %v", err)
-			JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		JSONResponse(w, http.StatusCreated, nil)
-	})
-}
-
-func (a *App) UpdatePost() http.Handler {
-	db := a.Broker.GetPostgres()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		var post Post
-		var newPost Post
-		decoder := json.NewDecoder(r.Body)
-		decoder.DisallowUnknownFields()
-		err := decoder.Decode(&newPost)
-		if err != nil {
-			JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-			return
-		}
-		defer r.Body.Close()
-
-		err = db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-		if err != nil {
-			log.Printf("update post fetch error %v", err)
-			JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		post.Content = newPost.Content
-		db.Save(&post)
-		JSONResponse(w, http.StatusNoContent, nil)
-	})
-}
-
-func (a *App) DeletePost() http.Handler {
-	db := a.Broker.GetPostgres()
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		vars := mux.Vars(r)
-		defer r.Body.Close()
-		err := db.Where("id = ?", vars["post_id"]).Delete(&Post{}).Error
-		if err != nil {
-			log.Printf("delete post etch error %v", err)
-			JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-			return
-		}
-
-		JSONResponse(w, http.StatusOK, nil)
-	})
-}
-
-func JSONResponse(w http.ResponseWriter, code int, output interface{}) {
-	response, _ := json.Marshal(output)
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(code)
-	w.Write(response)
-}
+  roles:
+    - role: common
+    - role: webserver
+    - role: db
+    - role: php
+    - role: wordpress
 ```
 
-[^Top](#top)
+Before we start, take a look at the directory structure of a fully fledged playbook. Click here:
+[Playbook directory structure](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/hierarchy_structure.md#hierarchy-structure-of-playbook). This is what we are aiming for ;-)
 
-<a name="finish-server"/>
+To save time, I have already created some roles for you. Go back to the Web Terminal of your `control node`.
 
-## Finish server
+### Step 7.1 The Webserver Role
 
-We're almost there! One last thing left for us - another preference of mine - let's print out all the available routes in our app. In `server.go` in `Intialize()` add:
+We will now write a Role to install and configure the Apache2 server.
 
-**server.go**
-```go
-log.Printf("Available routes:\n")
-	router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
-		t, err := route.GetPathTemplate()
-		if err != nil {
-			return err
-		}
-		m, err := route.GetMethods()
-		if err != nil {
-			return err
-		}
-		fmt.Printf("%s\t%s\n", m, t)
-		return nil
-	})
+#### 7.1.1 Install, configure and start apache2
+
+First thing first - we'll install Apache2. Create the folder structure for the tasks:
+
+```bash
+cd playbook/roles     # if you haven't already :-)
+mkdir -p webserver/tasks && vi webserver/tasks/main.yml
 ```
 
-This will print our routes in a nice fashion as Method - Path.
+The following code will tell our Ansible to install Apache2 and configure it. It'll also add Apache2 to the startup service.
 
-If you need to cross-reference your code, take a peek into below paragraphs:
+```YAML
+- name: install apache2 server
+  apt:
+    name: apache2
+    state: present
+    force_apt_get: yes
 
-## main.go
+- name: set the apache2 port to 8080
+  template:
+    src: web.port.j2
+    dest: /etc/apache2/ports.conf
+    owner: root
+    group: root
+    mode: 0644
 
-<details>
-  <summary>Click to expand</summary>
+- name: update the apache2 server configuration
+  template:
+    src: web.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    owner: root
+    group: root
+    mode: 0644
 
-  ```go
-    package main
-
-    import (
-      "log"
-      "os"
-    )
-
-    func main() {
-      a := App{}
-      a.Initialize()
-      a.Run(":9000")
-    }
-
-    func init() {
-      if ok := os.Getenv("PG_USERNAME"); ok == "" {
-        log.Fatalln("PG_USERNAME not specified")
-      }
-      if ok := os.Getenv("PG_PASSWORD"); ok == "" {
-        log.Fatalln("PG_PASSWORD not specified")
-      }
-      if ok := os.Getenv("PG_DB_NAME"); ok == "" {
-        log.Fatalln("PG_DB_NAME not specified")
-      }
-      if ok := os.Getenv("PG_DB_HOST"); ok == "" {
-        log.Fatalln("PG_DB_HOST_ not specified")
-      }
-    }
-  ```
-
-</details>
-
-## server.go
-
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    package main
-
-    import (
-      "fmt"
-      "log"
-      "net/http"
-      "os"
-
-      "github.com/gorilla/mux"
-      "github.com/rs/cors"
-    )
-
-    type App struct {
-      Router *mux.Router
-      Broker Broker
-    }
-
-    func (a *App) Initialize() {
-      a.Broker = NewBroker()
-      PgUsername := os.Getenv("PG_USERNAME")
-      PgPassword := os.Getenv("PG_PASSWORD")
-      PgDbName := os.Getenv("PG_DB_NAME")
-      PgDbHost := os.Getenv("PG_DB_HOST")
-      a.Broker.SetPostgresConfig(PgUsername, PgPassword, PgDbName, PgDbHost)
-      if err := a.Broker.InitializeBroker(); err != nil {
-        log.Fatalf("Error initializing postgres connection: %v", err)
-      }
-
-      router := mux.NewRouter()
-
-      prefix := "/api"
-
-      router.Handle(prefix+"/post", a.GetAllPost()).Methods(http.MethodGet)
-      router.Handle(prefix+"/post/{post_id}", a.GetSinglePost()).Methods(http.MethodGet)
-      router.Handle(prefix+"/post", a.CreatePost()).Methods(http.MethodPost)
-      router.Handle(prefix+"/post/{post_id}", a.UpdatePost()).Methods(http.MethodPut)
-      router.Handle(prefix+"/post/{post_id}", a.DeletePost()).Methods(http.MethodDelete)
-
-      log.Printf("Available routes:\n")
-      router.Walk(func(route *mux.Route, router *mux.Router, ancestors []*mux.Route) error {
-        t, err := route.GetPathTemplate()
-        if err != nil {
-          return err
-        }
-        m, err := route.GetMethods()
-        if err != nil {
-          return err
-        }
-        fmt.Printf("%s\t%s\n", m, t)
-        return nil
-      })
-      a.Router = router
-    }
-
-    func (a *App) Run(addr string) {
-      handler := cors.Default().Handler(a.Router)
-      log.Printf("Server is listening on %v", addr)
-      http.ListenAndServe(addr, handler)
-    }
-  ```
-
-</details>
-
-## broker.go
-
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    package main
-
-    import (
-      "fmt"
-      "time"
-
-      "github.com/gofrs/uuid"
-      "github.com/jinzhu/gorm"
-      _ "github.com/jinzhu/gorm/dialects/postgres"
-    )
-
-    type Broker struct {
-      postgresDBSetup pgSetup
-      postgresDB      *gorm.DB
-    }
-
-    func NewBroker() Broker {
-      b := Broker{}
-      return b
-    }
-
-    type pgSetup struct {
-      username string
-      password string
-      dbName   string
-      dbHost   string
-    }
-
-    type Post struct {
-      Id        uuid.UUID `gorm:"type:uuid"`
-      Title     string    `json:"title"`
-      Content   string    `json:"content"`
-      CreatedAt time.Time
-      UpdatedAt time.Time
-    }
-
-    func (b *Broker) InitializeBroker() error {
-      err := b.setPostgres()
-      if err != nil {
-        return err
-      }
-
-      return nil
-    }
-
-    func (b *Broker) GetPostgres() *gorm.DB {
-      return b.postgresDB
-    }
-
-    func (b *Broker) SetPostgresConfig(username, password, dbName, dbHost string) {
-      pgs := pgSetup{
-        username: username,
-        password: password,
-        dbName:   dbName,
-        dbHost:   dbHost,
-      }
-      b.postgresDBSetup = pgs
-    }
-
-    func (b *Broker) setPostgres() error {
-      dbUri := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s", b.postgresDBSetup.dbHost, b.postgresDBSetup.username, b.postgresDBSetup.dbName, b.postgresDBSetup.password)
-      conn, err := gorm.Open("postgres", dbUri)
-      if err != nil {
-        return err
-      }
-      b.postgresDB = conn
-      b.postgresDB.LogMode(true)
-      b.postgresDB.Debug().AutoMigrate(
-        &Post{},
-      )
-      return nil
-    }
-  ```
-
-</details>
-
-## handlers.go
-
-<details>
-  <summary>Click to expand</summary>
-
-  ```go
-    package main
-
-    import (
-      "encoding/json"
-      "log"
-      "net/http"
-
-      "github.com/gofrs/uuid"
-      "github.com/gorilla/mux"
-    )
-
-    func (a *App) GetAllPost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        posts := make([]*Post, 0)
-        defer r.Body.Close()
-        err := db.Table("posts").Find(&posts).Error
-        if err != nil {
-          log.Printf("get all posts %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, posts)
-      })
-    }
-
-    func (a *App) GetSinglePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        var post Post
-        defer r.Body.Close()
-        err := db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-        if err != nil {
-          log.Printf("get single post %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, post)
-      })
-    }
-
-    func (a *App) CreatePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        var post Post
-        decoder := json.NewDecoder(r.Body)
-        decoder.DisallowUnknownFields()
-        err := decoder.Decode(&post)
-        if err != nil {
-          JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-          return
-        }
-        defer r.Body.Close()
-
-        uid, _ := uuid.NewV4()
-        post.Id = uid
-        err = db.Create(&post).Error
-        if err != nil {
-          log.Printf("create post error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusCreated, nil)
-      })
-    }
-
-    func (a *App) UpdatePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        var post Post
-        var newPost Post
-        decoder := json.NewDecoder(r.Body)
-        decoder.DisallowUnknownFields()
-        err := decoder.Decode(&newPost)
-        if err != nil {
-          JSONResponse(w, http.StatusBadRequest, map[string]interface{}{"error": err.Error()})
-          return
-        }
-        defer r.Body.Close()
-
-        err = db.Table("posts").Where("id = ?", vars["post_id"]).First(&post).Error
-        if err != nil {
-          log.Printf("update post fetch error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        post.Content = newPost.Content
-        db.Save(&post)
-        JSONResponse(w, http.StatusNoContent, nil)
-      })
-    }
-
-    func (a *App) DeletePost() http.Handler {
-      db := a.Broker.GetPostgres()
-      return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        vars := mux.Vars(r)
-        defer r.Body.Close()
-        err := db.Where("id = ?", vars["post_id"]).Delete(&Post{}).Error
-        if err != nil {
-          log.Printf("delete post etch error %v", err)
-          JSONResponse(w, http.StatusInternalServerError, map[string]interface{}{"error": err.Error()})
-          return
-        }
-
-        JSONResponse(w, http.StatusOK, nil)
-      })
-    }
-
-    func JSONResponse(w http.ResponseWriter, code int, output interface{}) {
-      response, _ := json.Marshal(output)
-      w.Header().Set("Content-Type", "application/json")
-      w.WriteHeader(code)
-      w.Write(response)
-    }
-  ```
-
-</details>
-
-[^Top](#top)
-
-<a name="test-server"/>
-
-## Test the server
-
-In the main directory of our app type `go run .`. This is what you should see:
-
-```
-2020/05/18 12:54:20 Available routes:
-[GET]	/api/post
-[GET]	/api/post/{post_id}
-[POST]	/api/post
-[PUT]	/api/post/{post_id}
-[DELETE]	/api/post/{post_id}
-2020/05/18 12:54:20 Server is listening on :9000
+- name: enable apache2 on startup
+  systemd:
+    name: apache2
+    enabled: yes
+  notify:
+    - start apache2
 ```
 
-`go run .` is a command that compiles and runs the named main Go package. But let's kill the process (ctrl+C) and build the executable by typing `go build -o crud-api`. `-o` flag names the executable.
+Let's discuss what this task file is doing.
+Hint: Use the `ansible-doc` command to help you. Example: `ansible-doc systemd`.
 
-So now, we can do `./crud-api` and we should get the same output!
+Did you spot the `notify` parameter at the end of the file? What you see listed as a parameter of the notify is the name of a `handler`. [Let's explore handlers :panda_face:](https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change)
 
-Now, let's run another terminal and test all the routes:
+Something interesting is going on here. The `handlers` are just another set of tasks, for example, `start apache2`, that will trigger a process only if they get `notified`. They get `notified` only if anything changes after the playbook has run. Another interesting fact is that, regardless of how many tasks throughout the playbook `notify` that particular `handler`, the process of restarting apache2 will be triggered only once. Time and resources saving!
 
-(bear in mind - your id's will be way different than mine)
+Ok, let's create the handlers now.
 
-### Get Posts
-`curl localhost:9000/api/post`
+#### 7.1.2 Handling apache2 start
 
-### Get Single Post
-`curl localhost:9000/api/post/{id}`
+In `webserver/handlers/` create `main.yaml`
 
-### Create New Post
-`curl -X POST -d '{"title":"my new post", "content": "such a good writer"}' localhost:9000/api/post`
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
 
-### Modify Post
-`curl -X PUT -d '{"content": "this is better"}' localhost:9000/api/post/{id}`
-
-### Delete Post
-`curl -X DELETE localhost:9000/api/post/{id}`
-
-[^Top](#top)
-
-<a name="dockerfile"/>
-
-## Dockerfile
-
-I've promised we'll make the API deployable so let's add the dockerfile:
-
-```dockerfile
-FROM golang
-ENV GO111MODULE=on
-WORKDIR /app
-COPY go.mod .
-COPY go.sum .
-RUN go mod download
-COPY . .
-RUN go build -o crud-api
-EXPOSE 9000
-ENTRYPOINT ["./crud-api"]
+mkdir -p webserver/handlers && vi webserver/handlers/main.yaml
 ```
+
+and paste there the following:
+
+```YAML
+- name: start apache2
+  systemd:
+    state: started
+    name: apache2
+
+- name: stop apache2
+  systemd:
+    state: stopped
+    name: apache2
+
+- name: restart apache2
+  systemd:
+    state: restarted
+    name: apache2
+    daemon_reload: yes
+```
+
+##### What is  [Idempotence](https://en.wikipedia.org/wiki/Idempotence)? :panda_face:
+
+#### 7.1.3 Templating
+
+We need to configure our Apache server. For this purpose we will use the `template` module.
+[Let's explore templates :panda_face:](https://docs.ansible.com/ansible/2.5/modules/template_module.html#template-templates-a-file-out-to-a-remote-server)
+
+Ansible templates leverage the powerful and widely adopted Jinja2 templating language. Let's go ahead and create two templates in this location -> `webserver/templates`.
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+
+mkdir -p webserver/templates/ && vi webserver/templates/web.port.j2
+```
+
+Paste
+
+```XML
+# If you just change the port or add more ports here, you will likely also
+# have to change the VirtualHost statement in
+# /etc/apache2/sites-enabled/000-default.conf
+
+Listen 8080
+
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
+
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+
+# vim: syntax=apache ts=4 sw=4 sts=4 sr noet
+````
+
+Then
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+
+vi webserver/templates/web.conf.j2
+```
+
+Paste:
+
+```XML
+<VirtualHost *:8080>
+    ServerAdmin {{server_admin_email}}
+    DocumentRoot {{server_document_root}}
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+Our template is using variables that will be replaced with their values, at the time we run the playbook, and then sent off to the remote server.
+Where is a good place to define variables? [Let's explore defining variables :panda_face:](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#defining-variables-in-included-files-and-roles)
+
+These variables belong to the `webserver` role. Their place is in a designed for the purpose location `webserver/vars/main.yml`:
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+
+mkdir -p webserver/vars && vi webserver/vars/main.yml
+```
+
+Paste:
+
+```YAML
+server_admin_email: playground@localhost.local
+server_document_root: /var/www/html
+```
+
+#### Tip! Check your [playbook directory structure](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/hierarchy_structure.md#hierarchy-structure-of-playbook) is correct!
+
+### And now let's create and run our playbook
+
+Do you remember the YAML that was showing high-level structure of a playbook? Let's create it.
+
+```bash
+cd .. && vi site.yml
+
+# We are now back in playbook/
+```
+
+Paste:
+
+```YAML
+- name: LAMP stack setup and Wordpress installation on Ubuntu 18.04
+  hosts: lamp
+  remote_user: "{{ remote_username }}"
+  become: yes
+  
+  roles:
+    - role: common
+    - role: webserver
+    - role: db
+    - role: php
+    - role: wordpress
+```
+
+Let' set our remote user globally:
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook
+
+echo remote_username: "playground" > group_vars/lamp.yml
+```
+
+#### You may want to check last time the  [playbook directory structure](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/hierarchy_structure.md#hierarchy-structure-of-playbook#hierarchy-structure-of-playbook)
+
+### And now run the playbook!
+
+```bash
+ansible-playbook -i inventory site.yml
+```
+
+Success! :+1: :+1: :+1:
+
+#### Go to `http://remote-xxx.ldn.devopsplayground.com/apache/wordpress` 
+(replace the `xxx` with the `animal name` on your info-slip)
+
+You should see:
+
+![Wordpress welcome page](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-19%20at%2013.23.54.png)
+
+## 8. Playbook basics
+
+### 8.1 How can we abbreviate the command we ran above?
+
+Let's tell Ansible where we want it to look up the inventory.
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook
+
+echo -e "inventory = inventory" >> ansible.cfg
+```
+
+Now run the playbook like this:
+
+```bash
+ansible-playbook site.yml
+```
+
+### 8.2 Linting
+
+We can use the linter that comes with Ansible to catch bugs and stylistic errors. Especially helpful for those that start with Ansible but handy for experts as well.
+Let's pull the linter down now:
+
+```bash
+sudo apt install ansible-lint
+```
+
+Run
+
+```bash
+ansible-lint site.yml
+```
+
+And watch the linter complain!
+
+### 8.3 Dry-run
+
+When ansible-playbook is executed with --check it will not make any changes on remote systems. Instead it will try to predict what changes it would make. This works great with `--diff` when you make small changes to files or templates.
+
+```bash
+ansible-playbook site.yml --check --diff
+```
+
+### 8.4 Tags
+
+Playbooks can easily become large and can run for long time. We don't want to watch them rerun in their entirety every time we make a change to a task. How can we save time and run only what we are interested in? [Let's explore tags :panda_face:](https://docs.ansible.com/ansible/latest/user_guide/playbooks_tags.html)
+
+```bash
+vi site.yml
+```
+
+Delete all the contents in the file and paste the following.
+
+```YAML
+- name: LAMP stack setup and Wordpress installation on Ubuntu 18.04
+  hosts: lamp
+  remote_user: "{{ remote_username }}"
+  become: yes
+  
+  roles:
+    - role: common
+    - role: webserver
+      tags: [web]
+    - role: db
+      tags: [db]
+    - role: php
+    - role: wordpress
+      tags: [wp, db]
+```
+
+Now run your playbook in the following mode:
+
+```bash
+ansible-playbook site.yml --tags=web
+```
+
+#### Hint! We placed `tags` on roles, but we can be more granular and tag any task in the playbook. If you have time, modify a task file to bear a tag with your name. Then rerun the playbook with your tag to see only that task being played.
+
+### 8.5 Enable Debug and Increase Verbosity
+
+[Let's explore ways to debug :panda_face:](https://docs.ansible.com/ansible/latest/user_guide/playbooks_debugger.html)
+
+#### Break the playbook
+
+```bash
+# in ~/Hands-on-with-Ansible-Oct-2019/playbook
+
+vi roles/webserver/tasks/main.yml
+```
+
+Change the name of the package as shown:
+
+![Wrong package](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2015.34.10.png)
+
+#### Run the debugger
+
+```bash
+ANSIBLE_STRATEGY=debug ansible-playbook site.yml --tags=web
+```
+
+This setting will trigger the debugger at any failed or unreachable task, unless specifically disabled.
+
+The `-v` gives us a more detailed output for connection debugging. Ansible is rich with feedback data. Try running the same command but with `-vv` or even `-vvv`.
+
+You will see:
+
+![Debug message](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2015.55.20.png)
+
+```bash
+# in [lampstack] TASK: webserver : install apache2 server (debug)>
+# type:
+
+p task.args
+```
+
+you will see the following:
+
+![output](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2016.07.10.png)
+
+Let's fix the error on the fly:
+
+```bash
+# in [lampstack] TASK: webserver : install apache2 server (debug)>
+# type:
+
+ task.args['name'] = 'apache2'
+```
+
+output
+![Output](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2013.41.58.png)
+
+and then run again the failed task
+
+```bash
+# in [lampstack] TASK: webserver : install apache2 server (debug)>
+# type:
+
+redo
+```
+
+![Redo](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/images/Screenshot%202019-10-22%20at%2013.43.08.png)
+
+#### Success! :+1: :+1: :+1:
+
+### Don't forget to fix the error in the file, once you are happy with your solution.
+
+#### Bonus
+
+The `-v` gives us a more detailed output for connection debugging. Ansible is rich with feedback data. Try running the same command but with `-vv` or even `-vvv`.
+
+```bash
+ANSIBLE_STRATEGY=debug ansible-playbook site.yml --tags=web -v
+```
+
+## 9. Notes
+
+If you want to create the LAMP stack playbook from scratch, [here](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019/blob/master/step_by_step/LAMP_stack_step_by_step.md#ansible-hands-on).
+
+## 10. References
+
+Some materials were adopted from this cool book:
+
+[Security Automation with Ansible 2: Leverage Ansible 2 to Automate Complex Security Tasks Like Application Security, Network Security, and Malware Analysis](https://g.co/kgs/xbJUnr)
+
+## Thanks for participating!
+
+
+
+
+
+
 
 ## Clean up
 
@@ -1568,32 +744,4 @@ The command does exactly what it says on the tin. Infrastructure managed by Terr
 
 **Again, you will continue to be charged by AWS if you do not run this final step**
 
-[^Top](#top)
 
-<a name="improve"/>
-
-## How To Improve
-
-There's a few things to improve in our app:
-
-* The logic for DB actions could be abstracted from the handlers
-* Handlers could have more robust checks
-* There's no tests written for the API (apart from our simple `curl` commands)
-* Postgres might be abstracted into an interface - so we could quickly plug another database engine
-* Graceful shutdown
-
-Of course there's more than this, but as an API written from ground up in a few hours I think it's better than ok!
-
-[^Top](#top)
-
-<a name="author"/>
-
-## Word from the author
-
-Hope you've learned something about Go in the process and he was able to showcase the strengths and small quirks of writing in Go!
-
-If you have any questions or problems, catch him on [LinkedIn](https://www.linkedin.com/in/arturkondas/), [Twitter](https://twitter.com/arturkondas) or [Github](https://github.com/youshy)
-
-Read more about him, his stories and thoughts and find other Go tutorials @ [akondas.com](https://akondas.com)
-
-[^Top](#top)
