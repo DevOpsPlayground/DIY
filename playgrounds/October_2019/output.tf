@@ -19,9 +19,11 @@ output "unique_identifier" {
   value       = module.workstation.*.unique_identifiers
   description = "Unique identifiers for Workstation instances"
 }
-output "subnet_id" {
-  value = module.network.*.public_subnets
+output "unique_identifier_remote_host" {
+  value       = module.remote_host.*.unique_identifiers
+  description = "Unique identifiers for remote_hosts instances"
 }
+
 # output "dns_workstation" {
 #   value = module.dns_workstation.*.name
 # }
