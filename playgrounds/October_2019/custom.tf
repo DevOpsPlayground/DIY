@@ -6,10 +6,6 @@ resource "random_password" "password" {
   length  = 16
   special = true
 }
-resource "random_password" "db_password" {
-  length  = 16
-  special = false
-}
 
 # custom security groups
 resource "aws_security_group" "rds_sg" {
