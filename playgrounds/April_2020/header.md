@@ -87,6 +87,33 @@ browser e.g. 18.130.177.57:3000/wetty
 * IDE access - <MasterNode_IP>:8000 in browser e.g. 318.130.177.57:8000
 * Master Node password - provided at the end of terraform apply
 * Worker Node password - provided at the end of terraform apply
+## Agenda
+
+The hands-on session will be divided to four parts:
+- [Deploy web application as standalone container](docs/standalone.md):
+  - We will create a docker image containing simple web application using Dockerfile.
+  - We will run the container using previously created images.
+  - We will investigate and access our deployment.
+- [Deploy and use load-balancer](docs/lb.md):
+  - We will create a load-balancer configuration.
+  - We will run the container using official ha-proxy images.
+  - We will mount our configuration as a volume.
+  - We will access our application through the load-balancer/
+- [Deploy application on the Swarm cluster](docs/swarm.md):
+  - We will initialize Swarm cluster and add worker node.
+  - We will deploy and scale our application.
+  - We will simulate the failure of one the nodes.
+  - We will "drain" one of the nodes to see how routing mesh works.
+- [Deploy application on the Kubernetes cluster](docs/k8s.md):
+  - We will initialize the Kubernetes cluster.
+  - We will deploy our application to the Kubernetes cluster.
+  - We will expose our deployment using NodePort resource.
+  - We will scale our application and investigate its behavior.
+
+## What skills/capabilities you will have after the workshop:
+- You will be able to containerize and deploy an application
+- You will be able to set up Docker Swarm and Kubernetes cluster
+- You will be able to deploy your applications using orchestration tools
 
 ## Clean up
 
