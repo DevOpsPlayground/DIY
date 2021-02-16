@@ -5,8 +5,8 @@
 
 First lets log-in to the master node: You can obtain the IP and password from the terraform outputs after applying
 
-> MasterNodeIps = <YOUR_MASTER_NODE_IP/wetty> e.g 192.168.0.1/wetty
-MasterNodePassword = <YOUR_MASTER_NODE_PASSWORD e.g 'PASSWORD123'
+> MasterNodeIps = <YOUR_MASTER_NODE_IP/wetty> e.g 192.168.0.1/wetty \
+<YOUR_MASTER_NODE_PASSWORD e.g 'PASSWORD123' 
 
 For todays workshop we have provided a dockerised web application that We we will be deploying. You will find it in ```workdir/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes/app``` directory. You can move there by typing
 
