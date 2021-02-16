@@ -3,14 +3,13 @@
 </p>
 
 <h1 align="center">Welcome to the October playground! Hands on with Ansible</h1>
-
 [The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git)
 
 # Intro
 
 Hello and welcome to the October playground DIY.
 
-Let's go!
+ Our task: Create a real-world LAMP stack for development and deploy Wordpress app using Ansible
 
 # Check Before You Start!
 
@@ -84,7 +83,6 @@ browser e.g. 18.130.177.57:3000/wetty
 * Workstation password - provided at the end of terraform apply
 * Remote Host password - provided at the end of terraform apply
 # Ansible Hands On
-### Our task: Create a real-world LAMP stack for development and deploy Wordpress app using Ansible
 ## Summary:
 
 [Let's](#lets-start "Goto Let's start")
@@ -112,18 +110,17 @@ browser e.g. 18.130.177.57:3000/wetty
 -----
 ### Let's start
 
-1. Open up the `<WORKSTATION_IP>/wetty/`
+1. Open up the `<WORKSTATION_IP>/wetty/ e.g. 23.32.33.1/wetty`
 
 2. Use the workstation password provided within the terraform outputs to login.
 
-3. Type some shell commands to get familiar with the web terminal.  
-   From now on we will be working from the browsers only.
+3. Without changing machine, (you are in your workstation instance), set up some ENVIRONMENT variables that you will use later.
 
-4. Without changing machine, (you are in your workstation instance), set up some ENVIRONMENT variables that you will use later.
-
-We'll append two useful env vars to your .profile, as follows
+We'll append two useful environment variables to your .profile, as follows
 - Remote Host IP and Remote Host Password are outputted in the terminal after apply enter these values below.
-- for the password surround it in quotes e.g. `export PASSWORD='password123'`
+- for the password surround it in quotes e.g. `export PASSWORD='password123'` 
+
+NOTE: This is the remote host password from terraform outputs. 
 
 ```bash
 cat << EOF >> ~/.profile
@@ -185,7 +182,7 @@ Now all should be working as expected.
 Run the following command from your `workstation`.
 
 ```bash
-cd ~/Hands-on-with-Ansible-Oct-2019
+cd ~/workdir/Hands-on-with-Ansible-Oct-2019
 ./setup.sh $REMOTE_HOST
 ```  
 You should see output something like the following:
@@ -418,7 +415,7 @@ We need to configure our Apache server. For this purpose we will use the `templa
 Ansible templates leverage the powerful and widely adopted Jinja2 templating language. Let's go ahead and create two templates in this location -> `webserver/templates`.
 
 ```bash
-# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+# in ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook/roles
 
 mkdir -p webserver/templates/ && vi webserver/templates/web.port.j2
 ```
@@ -468,7 +465,7 @@ Where is a good place to define variables? [Let's explore defining variables :pa
 These variables belong to the `webserver` role. Their place is in a designed for the purpose location `webserver/vars/main.yml`:
 
 ```bash
-# in ~/Hands-on-with-Ansible-Oct-2019/playbook/roles
+# in ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook/roles
 
 mkdir -p webserver/vars && vi webserver/vars/main.yml
 ```
@@ -510,7 +507,7 @@ Paste:
 Let' set our remote user globally:
 
 ```bash
-# in ~/Hands-on-with-Ansible-Oct-2019/playbook
+# in ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook
 
 echo remote_username: "playground" > group_vars/lamp.yml
 ```
@@ -615,7 +612,7 @@ ansible-playbook site.yml --tags=web
 #### Break the playbook
 
 ```bash
-# in ~/Hands-on-with-Ansible-Oct-2019/playbook
+# in ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook
 
 vi roles/webserver/tasks/main.yml
 ```
