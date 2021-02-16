@@ -1,7 +1,7 @@
 locals {
-  adj               = jsondecode(file("./adjectives.json"))
-  random_password   = random_password.password.result
-  ChildNodePassword = random_password.remote_host.result
+  adj                = jsondecode(file("./adjectives.json"))
+  random_password    = random_password.password.result
+  WorkerNodePassword = random_password.remote_host.result
 }
 module "network" {
   source           = "../../modules/network"
@@ -16,10 +16,10 @@ module "master_node" {
   subnet_id          = module.network.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "${var.scriptLocation}/oct-2019.sh",
+    "${var.scriptLocation}/april-2020.sh",
     {
       hostname = "playground"
-      username = "playground"
+      username = "master-node"
       ssh_pass = local.random_password
       region   = var.region
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes.git"
@@ -28,7 +28,7 @@ module "master_node" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
-module "child_node" {
+module "worker_node" {
   count              = var.deploy_count
   source             = "../../modules/instance"
   PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-child-node"
@@ -39,8 +39,8 @@ module "child_node" {
     "${var.scriptLocation}/april-2020.sh",
     {
       hostname = "playground"
-      username = "playground"
-      ssh_pass = local.ChildNodePassword
+      username = "worker-node"
+      ssh_pass = local.WorkerNodePassword
       region   = var.region
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes.git"
     }
@@ -57,11 +57,11 @@ module "child_node" {
 #   record_name  = "${var.PlaygroundName}-master_node-${element(local.adj, count.index)}-panda"
 # }
 
-# module "dns_child_node" {
+# module "dns_worker_node" {
 #   count        = var.deploy_count
 #   source       = "./../../modules/dns"
 #   instances    = var.instances
-#   instance_ips = element(module.child_node.*.public_ips, count.index)
+#   instance_ips = element(module.worker_node.*.public_ips, count.index)
 #   domain_name  = var.domain_name
-#   record_name  = "${var.PlaygroundName}-child_node-${element(local.adj, count.index)}-panda"
+#   record_name  = "${var.PlaygroundName}-worker_node-${element(local.adj, count.index)}-panda"
 # }
