@@ -11,7 +11,7 @@ variable "instance_count" {
 }
 variable "PlaygroundName" {
   type        = string
-  default     = "OCT19"
+  default     = "APR-20"
   description = "The playground name to tag all resouces with"
 }
 variable "instances" {
