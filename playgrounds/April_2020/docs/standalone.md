@@ -63,12 +63,12 @@ Now that you've run the application on the master node do the same on the worker
 
 ##### NOTE: Both are provided in the terraform outputs.
 
-> WorkerNodeIps = <YOUR_NODE_IP/wetty> e.g 192.168.0.1/wetty
-WorkerNodePassword = <YOUR_NODE_PASSWORD e.g 'PASSWORD123'
+> WorkerNodeIps = <YOUR_NODE_IP/wetty> \
+WorkerNodePassword = <YOUR_NODE_PASSWORD  
 
 Once this is done you should have two Dockerizsed web applications running: 
 
-><YOUR_MASTER_NODE_IP:8080> e.g. 92.168.0.1:8080
+><YOUR_MASTER_NODE_IP:8080> e.g. 92.168.0.11:8080 \
 <YOUR_WORKER_NODE_IP:8080> e.g. 92.168.0.2:8080
 
 
