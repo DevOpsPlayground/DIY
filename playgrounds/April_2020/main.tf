@@ -1,18 +1,18 @@
 locals {
-  adj                = jsondecode(file("./adjectives.json"))
-  random_password    = random_password.password.result
-  RemoteHostPassword = random_password.remote_host.result
+  adj               = jsondecode(file("./adjectives.json"))
+  random_password   = random_password.password.result
+  ChildNodePassword = random_password.remote_host.result
 }
 module "network" {
   source           = "../../modules/network"
   required_subnets = 2
   PlaygroundName   = var.PlaygroundName
 }
-module "workstation" {
+module "master_node" {
   count              = var.deploy_count
   source             = "../../modules/instance"
-  PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-workstation"
-  security_group_ids = [aws_security_group.ec2_sg.id]
+  PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-master-node"
+  security_group_ids = [module.network.allow_all_security_group_id]
   subnet_id          = module.network.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
@@ -22,46 +22,46 @@ module "workstation" {
       username = "playground"
       ssh_pass = local.random_password
       region   = var.region
-      gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git"
+      gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes.git"
     }
   )
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
-module "remote_host" {
+module "child_node" {
   count              = var.deploy_count
   source             = "../../modules/instance"
-  PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-remote-host"
-  security_group_ids = [aws_security_group.ec2_sg.id]
+  PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-child-node"
+  security_group_ids = [module.network.allow_all_security_group_id]
   subnet_id          = module.network.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "${var.scriptLocation}/oct-2019.sh",
+    "${var.scriptLocation}/april-2020.sh",
     {
       hostname = "playground"
       username = "playground"
-      ssh_pass = local.RemoteHostPassword
+      ssh_pass = local.ChildNodePassword
       region   = var.region
-      gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git"
+      gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes.git"
     }
   )
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
-# module "dns_workstation" {
+# module "dns_master_node" {
 #   count        = var.deploy_count
 #   source       = "./../../modules/dns"
 #   instances    = var.instances
-#   instance_ips = element(module.workstation.*.public_ips, count.index)
+#   instance_ips = element(module.master_node.*.public_ips, count.index)
 #   domain_name  = var.domain_name
-#   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
+#   record_name  = "${var.PlaygroundName}-master_node-${element(local.adj, count.index)}-panda"
 # }
 
-# module "dns_remote_host" {
+# module "dns_child_node" {
 #   count        = var.deploy_count
 #   source       = "./../../modules/dns"
 #   instances    = var.instances
-#   instance_ips = element(module.remote_host.*.public_ips, count.index)
+#   instance_ips = element(module.child_node.*.public_ips, count.index)
 #   domain_name  = var.domain_name
-#   record_name  = "${var.PlaygroundName}-remote_host-${element(local.adj, count.index)}-panda"
+#   record_name  = "${var.PlaygroundName}-child_node-${element(local.adj, count.index)}-panda"
 # }

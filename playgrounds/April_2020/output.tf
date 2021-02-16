@@ -1,33 +1,33 @@
 
-output "workstation_ips" {
-  value       = module.workstation.*.public_ips
-  description = "The ip of the workstation instances"
+output "MasterNodeIps" {
+  value       = module.master_node.*.public_ips
+  description = "IP's of the master node instances"
 }
-output "remotehost_ips" {
-  value       = module.remote_host.*.public_ips
-  description = "The ip of the remote host instance"
+output "ChildNodeIps" {
+  value       = module.child_node.*.public_ips
+  description = "The IP's of child node instances"
 }
-output "WorkstationPassword" {
+output "MasterNodePassword" {
   value       = local.random_password
   description = "The password Used to SSH into the instance"
 }
 
-output "RemoteHostPassword" {
-  value = local.RemoteHostPassword
+output "ChildNodePassword" {
+  value = local.ChildNodePassword
 }
-output "unique_identifier" {
-  value       = module.workstation.*.unique_identifiers
+output "UniqueIdentifierMasterNode" {
+  value       = module.master_node.*.unique_identifiers
   description = "Unique identifiers for Workstation instances"
 }
-output "unique_identifier_remote_host" {
-  value       = module.remote_host.*.unique_identifiers
+output "UniqueIdentifierChildNode" {
+  value       = module.child_node.*.unique_identifiers
   description = "Unique identifiers for remote_hosts instances"
 }
 
 # output "dns_workstation" {
-#   value = module.dns_workstation.*.name
+#   value = module.dns_master_node.*.name
 # }
 
 # output "dns_remote_host" {
-#   value = module.dns_remote_host.*.name
+#   value = module.dns_child_node.*.name
 # }
