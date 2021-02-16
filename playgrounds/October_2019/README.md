@@ -136,7 +136,7 @@ but substituting the IP address and password of your  machine: This will be the 
 cat << EOF >> ~/.profile
 export REMOTE_HOST=52.51.15.91
 export PASSWORD=mySecret
-cd ~/workdir//Hands-on-with-Ansible-Oct-2019/playbook/roles
+cd ~/workdir/Hands-on-with-Ansible-Oct-2019/playbook/roles
 EOF
 
 # then
