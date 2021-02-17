@@ -71,7 +71,7 @@ Terraform will now build our required AWS infrastructure. This should complete a
 <img src=../../README_images/tf_apply_oct.png width="600">
 </p>
 
-> IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.  
+> IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.
 Once the apply has completed your EC2 instance will now be initialising and running the required script to install and launch GraphQL. Once the `instance state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies.
 
 ## Access
@@ -375,7 +375,7 @@ Find the function `BookFlight` and replace the implementation with:
 ```
 return datalayer.BookFlight(flightNumber, passengerID)
 ```
-> Remember: remove the file import "fmt"  
+> Remember: remove the file import "fmt"
 Start the server:
 ```
 $ go run ./server.go
@@ -459,7 +459,7 @@ type Mutation {
   cancelBooking(flightNumber: String!, passengerId: ID!): Boolean!
 }
 ```
-> Remember to run the command `go run github.com/99designs/gqlgen generate`, remove "fmt" from the file imports and connect up the appropriate methods from the datalayer  
+> Remember to run the command `go run github.com/99designs/gqlgen generate`, remove "fmt" from the file imports and connect up the appropriate methods from the datalayer
 You can then have a play!
 
 ### 5. Clean up
@@ -476,28 +476,4 @@ The command does exactly what it says on the tin. Infrastructure managed by Terr
 **Again, you will continue to be charged by AWS if you do not run this final step**
 
 We hope you enjoyed the playground DIY and make sure to keep coming back for more great content.
-
-#### Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| InstanceRole | The Role of the instance to take | `number` | `null` | no |
-| PlaygroundName | The playground name to tag all resouces with | `string` | `"oct"` | no |
-| deploy_count | Change this for the number of users of the playground | `number` | `1` | no |
-| domain_name | Your own registered domain name if using dns module | `string` | `"devopsplayground.org"` | no |
-| instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
-| instance_type | instance type to be used for instances | `string` | `"t2.medium"` | no |
-| instances | number of instances per dns record | `number` | `1` | no |
-| policyLocation | The location of the policys | `string` | `"./../../policies"` | no |
-| region | The aws region to deploy to | `string` | `"eu-west-2"` | no |
-| scriptLocation | The location of the userData folder | `string` | `"./../../modules/instance/scripts"` | no |
-
-#### Outputs
-
-| Name | Description |
-|------|-------------|
-| WorkstationPassword | The password Used to SSH into the instance |
-| dns_workstation | n/a |
-| unique_identifier | Unique identifiers for Workstation instances |
-| workstation_ips | The ip of the workstation instances |
 
