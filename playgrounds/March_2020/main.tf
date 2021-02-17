@@ -12,10 +12,10 @@ module "workstation" {
   source             = "../../modules/instance"
   PlaygroundName     = "${element(local.adj, count.index)}-panda-${var.PlaygroundName}-workstation"
   security_group_ids = [module.network.allow_all_security_group_id]
-  subnet_id          = [module.network.public_subnets.0]
+  subnet_id          = module.network.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "${var.scriptLocation}/oct-2019.sh",
+    "${var.scriptLocation}/march-2020.sh",
     {
       hostname = "playground"
       username = "playground"
@@ -27,6 +27,11 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
+
+
+
+
+### IF YOU'RE USING DNS PLEASE UNCOMMENT THIS AND ADD YOU HOSTED ZONE DOMAIN NAME IN VARS.TF
 
 # module "dns_workstation" {
 #   count        = var.deploy_count
