@@ -8,3 +8,5 @@ data "aws_ami" "amazon-linux-2" {
 
   owners = [var.amiOwner]
 }
+
+

@@ -5,5 +5,5 @@ output "zone_id" {
 
 output "name" {
   description = "name of dns record created"
-  value       = "aws_route53_record.instances.name"
+  value       = aws_route53_record.instances.*.name
 }

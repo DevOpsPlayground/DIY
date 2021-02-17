@@ -7,31 +7,29 @@ variable "region" {
 variable "instance_count" {
   type        = number
   default     = 1
-  description = "The amount of versions of the infrastructer to make "
+  description = "The number of instances to create for each user"
 }
 variable "PlaygroundName" {
   type        = string
-  default     = "nov"
+  default     = "oct-2020"
   description = "The playground name to tag all resouces with"
 }
+# variable "domain_name" {
+#   type        = string
+#   description = "Your own registered domain name if using dns module"
+# }
 variable "WorkstationPassword" {
   type        = string
   default     = "playground"
   description = "The password of the workstation ssh"
 }
 
-variable "instances" {
-  type        = number
-  default     = 1
-  description = "number of instances per dns record"
-}
-
 // PLEASE TAKE CARE WHEN EDITING THIS DUE TO COSTS. 
 
 variable "deploy_count" {
   type        = number
-  description = "Change this for the number of users of the playground"
-  default     = 2
+  description = "Number of versions of the infrastructure to create - change this for the number of users in the playground"
+  default     = 1
 }
 variable "InstanceRole" {
   type        = number

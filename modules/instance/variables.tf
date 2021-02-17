@@ -50,3 +50,4 @@ variable "purpose" {
   default     = "Playground"
   description = "A tag to give each resource"
 }
+
