@@ -36,7 +36,7 @@ backend backendnodes
     server node2 <host-address:port> check
 
 ```
-in the prevous step we craeted two docker containers on port `8080` for the `master` and the `worker` for `<<host-address:port>` enter the IP and port for each of these e.g. `192.169.0.1:8080` for master and `192.161.72.1` for worker. 
+in the previous step we created two docker containers on port `8080` for the `master` and the `worker` for `<<host-address:port>` enter the IP and port for each of these e.g. `192.169.0.1:8080` for master and `192.161.72.1` for worker. 
 
 `NOTE: The IP's will be in your terraform outputs or in the address bar for each instance tab. `
 
@@ -49,7 +49,6 @@ docker run --detach --name load-balancer --volume `pwd`/haproxy:/usr/local/etc/h
 Now lets type our ```<master-node-address>:8081``` in the browser, then refresh the page a few times. You should see how traffic is directed to the different nodes/containers.
 
 It is a glimpse of the container world without orchestration. Lets cleanup and remove the containers on both nodes by executing:
-
 
 
 ```bash
