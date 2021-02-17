@@ -11,7 +11,7 @@ variable "instance_count" {
 }
 variable "PlaygroundName" {
   type        = string
-  default     = "oct"
+  default     = "OCT19"
   description = "The playground name to tag all resouces with"
 }
 variable "instances" {
@@ -19,6 +19,7 @@ variable "instances" {
   default     = 1
   description = "number of instances per dns record"
 }
+
 # variable "domain_name" {
 #   type        = string
 #   default     = "devopsplayground.org"

@@ -4,6 +4,7 @@ locals {
 locals {
   random_password = random_password.password.result
 }
+
 module "network" {
   count          = 1 // Keep as one otherwise a new vpc will be deployed for each instance. 
   source         = "./../../modules/network"
@@ -11,11 +12,12 @@ module "network" {
 }
 module "workstation_role" {
   count          = 1
-  source         = "./../../modules/rolePolicy"
+  source         = "./../../modules/iam"
   PlaygroundName = var.PlaygroundName
   role_policy    = file("${var.policyLocation}/assume_role.json")
   aws_iam_policy = { database = file("${var.policyLocation}/dynamo_db.json") }
 }
+
 module "workstation" {
   count              = var.deploy_count
   source             = "./../../modules/instance"
@@ -37,14 +39,14 @@ module "workstation" {
   amiName  = "ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"
   amiOwner = "099720109477"
 }
-# module "dns_workstation" {
-#   count        = var.deploy_count
-#   source       = "./../../modules/dns"
-#   instances    = var.instances
-#   instance_ips = element(module.workstation.*.public_ips, count.index)
-#   domain_name  = var.domain_name
-#   record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
-# }
+module "dns_workstation" {
+  count        = var.deploy_count
+  source       = "./../../modules/dns"
+  instances    = var.instances
+  instance_ips = element(module.workstation.*.public_ips, count.index)
+  domain_name  = var.domain_name
+  record_name  = "${var.PlaygroundName}-workstation-${element(local.adj, count.index)}-panda"
+}
 module "flights_table" {
   count          = var.deploy_count
   source         = "./../../modules/dynamodb"

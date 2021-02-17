@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
 
-sudo apt-get update -y
-sudo apt-get install awscli -y
+sudo apt-get update
+sudo apt-get install -y language-pack-en
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible 
+sudo apt-get install ansible -y 
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get install terraform -y
-sudo apt-get install -y language-pack-en
-sudo snap install go --classic 
-sudo apt install nodejs -y
-sudo apt install npm -y 
 
 echo "--> Setting hostname..."
 echo "${hostname}" | sudo tee /etc/hostname
@@ -23,7 +22,6 @@ EOF
 
 echo "--> Create new user, edit ssh settings"
 
- 
 sudo useradd ${username} \
    --shell /bin/bash \
    --create-home 
@@ -31,7 +29,6 @@ echo '${username}:${ssh_pass}' | sudo chpasswd
 sudo sed -ie 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 
 sudo service sshd reload
-
 
 echo "Adding ${username} user to sudoers"
 sudo tee /etc/sudoers.d/${username} > /dev/null <<"EOF"
@@ -52,18 +49,16 @@ sudo systemctl enable docker
 
 docker run --rm -p 80:3000 --detach wettyoss/wetty --ssh-host=172.17.0.1 --ssh-user ${username}
 
-# Add AWS config
-sudo mkdir /home/${username}/.aws
-sudo touch /home/${username}/.aws/config
-sudo printf "%s\n" "[default]" "region = ${region}" > /home/${username}/.aws/config
-
 echo "running VS code container"
-sudo mkdir /home/${username}/GraphQL
-sudo chown -R ${username} /home/${username}/GraphQL
-cd /home/${username}/GraphQL
+sudo mkdir /home/${username}/workdir
+sudo chown -R ${username} /home/${username}/workdir
+cd /home/${username}/workdir
 sudo git clone ${gitrepo}
 sudo docker run -dit -p 8000:8080 \
   -v "$PWD:/home/coder/project" \
   -u "$(id -u):$(id -g)" \
   --detach \
   codercom/code-server:latest --auth none
+  
+sudo chown -R playground Hands-on-with-Ansible-Oct-2019/
+
