@@ -33,15 +33,6 @@ EOF
 sudo chmod 0440 /etc/sudoers.d/${username}
 sudo usermod -a -G sudo ${username}
 
-# ADDING ALL REQUIRED ENVIROMENT VARIABLES
-
-export BUSAPP=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs/src/main/java/se/ff/bs/
-export BUSSPRINGBOOT=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs
-export BUSCOMES=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/main/java/se/ff/bsc
-export BUSTEST=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/test/java/se/ff/bsc
-export CLIENT=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client
-export BROKER=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/dockerpactbroker
-export VERIFY=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/verifyer/src/test/java/se/ff/bsv
 
 #DOCKER
 curl gnupg-agent software-properties-common
@@ -61,8 +52,11 @@ sudo mkdir /home/${username}/workdir
 sudo chown -R ${username} /home/${username}/workdir
 cd /home/${username}/workdir
 sudo git clone ${gitrepo}
+sudo chown ${username} -R ~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing
 sudo docker run -dit -p 8000:8080 \
   -v "$PWD:/home/coder/project" \
   -u "$(id -u):$(id -g)" \
   --detach \
   codercom/code-server:latest --auth none
+
+source exports.sh 
