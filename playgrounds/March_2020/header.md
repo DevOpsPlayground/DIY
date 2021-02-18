@@ -133,6 +133,12 @@ You should see the following:
 
 <img src=../../README_images/IDE.png width="600">
 
+
+Okay lets get started with terraform: In the web IDE open the following directory: `coder/config` you should see a `Dockerfile`, `hello.py` and `playground.tf` file.
+
+
+
+
 ## Clean up
 
 **Once you have finished playing around remember to delete the infrastructure to avoid any additional running charges as mentioned**
