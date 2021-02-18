@@ -24,6 +24,7 @@ Within this folder you will find a breakdown of all the available playgrounds yo
 
 * [November 2020 - Hands on with Jenkins, Terraform and AWS](playgrounds/November_2020)
 * [October 2020  - Introduction to GraphQL with Go](playgrounds/October_2020)
+* [October 2020 - Digital Women in Tech - Hands on with Contract Testing](playgrounds/WIT_October_2020)
 * [April 2020 -  Hands on with container orchestration using Docker Swarm and Kubernetes](playgrounds/May_2020)
 * [May 2020 - Hands-on, Ready to Deploy, Golang CRUD API](playgrounds/May_2020)
 * [October 2019  - Hands on with Ansible](playgrounds/October_2019) 
