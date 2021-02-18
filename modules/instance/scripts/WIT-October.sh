@@ -46,7 +46,6 @@ sudo systemctl enable docker
 
 docker run --rm -p 80:3000 --detach wettyoss/wetty --ssh-host=172.17.0.1 --ssh-user ${username}
 
-
 echo "running VS code container"
 sudo mkdir /home/${username}/workdir
 sudo chown -R ${username} /home/${username}/workdir
@@ -59,4 +58,13 @@ sudo docker run -dit -p 8000:8080 \
   --detach \
   codercom/code-server:latest --auth none
 
-source exports.sh 
+
+# SET ENV
+
+echo export BUSAPP="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs/src/main/java/se/ff/bs" >> /etc/profile
+echo export BUSSPRINGBOOT="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs" >> /etc/profile
+echo export BUSCOMES="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/main/java/se/ff/bsc"  >> /etc/profile
+echo export BUSTEST="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/test/java/se/ff/bsc"  >> /etc/profile
+echo export CLIENT="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client"  >> /etc/profile
+echo export BROKER='~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/dockerpactbroker'  >> /etc/profile
+echo export VERIFY='~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/verifyer/src/test/java/se/ff/bsv'  >> /etc/profile
