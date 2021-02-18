@@ -18,19 +18,18 @@ $ git clone git@github.com:DevOpsPlayground/DIY.git
 
 From there you can open using your text editor of choice but before moving on there area few things to get through first.
 
-### [playgrounds](playgrounds)
+### [Playgrounds](playgrounds)
 
 Within this folder you will find a breakdown of all the available playgrounds you can try. Keep checking this folder as it will be updated with new playgrounds as quickly as we can roll them out! So far we have:
 
 * [November 2020 - Hands on with Jenkins, Terraform and AWS](playgrounds/November_2020)
 * [October 2020  - Introduction to GraphQL with Go](playgrounds/October_2020)
 * [October 2020 - Digital Women in Tech - Hands on with Contract Testing](playgrounds/WIT_October_2020)
-* [April 2020 -  Hands on with container orchestration using Docker Swarm and Kubernetes](playgrounds/May_2020)
 * [May 2020 - Hands-on, Ready to Deploy, Golang CRUD API](playgrounds/May_2020)
+* [April 2020 -  Hands on with container orchestration using Docker Swarm and Kubernetes](playgrounds/May_2020)
 * [October 2019  - Hands on with Ansible](playgrounds/October_2019) 
 
-
-### [modules](modules)
+### [Modules](modules)
 
 Here you will find all of the `Terraform` modules that we have created. Feel free to have a look or even reuse them in some of your own projects.
 
