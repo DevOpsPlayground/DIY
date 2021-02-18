@@ -8,7 +8,6 @@ sudo hostname -F /etc/hostname
 sudo apt-get install -y default-jdk
 sudo apt-get install -y maven 
 
-
 echo "--> Adding hostname to /etc/hosts"
 sudo tee -a /etc/hosts > /dev/null <<EOF
 
@@ -36,13 +35,13 @@ sudo usermod -a -G sudo ${username}
 
 # ADDING ALL REQUIRED ENVIROMENT VARIABLES
 
-export BUSAPP=PactTest/bs/src/main/java/se/ff/bs
-export BUSSPRINGBOOT=PactTest/bs
-export BUSCOMES=PactTest/client/src/main/java/se/ff/bsc
-export BUSTEST=PactTest/client/src/test/java/se/ff/bsc
-export CLIENT=PactTest/client
-export BROKER=PactTest/dockerpactbroker
-export VERIFY=PactTest/verifyer/src/test/java/se/ff/bsv
+export BUSAPP=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs/src/main/java/se/ff/bs/
+export BUSSPRINGBOOT=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs
+export BUSCOMES=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/main/java/se/ff/bsc
+export BUSTEST=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/test/java/se/ff/bsc
+export CLIENT=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client
+export BROKER=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/dockerpactbroker
+export VERIFY=~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/verifyer/src/test/java/se/ff/bsv
 
 #DOCKER
 curl gnupg-agent software-properties-common
