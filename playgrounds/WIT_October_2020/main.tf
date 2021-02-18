@@ -1,7 +1,6 @@
 locals {
   adj               = jsondecode(file("./adjectives.json"))
   random_password   = random_password.password.result
-  database_password = random_password.db_password.result
 }
 module "network" {
   source           = "../../modules/network"
@@ -24,14 +23,10 @@ module "workstation" {
   subnet_id          = module.network.public_subnets.0
   instance_type      = var.instance_type
   user_data = templatefile(
-    "${var.scriptLocation}/may-2020.sh",
+    "${var.scriptLocation}/WIT-October.sh",
     {
       hostname     = "playground"
       username     = "playground"
-      rds_username = "playground"
-      rds_password = local.database_password
-      rds_db_name  = var.rds_db_name
-      rds_host     = module.rds[count.index].hostname
       ssh_pass     = local.random_password
       region       = var.region
       gitrepo      = "https://github.com/DevOpsPlayground/Digital-Women-in-Tech---Hands-on-with-Contract-Testing.git"

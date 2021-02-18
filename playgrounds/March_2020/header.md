@@ -133,8 +133,8 @@ You should see the following:
 
 <img src=../../README_images/IDE.png width="600">
 
-
 Okay lets get started with terraform: In the web IDE open the following directory: `coder/config` you should see a `Dockerfile`, `hello.py` and `playground.tf` file.
+
 
 
 
