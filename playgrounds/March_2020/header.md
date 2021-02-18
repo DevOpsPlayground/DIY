@@ -12,7 +12,7 @@ Hello and welcome to the March 2020 playground DIY.
 
 The usage of cloud resources has grown considerably in recent years. Be it GCP, AWS or Azure, each has their own configurations and infrastructure setup. Rather than repeating the manual process of going through their various consoles and setting them up, Terraform provides an elegant solution as Infrastructure as code (IaC) and Ansible as a Configuration Management solution.
 
-In this playground DIY you are going to be deploying recourses using Terraform and Ansible. 
+In this playground DIY you are going to be deploying recourses using Terraform and Ansible.
 
 Let's go!
 
@@ -27,7 +27,7 @@ We will be building the required infrastructure using Terraform so if you do not
 Before we get started there are a few things that are worth noting. We have set the defaults to a number of variables that can be changed within the `variables.tf` file if required:
 
 * The current code will build two EC2 instances one for a workstation and a second for the ansible remote host.
-* The workstation instance and remote host will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code. 
+* The workstation instance and remote host will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
 * If you prefer to use VIM then you can ! If not, you can use the VS Code IDE.
 * If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `51-67` in `main.tf`, lines `25-31` in `outputs.tf` and lines `23-27` in `variables.tf`
 * The default `region` is set to `eu-west-2`
@@ -75,7 +75,7 @@ Terraform will now build our required AWS infrastructure. This should complete a
 
 > IMPORTANT! - make a note of the `WorkstationPassword` is auto-generated and will only be shown once. If lost you may need to build your instance again.
 
-Once the apply has completed your EC2 instance will now be initializing and running the required script(s). Once the `instance state` have changed to `Running` they may take a further 4/5 minutes to install all the required dependencies. 
+Once the apply has completed your EC2 instance will now be initializing and running the required script(s). Once the `instance state` have changed to `Running` they may take a further 4/5 minutes to install all the required dependencies.
 
 ## Access
 
@@ -85,11 +85,10 @@ To access your instances check outputs in terminal after running `terraform appl
 * IDE access - <workstation_ip>:8000 in browser e.g. 318.130.177.57:8000
 * Workstation password - provided at the end of terraform apply
 
+# Hands On
 
-# Hands On 
-
-In this playground we are going to be using Wetty an online terminal to run commands and an online VSCode IDE. 
-## Pre Check 
+In this playground we are going to be using Wetty an online terminal to run commands and an online VSCode IDE.
+## Pre Check
 
 First lets check if everything has installed correctly: Navigate to the wetty web terminal:
 
@@ -105,36 +104,34 @@ Once you're logged into your instance let us check if everything is installed.
 ```bash
 terraform --version
 ansible --version
-```
-Running these commands are a check to see if these dependencies are successfully installed. 
+```  
+Running these commands are a check to see if these dependencies are successfully installed.
 
 <img src=../../README_images/versions.png width="600">
 
-If for some reason these aren't installed on your instance run the following commands. when it prompts you for a password enter 
-your `<WORKSTATION_PASSWORD>`. 
+If for some reason these aren't installed on your instance run the following commands. when it prompts you for a password enter   
+your `<WORKSTATION_PASSWORD>`.
 
 ```bash
-# INSTALL TERRAFORM 
+# INSTALL TERRAFORM
 curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 sudo apt-add-repository --yes "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 sudo apt-get install terraform -y
-# INSTALL ANSIBLE 
+# INSTALL ANSIBLE
 sudo apt install software-properties-common
-sudo apt-add-repository --yes --update ppa:ansible/ansible 
-sudo apt-get install ansible -y 
-```
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt-get install ansible -y
+```  
 Once this is done run the previous version commands again.
 ## Using Terraform
 
-For ease of use you can use the web-ide for this playground access on `<PLAYGROUND_IP>:8000` or if you feel comfortable you can use VIM. 
+For ease of use you can use the web-ide for this playground access on `<PLAYGROUND_IP>:8000` or if you feel comfortable you can use VIM.
 
-- Open a new tab and access the IDE > (Keep the terminal open as we will need this for later )
+- Open a new tab and access the IDE: (Keep the wetty terminal open as we will need this for later)
 
 You should see the following:
 
 <img src=../../README_images/IDE.png width="600">
-
-
 
 ## Clean up
 
@@ -143,9 +140,10 @@ You should see the following:
 Make sure you are in the `March_2020` directory and run the following command:
 ```
 $ terraform destroy
-```
+```  
 The command does exactly what it says on the tin. Infrastructure managed by Terraform will be destroyed. This will ask for confirmation before destroying, so please type `yes` when prompted.
 
 **Again, you will continue to be charged by AWS if you do not run this final step**
+
 
 
