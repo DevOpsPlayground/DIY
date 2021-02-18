@@ -10,7 +10,7 @@ First lets log-in to the master node: You can obtain the IP and password from th
 
 For todays workshop we have provided a dockerised web application that We we will be deploying. You will find it in ```workdir/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes/app``` directory. You can move there by typing
 
-######NOTE: If you're typing manually you can use tab to autocomplete. 
+###### NOTE: If you're typing manually you can use tab to autocomplete. 
 
  ```bash
  cd workdir/Hands-on-with-container-orchestration-using-Docker-Swarm-and-Kubernetes/app
