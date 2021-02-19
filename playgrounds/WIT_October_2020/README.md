@@ -4,7 +4,7 @@
 
 <h1 align="center">Welcome to the October playground! Digital Women in Tech: Hands on with Contract Testing</h1>
 
-[The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git)
+[The Playground link](https://github.com/DevOpsPlayground/Digital-Women-in-Tech---Hands-on-with-Contract-Testing.git)
 
 # Intro  
 
