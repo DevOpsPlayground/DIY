@@ -55,7 +55,7 @@ This command is used to create an execution plan. Terraform performs a refresh, 
 This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state. For example, terraform plan might be run before committing a change to version control, to create confidence that it will behave as expected. The plan will be fairly long but if all went well you should see the following in your terminal:
 
 <p align="center">
-<img src=../../README_images/WIT-oct-plan.jpg  
+<img src=../../README_images/WIT-OCT-PLAN.png  
  width="600">
 </p>  
 
@@ -69,7 +69,7 @@ This command is used to apply the changes required to reach the desired state of
 Terraform will now build our required AWS infrastructure. This should complete after a minute or so showing the following:
 
 <p align="center">
-<img src=../../README_images/WIT-OCT-APPLY.jpg width="600">
+<img src=../../README_images/WIT-OCT-APPLY.png width="600">
 </p>
 
 > IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance.  
