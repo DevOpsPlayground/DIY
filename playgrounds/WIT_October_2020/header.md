@@ -118,7 +118,7 @@ echo export VERIFY='~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Tes
     ``` 
 5. The above step will open the class BusCtrl.java in vi terminal, which will look like this. 
 
-![](Images/BusCtrl.png)
+![](../../README_images/BusCtrl.png)
 
 This is the bus application (spring boot) that has a controller, BusCtrl. This service takes station and bus number as input variables and then it uses the method getEtaBasedOnGpsAndOtherAdancedStuff(). This method returns an integer which then creates a BusInfo object with station number and the time left.  
 6. To exit the vi editor and return to the current directory use:
@@ -147,7 +147,7 @@ We can now write our client side test.
  ```  
 The class WhenComesTheBus.java will open in the vi editor.  
 
-![](Images/WhenComesTheBus.png) 
+![](../../README_images/WhenComesTheBus.png) 
 
 This class uses port 8111 as default port. It has the method checkEta() that checks estimated time for the station Hammersmith and bus number 613. It than prints out the results. CheckEta() method looks at local host, port, station and the bus number. It than makes an HTTP request and transform it into json and extract the integer from the result.  
 
@@ -165,7 +165,7 @@ This class uses port 8111 as default port. It has the method checkEta() that che
  ``` 
 15.The class should run and give you the result as below:  
 
-![](Images/WhenComesTheBusResult.png) 
+![](../../README_images/WhenComesTheBusResult.png) 
 
 # **Pact Test WhenComesTheBusTest.java**
 Ok let’s now create the pact file.  The test that we are going to write is based on an example I picked from pact-jvm.    
@@ -231,7 +231,7 @@ In the **@PactVerification()** method, we first set the root directory for the p
 ```
    mvn test
  ``` 
-![](Images/WhenComesTheBusTestResult.png)  
+![](../../README_images/WhenComesTheBusTestResult.png)  
 
 21.	By running the above pact test will create a json pact file in the location **/client/target/pacts**.  
 22.	To view the pact file type the command **vi BusServiceClient-BusService.json**. 
@@ -244,7 +244,7 @@ In the **@PactVerification()** method, we first set the root directory for the p
 
 23.	By entering the command in the above step, you will see the json pact file in vi editor.  
 
-![](Images/PactFile.png)  
+![](../../README_images/PactFile.png)  
 You can see in the above json file that it is a pact between provider **BusService** and a consumer **BusServiceClient**. It contains the description, request method, path, the response and the body. A bit further down there are the **matchingRules**, which verifies that the station and nr matches type and the eta should be of type integer. We have also **providerStates**, which can be used for a test on the provider side.  
 
 24.	To exit the vi editor and return to the current directory use:
@@ -260,7 +260,7 @@ We run BusStroContractTest.java class to verify that our live system works accor
 ```
    vi $VERIFY/BusStopContractTest.java
  ``` 
-![](Images/BusStopContractTest.png)  
+![](../../README_images/BusStopContractTest.png)  
 
 It contains a **@State("There is a bus with number 613 arriving to Hammersmith bus station")**, which is given in the **WhenComesTheBus.java** class. This state was also given in the pact file as Provider state. The **@state** annotation is given in test to ensure for example to insert something in the database or other things to be in place for this test to work.  I have kept this test simple hence nothing is being inserted in this test and the state is just given as a statement. But if this state is removed entirely from this class, it will fail since in the contract we have given the provider to be in the state of  “There is a bus with number 613 arriving to Hammersmith bus station”.  
 **@TestTarget** annotation targets the system to be tested. In the above example we are pointing it to port that the live system is running on. This test also needs to have access to the pact file in order for it to verify in the annotation @PactFolder("../client/target/pacts"). It is also necessary for it to be given the same name in @Provider("BusService") that is in the pact file for the provider.  
@@ -275,18 +275,18 @@ Let run this test now.
 
 The result should look like below.
 
-![](Images/BusStopContractTestResult.png)
+![](../../README_images/BusStopContractTestResult.png)
 
 # **Pact Broker**   
 
-We will be using a docker pact broker. I have used an existing pack broker which is running on your linux instance address **<Linus instance address>:8113**
+We will be using a docker pact broker. I have used an existing pack broker which is running on your linux instance address **<WORKSTATION_IP>:8113**
     
 28.	Open a separate tab on your browser and copy paste your linux instance address 
 ```
  <Linus instance address>:8113
  ``` 
  which should open up your docker compose like below:  
-![](Images/Images/PackBroker.png)  
+![](../../README_imagess/Images/PackBroker.png)  
   
 29.	Currently your pack broker does not have your pact file. So let’s publish the pact file onto the pact broker. For this we need to go to the client folder. Type:
 
@@ -300,7 +300,7 @@ We will be using a docker pact broker. I have used an existing pack broker which
    mvn pact:publish
  ``` 
 31.	Go to the tab that has your docker compose running and refresh the page. You should now see your pact file on it as below.   
-![](Images/PublishedPactBroker.png)
+![](../../README_images/PublishedPactBroker.png)
 
 32.	You might have noticed that the pact file is not verified on your broker. In order to verify we need to go to be in the **bs** folder, which has the spring boot application. 
 
@@ -315,6 +315,6 @@ We will be using a docker pact broker. I have used an existing pack broker which
 34.	The above command should verify your pact file on your pact broker. Refresh the tab on which your pack broker is running and it should display the last verified time.   
 If you click the link **BusServiceClient**, you will be displayed a graphical image of the BusServiceClient relationship with any other service. 
 
-![](Images/PactbrokerNetwork.png)  
+![](../../README_images/PactbrokerNetwork.png)  
 
 Pact broker allows you to release customer value quickly and confidently by deploying your services independently and avoiding the bottleneck of integration tests. It also solves the problem of how to share contracts and verification results between consumer and provider projects.

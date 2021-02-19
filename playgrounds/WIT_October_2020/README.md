@@ -1,511 +1,363 @@
 <p align="center">
-<img src=../../README_images/graphql_go.jpeg width="400">
+<img src=../../README_images/pact.png width="400">
 </p>
 
-<h1 align="center">Welcome to the October playground! Introduction to GraphQL with Go</h1>
+<h1 align="center">Welcome to the October playground! Digital Women in Tech: Hands on with Contract Testing</h1>
 
-[The Playground link](https://github.com/DevOpsPlayground/Introduction-to-GraphQL-with-GO)
+[The Playground link](https://github.com/DevOpsPlayground/Hands-on-with-Ansible-Oct-2019.git)
 
-In this playground we will create a GraphQL server using Go and make queries to our AWS DynamoDB tables, which will be created for you as part of the infrastructure build process.
+# Intro  
 
-Go is a modern general purpose programming language designed by google; best known for it’s simplicity, concurrency and fast performance. It’s being used by big players in the industry like Google, Docker, Lyft and Uber.
+Hello and welcome to the October - Digital Women in Tech playground DIY.  
 
-We will be utilising `gqlgen`, which is a library for creating GraphQL applications in Go.
+In this playground you're going tp  walk you through what Contract testing is. We will explain how PACT works and do a hands-on workshop creating a pact between two micro services and testing it.  
 
-A GraphQL server is able to receive requests in GraphQL Query Language format and return response in our desired format. GraphQL is a query language for API's so you can send queries asking for what you need and get back the piece of data you require.
+Let's get started!
 
-In GraphQL your API starts with a schema that defines all your types, queries and mutations, It helps others to understand your API. So it’s like a contract between server and the client. Whenever you need to add a new capability to a GraphQL API you must redefine the schema file and then implement that part in your code. GraphQL has it’s [Schema Definition Language](https://graphql.org/learn/schema/) for this purpose.
-
-# Check Before You Start!
+# Check Before You Start!  
 
 We will be building the required infrastructure using Terraform so if you do not have this currently installed please [visit the Hashicorp website](https://learn.hashicorp.com/tutorials/terraform/install-cli) for how to do this.
 
 **All infrastructure will require an AWS account so please make sure you have run through the installation process for AWS CLI and AWS config in the [root README.md file](../../README.md)**
 
-## Important:
+## Important:  
 
 Before we get started there are a few things that are worth noting. We have set the defaults to a number of variables that can be changed within the `variables.tf` file if required:
 
-* The current code will build a single workstation instance in AWS.
-* The workstation instance will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
-* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `40-47` in `main.tf`, lines `10-12` in `outputs.tf` and lines `22-26` in `variables.tf`
+* The current code will build a single EC2 instance one for a workstation
+* The workstation instance and remote host will run two containers. One with the project directory uploaded and wetty installed allowing SSH from the web. The other has VS Code installed providing a text editor to amend and save changed code.
+* If you prefer to use VIM then you can ! If not, you can use the VS Code IDE.
+* If you have your own hosted zone set up in Route53 then you can use your own domain for each instance rather than the IPs. To do this uncomment lines `51-67` in `main.tf`, lines `25-31` in `outputs.tf` and lines `23-27` in `variables.tf`
 * The default `region` is set to `eu-west-2`
 * The default `deploy_count` is set to 1. Change this if you are running the playground for more than one user.
-* The default `instance_type` is set to t2.medium as the t2.micro does not have enough resource to efficiently run the workstation. This on-demand pricing is $0.0464 per hour (£0.034 per hour) per instance. Should you leave this running for 1 month (720 hours), you would be charged $33.63 (£24.48) per instance. **make sure you delete the instance when finished with the playground!**
+* The default `instance_type` is set to `t2.medium` as the t2.micro does not have enough resource to efficiently run the workstation. This on-demand pricing is $0.0464 per hour (£0.034 per hour) per instance. Should you leave this running for 1 month (720 hours), you would be charged $33.63 (£24.48) per instance. **make sure you delete the instance when finished with the playground!**
 
-# Build Infrastructure
+# Build Infrastructure  
 
-Make sure you are in the `October` directory and run:
+Make sure you are in the `WIT_October_2020` directory and run:
+
 ```
 $ terraform init
-```  
+```    
 This will initialise a working directory containing our Terraform configuration files. This command is always safe to run multiple times, to bring the working directory up to date with changes in the configuration. You should see the following:
 
 <p align="center">
 <img src=../../README_images/tf_init.png width="600">
-</p>
+</p>  
 
 Then run:
 ```
 $ terraform plan
-```
+```  
 
-This command is used to create an execution plan. Terraform performs a refresh, unless explicitly disabled, and then determines what actions are necessary to achieve the desired state specified in the configuration files.
+This command is used to create an execution plan. Terraform performs a refresh, unless explicitly disabled, and then determines what actions are necessary to achieve the desired state specified in the configuration files.  
 
 This command is a convenient way to check whether the execution plan for a set of changes matches your expectations without making any changes to real resources or to the state. For example, terraform plan might be run before committing a change to version control, to create confidence that it will behave as expected. The plan will be fairly long but if all went well you should see the following in your terminal:
 
 <p align="center">
-<img src=../../README_images/tf_plan_oct.png width="600">
-</p>
+<img src=../../README_images/WIT-oct-plan.jpg  
+ width="600">
+</p>  
 
 Finally you need to run:
 ```
 $ terraform apply
-```
+```  
 
-This command is used to apply the changes required to reach the desired state of the configuration, or the pre-determined set of actions generated by a terraform plan execution plan. You will be prompted to enter a value to perform the action. Type `yes` as the value and hit enter.
+This command is used to apply the changes required to reach the desired state of the configuration, or the pre-determined set of actions generated by a terraform plan execution plan. You will be prompted to enter a value to perform the action. Type `yes` as the value and hit enter.  
 
 Terraform will now build our required AWS infrastructure. This should complete after a minute or so showing the following:
 
 <p align="center">
-<img src=../../README_images/tf_apply_oct.png width="600">
+<img src=../../README_images/WIT-OCT-APPLY.jpg width="600">
 </p>
 
-> IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance again.
+> IMPORTANT! - make a note of the `WorkstationPassword` as this is auto-generated and will only be shown once. If lost you may need to build your instance.  
 
-Once the apply has completed your EC2 instance will now be initialising and running the required script to install and launch GraphQL. Once the `instance state` has changed to `Running` it may take a further 4/5 minutes to install all the required dependencies.
+Once the apply has completed your EC2 instance will now be initialising and running the required script(s). Once the `instance state` have changed to `Running` they may take a further 4/5 minutes to install all the required dependencies.
 
-## Access
+## Access  
 
-To access your instances check outputs in terminal after running `terraform apply`:
+To access your instance check outputs in terminal after running `terraform apply`:
 
-* Workstation instance - <workstation_ip>/wetty in browser e.g. 3.10.23.93/wetty
-* IDE access - <workstation_ip>:8000 in browser e.g. 35.177.153.39:8000
-* `ANIMAL_IDENTIFIER` - adjective and animal in `unique_identifier` Terraform output e.g. `funny-panda`
+* Workstation instance - <workstation_ip>/wetty e.g. 318.130.177.57/wetty  
+browser e.g. 18.130.177.57:3000/wetty
+* IDE access - <workstation_ip>:8000 in browser e.g. 318.130.177.57:8000
+* Workstation password - provided at the end of terraform apply
 
-# Stage 1: Setting up the project
+## Playground  
 
-Access your workstation in the browser as detailed above.
+We have already installed all the requirements to this this playground on the instance if you're curious we have installed the following with a bash script on instance set-up.
 
-You will be prompted for your workstation password, which was outputted at the end of terraform apply
+- Java
+- Maven
+- VSCode IDE   
 
-Change into the GraphQL directory:
-```
-$ cd GraphQL
+In this playground we assume some basic knowedge of  Linux commands and Java, this is helpful but not needed as all commands and explained.   
+
+We have set some enviroment variables within the instance to make navigation easier as stated before this was done via a shell script: If for some reason these aren't avalable to you please copy the follwing commands.
+
+```bash
+echo export BUSAPP="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs/src/main/java/se/ff/bs" >> /etc/profile
+echo export BUSSPRINGBOOT="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/bs" >> /etc/profile
+echo export BUSCOMES="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/main/java/se/ff/bsc" >> /etc/profile
+echo export BUSTEST="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client/src/test/java/se/ff/bsc" >> /etc/profile
+echo export CLIENT="~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/client"  >> /etc/profile
+echo export BROKER='~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/dockerpactbroker'  >> /etc/profile
+echo export VERIFY='~/workdir/Digital-Women-in-Tech---Hands-on-with-Contract-Testing/verifyer/src/test/java/se/ff/bsv' >> /etc/profile
 ```  
-Create a directory for your project, and initialise it as a Go Module
-```
-$ mkdir flights
-```
-```
-$ cd flights
-```
-```
-$ go mod init flights
-```  
-Retrieve the required [gqlgen](https://gqlgen.com/getting-started/) package:
-```
-$ go get github.com/99designs/gqlgen
-```
-![go_mod_init](../../README_images/go_mod_init.png)
 
-Create the project skeleton:
-```
-$ go run github.com/99designs/gqlgen init
-```  
-Copy over a pre-prepared file using the command:
-```
-$ mkdir -p datalayer && cp ~/GraphQL/Introduction-to-GraphQL-with-GO/datalayer/datalayer.go datalayer/datalayer.go
-```  
-Your folder structure should now look like this:
+3. Lets view the spring boot class that will run our live system which gives an estimated bus arrival time.
+    ```
+    cd $BUSAPP
+    
+```   
 
-![graphql_folder_struc](../../README_images/graphql_folder_struc.png)
+4. Type or copy/paste
+    ```
+    vi BusCtrl.java
+    
+```   
+5. The above step will open the class BusCtrl.java in vi terminal, which will look like this.
 
-# Stage 2: Creating the schema
+![](../../README_images/BusCtrl.png)  
 
-Open `graph/schema.graphqls`, delete the contents of this file and replace with:
-
-```
-type Flight {
-  number: String!
-  passengers: [Passenger!]
-  capacity: Int!
-  captain: String!
-  plane: String!
-}
-
-type Passenger {
-  id: ID!
-  name: String!
-}
-
-type Query {
-  passengers: [Passenger!]
-}
-
-type Mutation {
-  createPassenger(name: String!): Passenger!
-}
-
-schema {
-  query: Query
-  mutation: Mutation
-}
-```
-
-GraphQL services can be written in any language. Since we can't rely on a specific programming language syntax, like Go, to talk about GraphQL schemas, we'll define our own simple language. We'll use the "GraphQL schema language" - it's similar to the query language, and allows us to talk about GraphQL schemas in a language-agnostic way.
-
-## object types and fields
-
-The most basic components of a GraphQL schema are object types, which just represent a kind of object you can fetch from your service, and what fields it has. In the GraphQL schema language, we might represent it like this:
-
-```
-type Flight {
-  number: String!
-  passengers: [Passenger!]
-  capacity: Int!
-  captain: String!
-  plane: String!
-}
-```  
-The language is pretty readable, but let's go over it so that we can have a shared vocabulary:
-
-* `Flight` is a GraphQL Object Type, meaning it's a type with some fields. Most of the types in your schema will be object types.
-* number and passengers are fields on the Flight type. That means that number and passengers are the only fields that can appear in any part of a GraphQL query that operates on the Flight type.
-* `String` and `Int` are two of the built-in scalar types - these are types that resolve to a single scalar object, and can't have sub-selections in the query.
-* String! and Int! means that the fields are non-nullable, meaning that the GraphQL service promises to always give you a value when you query these fields. In the type language, we'll represent those with an exclamation mark.
-* [Passenger!] represents an array of Passenger objects and since Passenger! is also non-nullable, you can always expect every item of the array to be an Passenger object.
-
-Now you know what a GraphQL object type looks like, and how to read the basics of the GraphQL type language.
-
- # Stage 3: Implementation!
-
- Run the command
+This is the bus application (spring boot) that has a controller, BusCtrl. This service takes station and bus number as input variables and then it uses the method getEtaBasedOnGpsAndOtherAdancedStuff(). This method returns an integer which then creates a BusInfo object with station number and the time left.    
+6. To exit the vi editor and return to the current directory use:
  ```
- $ go run github.com/99designs/gqlgen generate
+    :q
 
 ```  
- Don't worry about the scary looking validation failed and exit status 1 output from the command:
 
- ![graphql_validation_failed](../../README_images/graphql_validation_failed.png)
+This will take you back to your present working directory.    
 
- Open and observe `graph/model/models_gen.go` it should contain a Flight and Passenger struct:
-
- ![graphql_models_gen](../../README_images/graphql_models_gen.png)
-
-Open the newly placed datalayer/datalayer.go and edit the file to replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name e.g. `funny-panda`:
-
-![graphql_datalayer](../../README_images/graphql_datalayer.png)
-
-Open `graph/schema.resolvers.go` and delete the content below and including `// !!! WARNING !!!` on line 30:
-
-![graphql_schema_resolvers](../../README_images/graphql_schema_resolvers.png)
-
-**delete all text shown above**
-
-Add the below into the file imports:
-
+7. Use the below command to go to the Bus Application main directory
 ```
-"flights/datalayer"
+    cd $BUSSPRINGBOOT
+
 ```  
-Find the function `Passengers` and replace
+8. Now lets start the spring boot service by giving the below command
 ```
-panic(fmt.Errorf("not implemented"))
-```  
- with
+    mvn spring-boot:run
+
+```   
+9. Go to browser/new tab and type **http:// address of your instance:8111/bus/Central_station/60**    
+
+# **Class WhenComesTheBus.java (Client)**    
+We can now write our client side test.      
+10. Open a new tab in your browser and enter address of your linux instance again and log in.    
+11.	Let's view our client side class in vi editor
+```
+    vi $BUSCOMES/WhenComesTheBus.java
+
+```    
+The class WhenComesTheBus.java will open in the vi editor.  
+
+![](../../README_images/WhenComesTheBus.png)   
+
+This class uses port 8111 as default port. It has the method checkEta() that checks estimated time for the station Hammersmith and bus number 613. It than prints out the results. CheckEta() method looks at local host, port, station and the bus number. It than makes an HTTP request and transform it into json and extract the integer from the result.    
+
+12. To exit the vi editor and return to the current directory use:
  ```
- return datalayer.GetAllPassengers()
+    :q
 
+```   
+13.To go to client directory to run the client test use:
 ```
- ![graphql_flights_datalayer](../../README_images/graphql_flights_datalayer.png)
+    cd $CLIENT
 
-Here we are replacing a returned error message with the `GetAllPassengers()` function that we are importing from `flights/datalayer`
-
-Run the command:
+```   
+14.Let’s run the class WhenComesTheBus.java by typing the command
 ```
-$ go run ./server.go
-```  
-Navigate to `<workstation_ip>:8080` in your browser to access your GraphQL server.
+    mvn exec:java -Dexec.mainClass=se.ff.bsc.WhenComesTheBus
 
-Paste the below query into the left panel of the web page:
+```   
+15.The class should run and give you the result as below:  
+
+![](../../README_images/WhenComesTheBusResult.png)
+
+# **Pact Test WhenComesTheBusTest.java**  
+Ok let’s now create the pact file.  The test that we are going to write is based on an example I picked from pact-jvm.      
+16.	Now let’s write our test class WhenComesTheBusTest.java. I have already created a shell class for that.
 ```
-query Passengers {
-  passengers {
-    id,
-    name
-  }
+    vi $BUSTEST/WhenComesTheBusTest.java
+```     
+17.	You should now see an empty class **WhenComesTheBusTest.java**. Copy the code below and paste it in the vi editor inside the main class. (**Press i to make vi in edit mode**).     
+In the code below  we add the pact rule to represent our provider. The hostname and port are optional. If left out, it will default to 127.0.0.1 and a random available port. You can get the URL and port from the pact provider rule.  
+ We are using Port 8112 which will create a mock service. And when we run the pact verification method, doTest(), the mock service will get populated with the information that we setup in the Pact annotated method.
+
+```java
+@Rule
+public PactProviderRuleMk2 provider = new PactProviderRuleMk2("BusService", "localhost", 8112, this);
+
+@Pact(consumer = "BusServiceClient")
+public RequestResponsePact createPact(PactDslWithProvider builder) {
+    Map<String, String> headers = new HashMap();
+    headers.put("Content-Type", "application/json");
+
+    DslPart etaResults = new PactDslJsonBody()
+            .stringType("station","Hammersmith")
+            .stringType("nr","613")
+            .integerType("eta",4)
+            .asBody();
+
+    RequestResponsePact result =  builder
+            .given("There is a bus with number 613 arriving to Hammersmith bus station")
+            .uponReceiving("A request for eta for bus number 613 to Hammersmith bus station")
+            .path("/bus/Hammersmith/613")
+            .method("GET")
+            .willRespondWith()
+            .status(200)
+            .headers(headers)
+            .body(etaResults).toPact();
+
+    return result;
 }
-```  
-Execute the query and you should see the result:
-```
-{
-  "data": {
-    "passengers": null
-  }
-}
-```  
-This is because the DynamoDB table doesn't have any data in it yet!
 
-Return to your `flights` project and open `graph/schema.resolvers.go`
-
-Find the function `CreatePassenger` and replace the implementation with:
-```
-return datalayer.CreatePassenger(name)
-```
-> NOTE: At this point there is no longer a use of fmt.Errorf() so please remove the unused "fmt" from the imports. This may come up multiple times below
-
-![graphql_create_passenger](../../README_images/graphql_create_passenger.png)
-
-Start up the GraphQL server again and navigate to `<workstation_ip>:8080` in your browser:
-```
-$ go run ./server.go
-```  
-Paste the below query into the left panel of the web page:
-```
-mutation CreatePassenger {
-  createPassenger(name: "Bob") {
-    id
-  }
-}
-```  
-Execute the query and you should see the result:
-```
-{
-  "data": {
-    "createPassenger": {
-      "id": "<SOME_ID_HERE>"
+   @Test
+@PactVerification()
+  public void doTest() {
+System.setProperty("pact.rootDir","../pacts");  // Change output dir for generated pact-files
+        Integer eta = new WhenComesTheBus(provider.getPort()).checkEta("Hammersmith", "613");
+        System.out.println("According to test eta="+eta);
+        assertTrue(eta >= 0);
     }
-  }
-}
 ```  
-Now re-run query Passengers from above and you should see the id and name of the newly created passenger detailed:
-```
-query Passengers {
-  passengers {
-    id,
-    name
-  }
-}
-```  
-You should see the result:
-```
-{
-  "data": {
-    "passengers": [
-      {
-        "id": "5aa2abfd-f39a-4617-b93d-28fbf7b05150",
-        "name": "Bob"
-      }
-    ]
-  }
-}
-```  
-Here we are adding a new passenger, named 'Bob' into the passenegers table and then querying the table again to return all passengers by name and id. Try adding more passengers in and see what is returned!
 
-Now we've created a passenger lets put some data in the flights table
+In the above code, once the **@PactVerification()** method is run, the mock service will get populated with the information that is setup in the **@Pact** annotated method. In that method we declare the **PactDslJsonBody()**, where we say that we are depending on a string type named ‘station’, string type named ‘nr’ and a integer type named ‘eta’. These are the things that we need from the consumer. We also say that the status should be 200 and the header should be what we have given in **headers.put("Content-Type", "application/json")**.  
+In the **@PactVerification()** method, we first set the root directory for the pact file to be created in. In the next step than we use the class WhenComesTheBus at the provider port, which means that it won’t use the live application data but the mock/virtual data. Than the method **checkEta** is called with station name and bus number.    
+18.	Save the above code by typing  
+```
+    :wq
 
-To do this open the file `dynamodb/flight_data.json` and replace `<YOUR_ANIMAL_NAME_HERE>` with your animal name e.g. `funny-panda`:
+```   
+19.	To run the testcase WhenComesTheBusTest.java we need to going back to client directory.       
+```
+    cd $CLIENT
 
-![flight_data](../../README_images/flight_data.png)
+```   
+20.	Type the maven run command below
 
-Then run the below command with the file:
 ```
-$ aws dynamodb batch-write-item --region eu-west-2 --request-items file://~/GraphQL/Introduction-to-GraphQL-with-GO/dynamodb/flight_data.json
-```  
-Return to your `flights` project and open `graph/schema.graphqls`
+   mvn test
 
-Modify the Query type to look like this:
 ```
-type Query {
-  flights: [Flight!]
-  passengers: [Passenger!]
-}
-```  
-Run the command to update the schema:
-```
-$ go run github.com/99designs/gqlgen generate
-```  
-Open `graph/schema.resolvers.go`
+![](../../README_images/WhenComesTheBusTestResult.png)    
 
-Find the function `Flights` and replace the implementation with:
-```
-return datalayer.GetAllFlights()
-```  
-You may see that "fmt" has appeared again in the file imports at the top. If so, please remove it again:
+21.	By running the above pact test will create a json pact file in the location **/client/target/pacts**.    
+22.	To view the pact file type the command **vi BusServiceClient-BusService.json**.
 
-![graphql_flights](../../README_images/graphql_flights.png)
+```
+   vi target/pacts/BusServiceClient-BusService.json
 
-Get the server going again and navigate to `<workstation_ip>:8080` in your browser:
-```
-$ go run ./server.go
-```  
-Paste the below query into the left panel of the web page:
-```
-query Flights {
-  flights {
-    number
-  }
-}
-```  
-Execute the query and you should see the result:
-```
-{
-  "data": {
-    "flights": [
-      {
-        "number": "BA-386"
-      },
-      {
-        "number": "BA-284"
-      }
-    ]
-  }
-}
-```  
-Now lets book Bob onto this flight!
-
-Return to your `flights` project and open `graph/schema.graphqls`
-
-Modify the Mutation type to look like this:
-```
-type Mutation {
-  createPassenger(name: String!): Passenger!
-  bookFlight(flightNumber: String!, passengerId: ID!): Boolean!
-}
-```  
-Run the command to update the schema:
-```
-$ go run github.com/99designs/gqlgen generate
-```  
-Open `graph/schema.resolvers.go`
-
-Find the function `BookFlight` and replace the implementation with:
-```
-return datalayer.BookFlight(flightNumber, passengerID)
-```
-> Remember: remove the file import "fmt"
-
-Start the server:
-```
-$ go run ./server.go
-```  
-Let's get Bob's passenger ID. Run the command:
-```
-query Passengers {
-  passengers {
-    id,
-    name
-  }
-}
-```  
-Make a note of Bob's passenger ID as we will need this to book him a flight.
-
-Paste the below query into the left panel of the web page, pasting in Bob's ID:
-```
-mutation BookFlight {
-  bookFlight(flightNumber: "BA-386", passengerId: "<BOBS_ID>")
-}
-```  
-Execute the query and you should see the result:
-```
-{
-  "data": {
-    "bookFlight": true
-  }
-}
-```  
-Paste the below query into the left panel of the web page:
-```
-query Flights {
-  flights {
-    number,
-    passengers {
-      name
-    },
-  }
-}
-```  
-Execute the query and you should see that Bob has been booked on BA flight 386!
-```
-{
-  "data": {
-    "flights": [
-      {
-        "number": "BA-386",
-        "passengers": [
-          {
-            "name": "Bob"
-          }
-        ]
-      },
-      {
-        "number": "BA-284",
-        "passengers": null
-      }
-    ]
-  }
-}
-```  
-The above result you might use for a mobile app as the screen is small so only a small number of details should be shown. However if you were writing a desktop app instead then you may want to show more details. You can easily change the query to return more details from the flights like so:
-```
-query Flights {
-  flights {
-    number,
-    passengers {
-      name
-    },
-    capacity,
-    captain
-  }
-}
-```  
-For completeness, please modify the Mutation type to look like this:
-```
-type Mutation {
-  createPassenger(name: String!): Passenger!
-  deletePassenger(passengerId: ID!): Boolean!
-  bookFlight(flightNumber: String!, passengerId: ID!): Boolean!
-  cancelBooking(flightNumber: String!, passengerId: ID!): Boolean!
-}
-```
-> Remember to run the command `go run github.com/99designs/gqlgen generate`, remove "fmt" from the file imports and connect up the appropriate methods from the datalayer
-
-You can then have a play!
-
-### 5. Clean up
-
-**Once you have finished playing around remember to delete the infrastructure to avoid any additional running charges as mentioned**
-
-Make sure you are in the `October` folder and run the following command:
-```
-$ terraform destroy
 ```
 
-The command does exactly what it says on the tin. Infrastructure managed by Terraform will be destroyed. This will ask for confirmation before destroying, so please type `yes` when prompted.
+# **Pact File**      
 
-**Again, you will continue to be charged by AWS if you do not run this final step**
+23.	By entering the command in the above step, you will see the json pact file in vi editor.  
 
-We hope you enjoyed the playground DIY and make sure to keep coming back for more great content.
+![](../../README_images/PactFile.png)    
+You can see in the above json file that it is a pact between provider **BusService** and a consumer **BusServiceClient**. It contains the description, request method, path, the response and the body. A bit further down there are the **matchingRules**, which verifies that the station and nr matches type and the eta should be of type integer. We have also **providerStates**, which can be used for a test on the provider side.    
+
+24.	To exit the vi editor and return to the current directory use:
+ ```
+    :q
+
+```   
+# **BusStopContractTest(Provider)**  
+We run BusStroContractTest.java class to verify that our live system works according to the client specification/contract that is created.    
+
+25.	To view the provier class type:
+```
+   vi $VERIFY/BusStopContractTest.java
+
+```
+![](../../README_images/BusStopContractTest.png)    
+
+It contains a **@State("There is a bus with number 613 arriving to Hammersmith bus station")**, which is given in the **WhenComesTheBus.java** class. This state was also given in the pact file as Provider state. The **@state** annotation is given in test to ensure for example to insert something in the database or other things to be in place for this test to work.  I have kept this test simple hence nothing is being inserted in this test and the state is just given as a statement. But if this state is removed entirely from this class, it will fail since in the contract we have given the provider to be in the state of  “There is a bus with number 613 arriving to Hammersmith bus station”.  
+**@TestTarget** annotation targets the system to be tested. In the above example we are pointing it to port that the live system is running on. This test also needs to have access to the pact file in order for it to verify in the annotation @PactFolder("../client/target/pacts"). It is also necessary for it to be given the same name in @Provider("BusService") that is in the pact file for the provider.    
+Let run this test now.    
+
+26.  Let’s go to main directory verify i.e. **/verifier**.    
+27.  To run the provider test use:
+
+```
+   mvn test
+
+```   
+
+The result should look like below.
+
+![](../../README_images/BusStopContractTestResult.png)
+
+# **Pact Broker**     
+
+We will be using a docker pact broker. I have used an existing pack broker which is running on your linux instance address **<WORKSTATION_IP>:8113**  
+    
+28.	Open a separate tab on your browser and copy paste your linux instance address
+```
+ <Linus instance address>:8113
+
+```   
+ which should open up your docker compose like below:  
+![](../../README_imagess/Images/PackBroker.png)    
+29.	Currently your pack broker does not have your pact file. So let’s publish the pact file onto the pact broker. For this we need to go to the client folder. Type:
+
+ ```
+   cd $CLIENT
+
+```   
+
+30.	Let’s publish the pact file by giving the command
+
+```
+   mvn pact:publish
+
+```   
+31.	Go to the tab that has your docker compose running and refresh the page. You should now see your pact file on it as below.   
+![](../../README_images/PublishedPactBroker.png)  
+
+32.	You might have noticed that the pact file is not verified on your broker. In order to verify we need to go to be in the **bs** folder, which has the spring boot application.
+
+```
+   cd $BUSSPRINGBOOT
+
+```   
+33.	To run the verify the command use:
+
+```
+   mvn pact:verify
+
+```    
+34.	The above command should verify your pact file on your pact broker. Refresh the tab on which your pack broker is running and it should display the last verified time.     
+If you click the link **BusServiceClient**, you will be displayed a graphical image of the BusServiceClient relationship with any other service.
+
+![](../../README_images/PactbrokerNetwork.png)    
+
+Pact broker allows you to release customer value quickly and confidently by deploying your services independently and avoiding the bottleneck of integration tests. It also solves the problem of how to share contracts and verification results between consumer and provider projects.
 
 #### Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | InstanceRole | The Role of the instance to take | `number` | `null` | no |
-| PlaygroundName | The playground name to tag all resouces with | `string` | `"oct"` | no |
+| PlaygroundName | The playground name to tag all resouces with | `string` | `"WIT-OCT"` | no |
 | deploy_count | Change this for the number of users of the playground | `number` | `1` | no |
 | instance_count | The amount of versions of the infrastructer to make | `number` | `1` | no |
 | instance_type | instance type to be used for instances | `string` | `"t2.medium"` | no |
 | instances | number of instances per dns record | `number` | `1` | no |
 | policyLocation | The location of the policys | `string` | `"./../../policies"` | no |
+| rds_db_name | RDS database name | `string` | `"maypanda"` | no |
 | region | The aws region to deploy to | `string` | `"eu-west-2"` | no |
 | scriptLocation | The location of the userData folder | `string` | `"./../../modules/instance/scripts"` | no |
+| username | The default username for the rds instance. | `string` | `"playground"` | no |
 
 #### Outputs
 
 | Name | Description |
 |------|-------------|
 | WorkstationPassword | The password Used to SSH into the instance |
+| subnet_id | n/a |
 | unique_identifier | Unique identifiers for Workstation instances |
 | workstation_ips | The ip of the workstation instances |
 
