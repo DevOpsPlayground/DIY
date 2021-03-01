@@ -20,7 +20,7 @@ module "workstation" {
     "${var.scriptLocation}/jan-2020.sh",
     {
       hostname = "playground"
-      username = element(local.adj, count.index)
+      username = "${element(local.adj, count.index)}-panda"
       ssh_pass = local.random_password
       region   = var.region
       gitrepo  = "https://github.com/DevOpsPlayground/Hands-on-with-Trivy-to-Tracee.git"
