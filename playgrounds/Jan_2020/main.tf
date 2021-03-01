@@ -1,6 +1,6 @@
 locals {
-  adj                = jsondecode(file("./adjectives.json"))
-  random_password    = random_password.password.result
+  adj             = jsondecode(file("./adjectives.json"))
+  random_password = random_password.password.result
 }
 
 module "network" {
