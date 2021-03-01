@@ -17,7 +17,6 @@ EOF
 
 echo "--> Create new user, edit ssh settings"
 
- 
 sudo useradd ${username} \
    --shell /bin/bash \
    --create-home 

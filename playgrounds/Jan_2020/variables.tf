@@ -11,7 +11,7 @@ variable "instance_count" {
 }
 variable "PlaygroundName" {
   type        = string
-  default     = "OCT19"
+  default     = "APR-20"
   description = "The playground name to tag all resouces with"
 }
 variable "instances" {
@@ -20,18 +20,18 @@ variable "instances" {
   description = "number of instances per dns record"
 }
 
-variable "domain_name" {
-  type        = string
-  default     = "devopsplayground.org"
-  description = "Your own registered domain name if using dns module"
-}
+# variable "domain_name" {
+#   type        = string
+#   default     = "devopsplayground.org"
+#   description = "Your own registered domain name if using dns module"
+# }
 
 // PLEASE TAKE CARE WHEN EDITING THIS DUE TO COSTS. 
 
 variable "deploy_count" {
   type        = number
   description = "Change this for the number of users of the playground"
-  default     = 3
+  default     = 1
 }
 variable "InstanceRole" {
   type        = number

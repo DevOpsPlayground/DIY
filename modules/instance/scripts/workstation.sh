@@ -6,6 +6,7 @@ echo "--> Setting hostname..."
 echo "${hostname}" | sudo tee /etc/hostname
 sudo hostname -F /etc/hostname
 
+
 echo "--> Adding hostname to /etc/hosts"
 sudo tee -a /etc/hosts > /dev/null <<EOF
 
